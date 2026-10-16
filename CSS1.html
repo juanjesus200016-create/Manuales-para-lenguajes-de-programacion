@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Extendido de CSS — Guía Completa</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.7;
+    color: #222;
+    background: #fff;
+    font-size: 16px;
+  }
+  h1 {
+    color: #2980b9;
+    border-bottom: 4px solid #2980b9;
+    padding-bottom: 12px;
+    font-size: 2em;
+  }
+  h2 {
+    color: #fff;
+    background: #2980b9;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 40px;
+    font-size: 1.4em;
+  }
+  h3 {
+    color: #2980b9;
+    border-left: 5px solid #2980b9;
+    padding-left: 12px;
+    margin-top: 30px;
+  }
+  h4 { color: #34495e; margin-top: 20px; }
+  pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    border-radius: 6px;
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    color: #2980b9;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #2980b9; color: #fff; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .nota, .tip, .warn {
+    padding: 12px 18px;
+    margin: 18px 0;
+    border-radius: 5px;
+  }
+  .nota { background: #e8f4fd; border-left: 5px solid #3498db; }
+  .tip { background: #eafaf1; border-left: 5px solid #27ae60; }
+  .warn { background: #fef5e7; border-left: 5px solid #f39c12; }
+  .indice {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px 30px;
+  }
+  .indice a { color: #2980b9; text-decoration: none; }
+  .indice a:hover { text-decoration: underline; }
+  .demo {
+    background: #f0f7ff;
+    padding: 15px;
+    border: 2px dashed #2980b9;
+    border-radius: 6px;
+    margin: 15px 0;
+  }
+  #btnPDF {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: #2980b9;
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 999;
+  }
+  #btnPDF:hover { background: #1f6391; }
+  @media print {
+    #btnPDF { display: none; }
+    body { padding: 10px; font-size: 12px; }
+    h2 { page-break-after: avoid; }
+    pre { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<button id="btnPDF" onclick="window.print()">📥 Descargar como PDF</button>
+
+<h1>🎨 Manual Extendido de CSS</h1>
+<p><em>Guía completa de referencia · Nivel principiante a intermedio</em></p>
+
+<div class="indice">
+<h3>📑 Índice General</h3>
+<ol>
+  <li><a href="#cap1">¿Qué es CSS?</a></li>
+  <li><a href="#cap2">Formas de aplicar CSS</a></li>
+  <li><a href="#cap3">Sintaxis y selectores</a></li>
+  <li><a href="#cap4">Colores y unidades</a></li>
+  <li><a href="#cap5">Texto y tipografía</a></li>
+  <li><a href="#cap6">Modelo de caja (Box Model)</a></li>
+  <li><a href="#cap7">Bordes y sombras</a></li>
+  <li><a href="#cap8">Fondos</a></li>
+  <li><a href="#cap9">Display y posicionamiento</a></li>
+  <li><a href="#cap10">Flexbox</a></li>
+  <li><a href="#cap11">Grid</a></li>
+  <li><a href="#cap12">Pseudo-clases y pseudo-elementos</a></li>
+  <li><a href="#cap13">Transiciones y animaciones</a></li>
+  <li><a href="#cap14">Diseño responsive</a></li>
+  <li><a href="#cap15">Buenas prácticas</a></li>
+  <li><a href="#cap16">Proyecto final</a></li>
+</ol>
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap1">Capítulo 1 — ¿Qué es CSS?</h2>
+
+<p>CSS significa <strong>Cascading Style Sheets</strong> (Hojas de Estilo en Cascada). Es el lenguaje que <strong>da vida visual</strong> a HTML.</p>
+
+<h3>1.1 — Los 3 pilares (recordatorio)</h3>
+<table>
+  <tr><th>Lenguaje</th><th>Rol</th></tr>
+  <tr><td>HTML</td><td>Estructura (qué es cada cosa)</td></tr>
+  <tr><td><strong>CSS</strong></td><td><strong>Diseño (cómo se ve)</strong></td></tr>
+  <tr><td>JavaScript</td><td>Comportamiento (qué hace)</td></tr>
+</table>
+
+<h3>1.2 — ¿Por qué se llama "en cascada"?</h3>
+<p>Porque los estilos se aplican en cascada: si hay varias reglas para el mismo elemento, se aplican por prioridad:</p>
+<ol>
+  <li>Estilos del navegador (por defecto)</li>
+  <li>Estilos externos (archivo .css)</li>
+  <li>Estilos internos (dentro del <code>&lt;style&gt;</code>)</li>
+  <li>Estilos en línea (atributo <code>style</code>)</li>
+  <li>Estilos con <code>!important</code></li>
+</ol>
+
+<h3>1.3 — Analogía con VBS</h3>
+<p>En VBS escribías <code>Range("A1").Font.Bold = True</code> para poner negrita. En CSS sería:</p>
+<pre>#A1 { font-weight: bold; }</pre>
+<p>Es la misma idea: seleccionar un elemento y darle propiedades.</p>
+
+<!-- ============================================ -->
+<h2 id="cap2">Capítulo 2 — Formas de aplicar CSS</h2>
+
+<h3>2.1 — CSS en línea (inline)</h3>
+<pre>&lt;p style="color: red; font-size: 20px;"&gt;Texto rojo&lt;/p&gt;</pre>
+<ul>
+  <li><strong>Ventaja:</strong> rápido de probar.</li>
+  <li><strong>Desventaja:</strong> no se reutiliza, difícil de mantener.</li>
+  <li><strong>Uso:</strong> solo para casos muy específicos.</li>
+</ul>
+
+<h3>2.2 — CSS interno (en el <code>&lt;head&gt;</code>)</h3>
+<pre>&lt;head&gt;
+    &lt;style&gt;
+        p { color: red; }
+        h1 { font-size: 32px; }
+    &lt;/style&gt;
+&lt;/head&gt;</pre>
+<ul>
+  <li><strong>Ventaja:</strong> aplica a toda la página.</li>
+  <li><strong>Desventaja:</strong> solo funciona para esa página.</li>
+</ul>
+
+<h3>2.3 — CSS externo (archivo .css) ✅ RECOMENDADO</h3>
+<pre>&lt;head&gt;
+    &lt;link rel="stylesheet" href="estilos.css"&gt;
+&lt;/head&gt;</pre>
+<p>Y en el archivo <code>estilos.css</code>:</p>
+<pre>p {
+    color: red;
+    font-size: 16px;
+}
+h1 {
+    color: blue;
+}</pre>
+<ul>
+  <li><strong>Ventaja:</strong> un archivo sirve para muchas páginas.</li>
+  <li><strong>Ventaja:</strong> el navegador lo guarda en caché (más rápido).</li>
+  <li><strong>Uso:</strong> siempre que puedas.</li>
+</ul>
+
+<h3>2.4 — Importar otro CSS desde CSS</h3>
+<pre>@import url("otro-estilos.css");</pre>
+<p>Menos eficiente que <code>&lt;link&gt;</code>, evítalo salvo casos concretos.</p>
+
+<!-- ============================================ -->
+<h2 id="cap3">Capítulo 3 — Sintaxis y selectores</h2>
+
+<h3>3.1 — Anatomía de una regla CSS</h3>
+<pre>selector {
+    propiedad: valor;
+    otra-propiedad: otro-valor;
+}</pre>
+
+<p>Ejemplo:</p>
+<pre>h1 {
+    color: blue;
+    font-size: 32px;
+}</pre>
+
+<table>
+  <tr><th>Parte</th><th>Función</th></tr>
+  <tr><td><code>h1</code></td><td>Selector: a quién afecta</td></tr>
+  <tr><td><code>{ }</code></td><td>Bloque de estilos</td></tr>
+  <tr><td><code>color</code></td><td>Propiedad</td></tr>
+  <tr><td><code>blue</code></td><td>Valor</td></tr>
+  <tr><td><code>;</code></td><td>Separa declaraciones (obligatorio)</td></tr>
+</table>
+
+<h3>3.2 — Tipos de selectores</h3>
+
+<h4>🔹 Selector de etiqueta</h4>
+<pre>p { color: gray; }</pre>
+<p>Afecta a <strong>todos</strong> los <code>&lt;p&gt;</code>.</p>
+
+<h4>🔹 Selector de clase (.)</h4>
+<pre>.destacado { background: yellow; }</pre>
+<pre>&lt;p class="destacado"&gt;Texto resaltado&lt;/p&gt;</pre>
+<p>Afecta a todos los elementos con <code>class="destacado"</code>. Se puede repetir.</p>
+
+<h4>🔹 Selector de ID (#)</h4>
+<pre>#titulo-principal { font-size: 40px; }</pre>
+<pre>&lt;h1 id="titulo-principal"&gt;Título&lt;/h1&gt;</pre>
+<p>Afecta a un solo elemento. Debe ser único por página.</p>
+
+<h4>🔹 Selector universal (*)</h4>
+<pre>* { margin: 0; padding: 0; }</pre>
+<p>Afecta a TODO. Muy útil para resetear estilos.</p>
+
+<h4>🔹 Selector descendiente (espacio)</h4>
+<pre>article p { color: gray; }</pre>
+<p>Afecta a los <code>&lt;p&gt;</code> que estén DENTRO de un <code>&lt;article&gt;</code>.</p>
+
+<h4>🔹 Selector hijo directo (&gt;)</h4>
+<pre>ul &gt; li { color: blue; }</pre>
+<p>Solo los <code>&lt;li&gt;</code> que sean hijos directos de <code>&lt;ul&gt;</code>.</p>
+
+<h4>🔹 Selector hermano adyacente (+)</h4>
+<pre>h1 + p { margin-top: 0; }</pre>
+<p>El <code>&lt;p&gt;</code> que viene justo después de un <code>&lt;h1&gt;</code>.</p>
+
+<h4>🔹 Selector de atributo</h4>
+<pre>input[type="text"] { border: 1px solid gray; }
+a[target="_blank"] { color: red; }</pre>
+
+<h4>🔹 Agrupar selectores (,)</h4>
+<pre>h1, h2, h3 { font-family: Arial; }</pre>
+<p>Aplica los mismos estilos a varios selectores.</p>
+
+<h3>3.3 — Prioridad (especificidad)</h3>
+<p>Cuando hay conflicto, gana el más específico:</p>
+<ol>
+  <li><code>!important</code> (evitar usar)</li>
+  <li>Estilos en línea (<code>style="..."</code>)</li>
+  <li>ID (<code>#id</code>)</li>
+  <li>Clase (<code>.clase</code>)</li>
+  <li>Etiqueta (<code>p</code>)</li>
+</ol>
+
+<div class="warn">
+  <strong>⚠️ Regla de oro:</strong> evita usar <code>!important</code>. Es la señal de que algo está mal estructurado.
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap4">Capítulo 4 — Colores y unidades</h2>
+
+<h3>4.1 — Formas de escribir colores</h3>
+
+<h4>🔹 Nombres predefinidos</h4>
+<pre>color: red;
+color: blue;
+color: tomato;
+color: coral;</pre>
+<p>Hay ~140 nombres disponibles. Limitado.</p>
+
+<h4>🔹 Hexadecimal (HEX)</h4>
+<pre>color: #ff0000;    /* rojo */
+color: #00ff00;    /* verde */
+color: #0000ff;    /* azul */
+color: #333333;    /* gris oscuro */
+color: #fff;       /* blanco (abreviado) */</pre>
+<p>Formato: <code>#RRGGBB</code> (rojo, verde, azul en hexadecimal 00-ff).</p>
+
+<h4>🔹 RGB / RGBA</h4>
+<pre>color: rgb(255, 0, 0);          /* rojo */
+color: rgba(255, 0, 0, 0.5);    /* rojo al 50% transparente */</pre>
+<p>Rango 0-255 por canal. <code>rgba</code> añade opacidad (0 a 1).</p>
+
+<h4>🔹 HSL / HSLA (más intuitivo)</h4>
+<pre>color: hsl(0, 100%, 50%);       /* rojo */
+color: hsla(0, 100%, 50%, 0.5); /* rojo 50% */</pre>
+<ul>
+  <li><strong>H</strong> (Hue): tono 0-360 (0 rojo, 120 verde, 240 azul)</li>
+  <li><strong>S</strong> (Saturation): saturación 0-100%</li>
+  <li><strong>L</strong> (Lightness): luminosidad 0-100%</li>
+</ul>
+
+<div class="tip">
+  <strong>💡 Recomendación:</strong> usa HEX para diseños rápidos, HSL cuando quieras variaciones del mismo color.
+</div>
+
+<h3>4.2 — Unidades de medida</h3>
+
+<h4>Unidades absolutas</h4>
+<table>
+  <tr><th>Unidad</th><th>Equivalencia</th></tr>
+  <tr><td><code>px</code></td><td>Píxel (unidad base)</td></tr>
+  <tr><td><code>pt</code></td><td>1pt = 1.333px (para impresión)</td></tr>
+  <tr><td><code>cm</code></td><td>Centímetro</td></tr>
+  <tr><td><code>in</code></td><td>Pulgada</td></tr>
+</table>
+
+<h4>Unidades relativas (recomendadas)</h4>
+<table>
+  <tr><th>Unidad</th><th>Relativa a</th><th>Uso típico</th></tr>
+  <tr><td><code>%</code></td><td>Elemento padre</td><td>Anchos, tamaños</td></tr>
+  <tr><td><code>em</code></td><td>Tamaño de fuente del padre</td><td>Texto, márgenes</td></tr>
+  <tr><td><code>rem</code></td><td>Tamaño de fuente raíz (html)</td><td>Recomendado para texto</td></tr>
+  <tr><td><code>vw</code></td><td>1% del ancho del viewport</td><td>Anchos responsive</td></tr>
+  <tr><td><code>vh</code></td><td>1% del alto del viewport</td><td>Alturas a pantalla completa</td></tr>
+  <tr><td><code>vmin</code>/<code>vmax</code></td><td>Menor/mayor de vw y vh</td><td>Diseños adaptativos</td></tr>
+</table>
+
+<div class="nota">
+  <strong>🧠 Diferencia clave:</strong> <code>em</code> depende del padre, <code>rem</code> siempre del <code>&lt;html&gt;</code>. Usa <code>rem</code> para evitar sorpresas.
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap5">Capítulo 5 — Texto y tipografía</h2>
+
+<h3>5.1 — Fuente</h3>
+<pre>body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+}</pre>
+<ul>
+  <li><strong>Siempre terminar con genérica:</strong> <code>serif</code>, <code>sans-serif</code>, <code>monospace</code>.</li>
+  <li><strong>Comillas</strong> en nombres con espacios.</li>
+  <li><strong>Varias opciones</strong> separadas por comas: si una falla, pasa a la siguiente.</li>
+</ul>
+
+<h3>5.2 — Tamaño y estilo</h3>
+<pre>p {
+    font-size: 16px;
+    font-weight: bold;       /* 100-900 o normal/bold */
+    font-style: italic;      /* normal / italic / oblique */
+    text-transform: uppercase; /* Mayúsculas forzadas */
+}</pre>
+
+<h3>5.3 — Alineación y decoración</h3>
+<pre>p {
+    text-align: center;      /* left / right / center / justify */
+    text-decoration: underline; /* none / underline / line-through */
+    letter-spacing: 1px;     /* Espacio entre letras */
+    line-height: 1.6;        /* Alto de línea (sin unidad = proporcional) */
+    word-spacing: 2px;       /* Espacio entre palabras */
+}</pre>
+
+<h3>5.4 — Sombra de texto</h3>
+<pre>h1 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    /* desplaz-X desplaz-Y desenfoque color */
+}</pre>
+
+<h3>5.5 — Importar fuentes de Google</h3>
+<pre>&lt;head&gt;
+    &lt;link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet"&gt;
+&lt;/head&gt;</pre>
+<pre>body { font-family: 'Roboto', sans-serif; }</pre>
+<div class="warn">
+  <strong>⚠️ Ojo:</strong> requiere conexión a internet. Si tienes red limitada, usa fuentes del sistema (<code>Arial</code>, <code>Georgia</code>, <code>Courier</code>).
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap6">Capítulo 6 — Modelo de caja (Box Model)</h2>
+
+<p>El concepto <strong>MÁS IMPORTANTE</strong> de CSS. Todo elemento es una caja con 4 capas:</p>
+
+<pre>
+┌─────────────────────────────────┐
+│           MARGIN                │
+│  ┌───────────────────────────┐  │
+│  │         BORDER            │  │
+│  │  ┌─────────────────────┐  │  │
+│  │  │      PADDING        │  │  │
+│  │  │  ┌───────────────┐  │  │  │
+│  │  │  │   CONTENT     │  │  │  │
+│  │  │  └───────────────┘  │  │  │
+│  │  └─────────────────────┘  │  │
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+</pre>
+
+<h3>6.1 — Cada capa explicada</h3>
+<table>
+  <tr><th>Capa</th><th>Qué es</th><th>Propiedad CSS</th></tr>
+  <tr><td>Content</td><td>El contenido real (texto, imagen)</td><td><code>width</code>, <code>height</code></td></tr>
+  <tr><td>Padding</td><td>Espacio interno (entre contenido y borde)</td><td><code>padding</code></td></tr>
+  <tr><td>Border</td><td>Borde visible</td><td><code>border</code></td></tr>
+  <tr><td>Margin</td><td>Espacio externo (entre este elemento y otros)</td><td><code>margin</code></td></tr>
+</table>
+
+<h3>6.2 — Ejemplo práctico</h3>
+<pre>.caja {
+    width: 200px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 30px;
+}</pre>
+<p>El ancho total real es: 200 + 20×2 + 5×2 = <strong>250px</strong> (sin contar margin).</p>
+
+<h3>6.3 — <code>box-sizing</code>: la solución</h3>
+<pre>* {
+    box-sizing: border-box;
+}</pre>
+<p>Con <code>border-box</code>, el <code>width</code> incluye padding y border. El total sigue siendo 200px.</p>
+
+<div class="tip">
+  <strong>💡 Regla universal:</strong> pon siempre <code>* { box-sizing: border-box; }</code> al inicio. Te ahorrará dolores de cabeza.
+</div>
+
+<h3>6.4 — Atajos de margin/padding</h3>
+<pre>/* 4 valores: arriba derecha abajo izquierda */
+margin: 10px 20px 30px 40px;
+
+/* 3 valores: arriba, lados, abajo */
+margin: 10px 20px 30px;
+
+/* 2 valores: vertical | horizontal */
+margin: 10px 20px;
+
+/* 1 valor: todos iguales */
+margin: 10px;</pre>
+
+<h3>6.5 — Centrar horizontalmente</h3>
+<pre>.caja {
+    width: 300px;
+    margin: 0 auto; /* Truco clásico */
+}</pre>
+
+<h3>6.6 — Colapsado de márgenes</h3>
+<p>Si dos elementos uno encima del otro tienen <code>margin-bottom: 20px</code> y <code>margin-top: 30px</code>, el espacio resultante es <strong>30px</strong> (el mayor), no 50px.</p>
+
+<!-- ============================================ -->
+<h2 id="cap7">Capítulo 7 — Bordes y sombras</h2>
+
+<h3>7.1 — Bordes</h3>
+<pre>.caja {
+    border: 2px solid #333;
+    /* grosor | estilo | color */
+}</pre>
+
+<h4>Estilos de borde</h4>
+<table>
+  <tr><th>Estilo</th><th>Resultado</th></tr>
+  <tr><td><code>solid</code></td><td>Línea continua</td></tr>
+  <tr><td><code>dashed</code></td><td>Guiones</td></tr>
+  <tr><td><code>dotted</code></td><td>Puntos</td></tr>
+  <tr><td><code>double</code></td><td>Línea doble</td></tr>
+  <tr><td><code>groove</code></td><td>Con relieve</td></tr>
+  <tr><td><code>none</code></td><td>Sin borde</td></tr>
+</table>
+
+<h4>Bordes individuales</h4>
+<pre>border-top: 2px solid red;
+border-bottom: 1px dashed blue;
+border-left: 3px dotted green;</pre>
+
+<h3>7.2 — Border-radius (esquinas redondeadas)</h3>
+<pre>.caja {
+    border-radius: 10px;
+}</pre>
+<pre>border-radius: 50%; /* Círculo perfecto */</pre>
+<pre>border-radius: 10px 20px 30px 40px; /* Cada esquina */</pre>
+
+<h3>7.3 — Box-shadow (sombra)</h3>
+<pre>.caja {
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    /* X | Y | desenfoque | color */
+}</pre>
+<pre>/* Sombra interna */
+box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+
+/* Múltiples sombras */
+box-shadow: 
+    0 2px 5px rgba(0,0,0,0.1),
+    0 8px 15px rgba(0,0,0,0.1);</pre>
+
+<!-- ============================================ -->
+<h2 id="cap8">Capítulo 8 — Fondos</h2>
+
+<h3>8.1 — Color de fondo</h3>
+<pre>body { background-color: #f0f0f0; }</pre>
+
+<h3>8.2 — Imagen de fondo</h3>
+<pre>.hero {
+    background-image: url('fondo.jpg');
+    background-size: cover;       /* Cubre todo el espacio */
+    background-position: center;  /* Centrada */
+    background-repeat: no-repeat; /* No se repite */
+}</pre>
+
+<h4>Valores de <code>background-size</code></h4>
+<table>
+  <tr><th>Valor</th><th>Efecto</th></tr>
+  <tr><td><code>auto</code></td><td>Tamaño original</td></tr>
+  <tr><td><code>cover</code></td><td>Cubre todo (puede recortar)</td></tr>
+  <tr><td><code>contain</code></td><td>Se ajusta sin recortar (puede dejar huecos)</td></tr>
+  <tr><td><code>100% 100%</code></td><td>Estira a lo ancho y alto</td></tr>
+</table>
+
+<h3>8.3 — Degradados (gradients)</h3>
+
+<h4>Lineal</h4>
+<pre>background: linear-gradient(to right, red, blue);</pre>
+<pre>background: linear-gradient(45deg, #f39c12, #c0392b, #8e44ad);</pre>
+
+<h4>Radial</h4>
+<pre>background: radial-gradient(circle, white, black);</pre>
+
+<h4>Con ángulos</h4>
+<pre>background: linear-gradient(135deg, #3498db, #e74c3c);</pre>
+
+<!-- ============================================ -->
+<h2 id="cap9">Capítulo 9 — Display y posicionamiento</h2>
+
+<h3>9.1 — La propiedad <code>display</code></h3>
+
+<table>
+  <tr><th>Valor</th><th>Comportamiento</th><th>Ejemplos</th></tr>
+  <tr><td><code>block</code></td><td>Ocupa todo el ancho, salto de línea</td><td>div, p, h1</td></tr>
+  <tr><td><code>inline</code></td><td>Solo su contenido, sin ancho/alto</td><td>span, a, strong</td></tr>
+  <tr><td><code>inline-block</code></td><td>Como inline pero acepta width/height</td><td>—</td></tr>
+  <tr><td><code>none</code></td><td>Oculto (no ocupa espacio)</td><td>—</td></tr>
+  <tr><td><code>flex</code></td><td>Contenedor flexible (cap. 10)</td><td>—</td></tr>
+  <tr><td><code>grid</code></td><td>Contenedor de cuadrícula (cap. 11)</td><td>—</td></tr>
+</table>
+
+<div class="nota">
+  <strong>⚠️ Diferencia clave:</strong> <code>display: none</code> elimina el elemento. <code>visibility: hidden</code> lo oculta pero deja el espacio.
+</div>
+
+<h3>9.2 — La propiedad <code>position</code></h3>
+
+<table>
+  <tr><th>Valor</th><th>Comportamiento</th></tr>
+  <tr><td><code>static</code></td><td>Por defecto, sigue el flujo normal</td></tr>
+  <tr><td><code>relative</code></td><td>Se mueve respecto a su posición original</td></tr>
+  <tr><td><code>absolute</code></td><td>Se posiciona respecto a un ancestro <code>relative</code></td></tr>
+  <tr><td><code>fixed</code></td><td>Fijo en pantalla, no se mueve al hacer scroll</td></tr>
+  <tr><td><code>sticky</code></td><td>Se comporta como relative hasta llegar a un punto, luego se 
+    <tr><td>Se comporta como relative hasta llegar a un punto, luego se fija</td></tr>
+</table>
+
+<h4>Ejemplo: menú fijo arriba</h4>
+<pre>nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}</pre>
+
+<h4>Ejemplo: elemento centrado en pantalla</h4>
+<pre>.centrado {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}</pre>
+
+<h3>9.3 — Propiedades top, right, bottom, left</h3>
+<p>Solo funcionan si <code>position</code> NO es <code>static</code>.</p>
+<pre>.caja {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}</pre>
+
+<h3>9.4 — z-index (profundidad)</h3>
+<pre>.modal {
+    position: absolute;
+    z-index: 1000;
+}</pre>
+<p>Solo funciona con <code>position</code> diferente a <code>static</code>.</p>
+
+</body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual PHP - Parte 3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 70px 20px 20px;
+    line-height: 1.7;
+    color: #222;
+    background: #fff;
+  }
+  h1 { color: #777bb4; border-bottom: 4px solid #777bb4; padding-bottom: 12px; font-size: 2em; }
+  h2 { color: #fff; background: #777bb4; padding: 10px 15px; border-radius: 5px; margin-top: 40px; }
+  h3 { color: #777bb4; border-left: 5px solid #777bb4; padding-left: 12px; margin-top: 30px; }
+  h4 { color: #34495e; margin-top: 20px; }
+  pre {
+    background: #2d2d2d; color: #f8f8f2; border-radius: 6px;
+    padding: 15px; overflow-x: auto;
+    font-family: 'Consolas', monospace; font-size: 13px; line-height: 1.5;
+  }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #777bb4; font-family: 'Consolas', monospace; }
+  pre code { background: none; color: inherit; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 14px; }
+  th, td { border: 1px solid #ddd; padding: 10px; text-align: left; vertical-align: top; }
+  th { background: #777bb4; color: #fff; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .nota, .tip, .warn { padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+  .nota { background: #e8f4fd; border-left: 5px solid #3498db; }
+  .tip { background: #eafaf1; border-left: 5px solid #27ae60; }
+  .warn { background: #fef5e7; border-left: 5px solid #f39c12; }
+  .indice { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px 30px; }
+  .indice a { color: #777bb4; text-decoration: none; }
+  .indice a:hover { text-decoration: underline; }
+
+  .btn-volver, #btnPDF {
+    position: fixed; top: 15px;
+    padding: 10px 16px;
+    border: none; border-radius: 8px;
+    font-weight: bold; font-size: 14px;
+    text-decoration: none; color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 999; cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+  .btn-volver { left: 15px; background: #2c3e50; }
+  .btn-volver:hover { background: #1a252f; }
+  #btnPDF { right: 15px; background: #777bb4; }
+  #btnPDF:hover { background: #5e61a0; }
+
+  @media print {
+    .btn-volver, #btnPDF { display: none; }
+    body { padding: 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="biblioteca.html" class="btn-volver">← Biblioteca</a>
+<button id="btnPDF" onclick="window.print()">📥 PDF</button>
+
+<h1>🐘 Manual de PHP — Parte 3</h1>
+<p><em>Archivos, POO, MySQL, sesiones y proyecto final</em></p>
+
+<div class="indice">
+<h3>📑 Contenido</h3>
+<ol>
+  <li><a href="#cap18">Manejo de archivos</a></li>
+  <li><a href="#cap19">Subida de archivos</a></li>
+  <li><a href="#cap20">Programación Orientada a Objetos</a></li>
+  <li><a href="#cap21">Conexión a MySQL</a></li>
+  <li><a href="#cap22">CRUD con MySQL</a></li>
+  <li><a href="#cap23">Seguridad</a></li>
+  <li><a href="#cap24">Sesiones avanzadas</a></li>
+  <li><a href="#cap25">Proyecto final: blog simple</a></li>
+</ol>
+</div>
+
+<h2 id="cap18">Capítulo 18 — Manejo de archivos</h2>
+
+<h3>18.1 — Leer un archivo completo</h3>
+<pre>&lt;?php
+$contenido = file_get_contents("datos.txt");
+echo $contenido;
+?&gt;</pre>
+
+<h3>18.2 — Leer línea por línea</h3>
+<pre>&lt;?php
+$archivo = fopen("datos.txt", "r");
+
+while (($linea = fgets($archivo)) !== false) {
+    echo $linea . "&lt;br&gt;";
+}
+
+fclose($archivo);
+?&gt;</pre>
+
+<h3>18.3 — Escribir en un archivo</h3>
+<pre>&lt;?php
+// Sobrescribe (borra el contenido anterior)
+file_put_contents("log.txt", "Nueva entrada\n");
+
+// Añadir al final
+file_put_contents("log.txt", "Otra entrada\n", FILE_APPEND);
+?&gt;</pre>
+
+<h3>18.4 — Modos de apertura</h3>
+<table>
+  <tr><th>Modo</th><th>Significado</th></tr>
+  <tr><td><code>r</code></td><td>Solo lectura (debe existir)</td></tr>
+  <tr><td><code>w</code></td><td>Escritura (borra si existe, crea si no)</td></tr>
+  <tr><td><code>a</code></td><td>Añadir al final (crea si no existe)</td></tr>
+  <tr><td><code>r+</code></td><td>Lectura y escritura</td></tr>
+  <tr><td><code>x</code></td><td>Crear nuevo (falla si existe)</td></tr>
+</table>
+
+<h3>18.5 — Comprobar si un archivo existe</h3>
+<pre>&lt;?php
+if (file_exists("datos.txt")) {
+    echo "El archivo existe";
+}
+
+// Tamaño en bytes
+echo filesize("datos.txt");
+
+// Borrar
+unlink("datos.txt");
+
+// Copiar
+copy("origen.txt", "destino.txt");
+
+// Renombrar o mover
+rename("viejo.txt", "nuevo.txt");
+?&gt;</pre>
+
+<h3>18.6 — Leer CSV completo</h3>
+<pre>&lt;?php
+$archivo = fopen("datos.csv", "r");
+
+while (($fila = fgetcsv($archivo)) !== false) {
+    print_r($fila); // Cada fila es un array
+}
+
+fclose($archivo);
+?&gt;</pre>
+
+<h2 id="cap19">Capítulo 19 — Subida de archivos</h2>
+
+<h3>19.1 — Formulario HTML</h3>
+<pre>&lt;form action="subir.php" method="POST" enctype="multipart/form-data"&gt;
+    &lt;input type="file" name="archivo"&gt;
+    &lt;button type="submit"&gt;Subir&lt;/button&gt;
+&lt;/form&gt;</pre>
+
+<div class="warn">
+  <strong>⚠️ Clave:</strong> el atributo <code>enctype="multipart/form-data"</code> es <strong>obligatorio</strong> para subir archivos. Sin él, no funciona.
+</div>
+
+<h3>19.2 — Procesar en PHP</h3>
+<pre>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $archivo = $_FILES["archivo"];
+    
+    // Verificar errores
+    if ($archivo["error"] !== UPLOAD_ERR_OK) {
+        die("Error al subir el archivo");
+    }
+    
+    // Datos del archivo
+    $nombreTemp = $archivo["tmp_name"];
+    $nombreOriginal = basename($archivo["name"]);
+    $tamaño = $archivo["size"];
+    $tipo = $archivo["type"];
+    
+    // Validar tamaño (máximo 2MB)
+    if ($tamaño &gt; 2 * 1024 * 1024) {
+        die("El archivo es demasiado grande");
+    }
+    
+    // Validar extensión
+    $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
+    $permitidas = ["jpg", "jpeg", "png", "gif"];
+    
+    if (!in_array($extension, $permitidas)) {
+        die("Solo se permiten imágenes JPG, PNG o GIF");
+    }
+    
+    // Generar nombre único
+    $nuevoNombre = uniqid() . "." . $extension;
+    $destino = "uploads/" . $nuevoNombre;
+    
+    // Mover archivo
+    if (move_uploaded_file($nombreTemp, $destino)) {
+        echo "Archivo subido: $destino";
+    } else {
+        echo "Error al mover el archivo";
+    }
+}
+?&gt;</pre>
+
+<h3>19.3 — Códigos de error de subida</h3>
+<table>
+  <tr><th>Código</th><th>Significado</th></tr>
+  <tr><td><code>UPLOAD_ERR_OK</code></td><td>Sin error</td></tr>
+  <tr><td><code>UPLOAD_ERR_INI_SIZE</code></td><td>Excede el límite de php.ini</td></tr>
+  <tr><td><code>UPLOAD_ERR_FORM_SIZE</code></td><td>Excede el límite del formulario</td></tr>
+  <tr><td><code>UPLOAD_ERR_NO_FILE</code></td><td>No se subió archivo</td></tr>
+</table>
+
+<h2 id="cap20">Capítulo 20 — Programación Orientada a Objetos</h2>
+
+<h3>20.1 — Clase básica</h3>
+<pre>&lt;?php
+class Persona {
+    // Propiedades
+    public $nombre;
+    public $edad;
+    
+    // Constructor
+    public function __construct($nombre, $edad) {
+        $this-&gt;nombre = $nombre;
+        $this-&gt;edad = $edad;
+    }
+    
+    // Método
+    public function saludar() {
+        return "Hola, soy $this-&gt;nombre";
+    }
+}
+
+// Crear objeto
+$ana = new Persona("Ana", 25);
+echo $ana-&gt;saludar(); // Hola, soy Ana
+echo $ana-&gt;edad;       // 25
+?&gt;</pre>
+
+<h3>20.2 — Los 3 modificadores de acceso</h3>
+<table>
+  <tr><th>Modificador</th><th>Acceso</th></tr>
+  <tr><td><code>public</code></td><td>Desde cualquier lado</td></tr>
+  <tr><td><code>protected</code></td><td>Solo desde la clase y sus hijas</td></tr>
+  <tr><td><code>private</code></td><td>Solo desde la misma clase</td></tr>
+</table>
+
+<pre>&lt;?php
+class Cuenta {
+    private $saldo = 0;
+    
+    public function depositar($monto) {
+        if ($monto &gt; 0) {
+            $this-&gt;saldo += $monto;
+        }
+    }
+    
+    public function verSaldo() {
+        return $this-&gt;saldo;
+    }
+}
+
+$cuenta = new Cuenta();
+$cuenta-&gt;depositar(100);
+echo $cuenta-&gt;verSaldo(); // 100
+// $cuenta-&gt;saldo = 999;  // ❌ Error, es privado
+?&gt;</pre>
+
+<h3>20.3 — Herencia</h3>
+<pre>&lt;?php
+class Animal {
+    public function hacerSonido() {
+        return "Sonido genérico";
+    }
+}
+
+class Perro extends Animal {
+    public function hacerSonido() {
+        return "Guau guau";
+    }
+}
+
+class Gato extends Animal {
+    public function hacerSonido() {
+        return "Miau";
+    }
+}
+
+$perro = new Perro();
+echo $perro-&gt;hacerSonido(); // Guau guau
+?&gt;</pre>
+
+<h3>20.4 — Métodos estáticos</h3>
+<pre>&lt;?php
+class Calculadora {
+    public static function sumar($a, $b) {
+        return $a + $b;
+    }
+}
+
+// No necesita instanciar
+echo Calculadora::sumar(5, 3); // 8
+?&gt;</pre>
+
+<h3>20.5 — Interfaces</h3>
+<pre>&lt;?php
+interface Volador {
+    public function volar();
+}
+
+class Pajaro implements Volador {
+    public function volar() {
+        return "El pájaro vuela";
+    }
+}
+?&gt;</pre>
+
+<h2 id="cap21">Capítulo 21 — Conexión a MySQL</h2>
+
+<h3>21.1 — Conectar con PDO (recomendado)</h3>
+<pre>&lt;?php
+try {
+    $pdo = new PDO(
+        "mysql:host=localhost;dbname=mi_web;charset=utf8mb4",
+        "root",
+        ""
+    );
+    
+    // Configurar errores
+    $pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    echo "Conectado";
+} catch (PDOException $e) {
+    die("Error: " . $e-&gt;getMessage());
+}
+?&gt;</pre>
+
+<h3>21.2 — Conexión con MySQLi</h3>
+<pre>&lt;?php
+$conexion = new mysqli("localhost", "root", "", "mi_web");
+
+if ($conexion-&gt;connect_error) {
+    die("Error: " . $conexion-&gt;connect_error);
+}
+?&gt;</pre>
+
+<div class="tip">
+  <strong>💡 Recomendación:</strong> usa <strong>PDO</strong>. Es más moderno, seguro y compatible con varios motores de base de datos.
+</div>
+
+<h3>21.3 — Consulta simple (SELECT)</h3>
+<pre>&lt;?php
+$stmt = $pdo-&gt;query("SELECT * FROM usuarios");
+$usuarios = $stmt-&gt;fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($usuarios as $usuario) {
+    echo $usuario["nombre"] . "&lt;br&gt;";
+}
+?&gt;</pre>
+
+<h2 id="cap22">Capítulo 22 — CRUD con MySQL</h2>
+
+<p>CRUD = <strong>C</strong>reate, <strong>R</strong>ead, <strong>U</strong>pdate, <strong>D</strong>elete. Es lo básico de cualquier app con base de datos.</p>
+
+<h3>22.1 — Tabla de ejemplo</h3>
+<pre>CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</pre>
+
+<h3>22.2 — Crear (INSERT)</h3>
+<pre>&lt;?php
+$sql = "INSERT INTO usuarios (nombre, email) VALUES (?, ?)";
+$stmt = $pdo-&gt;prepare($sql);
+$stmt-&gt;execute(["Ana", "ana@ejemplo.com"]);
+
+echo "ID insertado: " . $pdo-&gt;lastInsertId();
+?&gt;</pre>
+
+<h3>22.3 — Leer (SELECT)</h3>
+<pre>&lt;?php
+$stmt = $pdo-&gt;query("SELECT * FROM usuarios ORDER BY creado DESC");
+$usuarios = $stmt-&gt;fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($usuarios as $u) {
+    echo "{$u['id']} - {$u['nombre']} - {$u['email']}&lt;br&gt;";
+}
+?&gt;</pre>
+
+<h3>22.4 — Leer uno con condición</h3>
+<pre>&lt;?php
+$sql = "SELECT * FROM usuarios WHERE id = ?";
+$stmt = $pdo-&gt;prepare($sql);
+$stmt-&gt;execute([5]);
+$usuario = $stmt-&gt;fetch(PDO::FETCH_ASSOC);
+
+if ($usuario) {
+    echo $usuario["nombre"];
+} else {
+    echo "No encontrado";
+}
+?&gt;</pre>
+
+<h3>22.5 — Actualizar (UPDATE)</h3>
+<pre>&lt;?php
+$sql = "UPDATE usuarios SET nombre = ? WHERE id = ?";
+$stmt = $pdo-&gt;prepare($sql);
+$stmt-&gt;execute(["Ana María", 5]);
+
+echo "Filas afectadas: " . $stmt-&gt;rowCount();
+?&gt;</pre>
+
+<h3>22.6 — Eliminar (DELETE)</h3>
+<pre>&lt;?php
+$sql = "DELETE FROM usuarios WHERE id = ?";
+$stmt = $pdo-&gt;prepare($sql);
+$stmt-&gt;execute([5]);
+?&gt;</pre>
+
+<h3>22.7 — Consultas preparadas (SEGURIDAD)</h3>
+<div class="warn">
+  <strong>⚠️ NUNCA hagas esto:</strong>
+  <pre style="margin-top:8px; background:#5a1a1a;">$sql = "SELECT * FROM usuarios WHERE email = '$email'";</pre>
+  Es vulnerable a <strong>inyección SQL</strong>. Un usuario malicioso podría borrar toda la base de datos.
+</div>
+
+<p><strong>Siempre usa consultas preparadas:</strong></p>
+<pre>&lt;?php
+$sql = "SELECT * FROM usuarios WHERE email = ?";
+$stmt = $pdo-&gt;prepare($sql);
+$stmt-&gt;execute([$email]);
+?&gt;</pre>
+
+<h2 id="cap23">Capítulo 23 — Seguridad</h2>
+
+<h3>23.1 — Las 5 reglas de oro</h3>
+<ol>
+  <li><strong>Nunca confíes en datos del usuario.</strong> Valida TODO.</li>
+  <li><strong>Usa consultas preparadas</strong> para SQL. Siempre.</li>
+  <li><strong>Escapa con <code>htmlspecialchars()</code></strong> antes de mostrar.</li>
+  <li><strong>Hashea contraseñas</strong> con <code>password_hash()</code>.</li>
+  <li><strong>Usa HTTPS</strong> en producción.</li>
+</ol>
+
+<h3>23.2 — Inyección SQL (ejemplo)</h3>
+<pre>// Si el usuario escribe esto en un campo:
+' OR '1'='1
+
+// Y tienes:
+$sql = "SELECT * FROM usuarios WHERE user = '$user' AND pass = '$pass'";
+
+// La consulta queda:
+SELECT * FROM usuarios WHERE user = '' OR '1'='1' AND pass = '...'
+// → Acceso sin credenciales válidas
+?></pre>
+
+<h3>23.3 — XSS (Cross-Site Scripting)</h3>
+<pre>&lt;?php
+// Si guardas esto y lo muestras sin escapar:
+$comentario = "&lt;script&gt;alert('hack')&lt;/script&gt;";
+
+// MAL:
+echo $comentario; // Ejecuta el script
+
+// BIEN:
+echo htmlspecialchars($comentario);
+// Muestra el texto tal cual, sin ejecutar
+?&gt;</pre>
+
+<h3>23.4 — CSRF (Cross-Site Request Forgery)</h3>
+<pre>&lt;?php
+// Generar token al mostrar el formulario
+session_start();
+$_SESSION["csrf"] = bin2hex(random_bytes(32));
+?&gt;
+
+&lt;form method="POST"&gt;
+    &lt;input type="hidden" name="csrf" value="&lt;?= $_SESSION['csrf'] ?&gt;"&gt;
+    &lt;button&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;?php
+// Verificar al recibir
+if ($_POST["csrf"] !== $_SESSION["csrf"]) {
+    die("Token CSRF inválido");
+}
+?&gt;</pre>
+
+<h2 id="cap24">Capítulo 24 — Sesiones avanzadas</h2>
+
+<h3>24.1 — Login completo</h3>
+<pre>&lt;?php
+session_start();
+
+// login.php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = $_POST["email"] ?? "";
+    $password = $_POST["password"] ?? "";
+    
+    $stmt = $pdo-&gt;prepare("SELECT * FROM usuarios WHERE email = ?");
+    $stmt-&gt;execute([$email]);
+    $usuario = $stmt-&gt;fetch(PDO::FETCH_ASSOC);
+    
+    if ($usuario &amp;&amp; password_verify($password, $usuario["password_hash"])) {
+        $_SESSION["usuario_id"] = $usuario["id"];
+        $_SESSION["nombre"] = $usuario["nombre"];
+        header("Location: dashboard.php");
+        exit;
+    } else {
+        $error = "Credenciales incorrectas";
+    }
+}
+?&gt;</pre>
+
+<h3>24.2 — Proteger página privada</h3>
+<pre>&lt;?php
+// dashboard.php
+session_start();
+
+if (!isset($_SESSION["usuario_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
+echo "Bienvenido, " . $_SESSION["nombre"];
+?&gt;</pre>
+
+<h3>24.3 — Cerrar sesión</h3>
+<pre>&lt;?php
+session_start();
+session_unset();      // Limpia las variables
+session_destroy();    // Destruye la sesión
+header("Location: index.php");
+exit;
+?&gt;</pre>
+
+<h3>24.4 — Cookies</h3>
+<pre>&lt;?php
+// Crear (30 días)
+setcookie("usuario", "Ana", time() + (30 * 24 * 60 * 60), "/");
+
+// Leer
+if (isset($_COOKIE["usuario"])) {
+    echo "Hola, " . $_COOKIE["usuario"];
+}
+
+// Borrar
+setcookie("usuario", "", time() - 3600, "/");
+?&gt;</pre>
+
+<h2 id="cap25">Capítulo 25 — Proyecto final: blog simple</h2>
+
+<p>Vamos a construir un <strong>mini blog</strong> con todo lo aprendido.</p>
+
+<h3>25.1 — Estructura de archivos</h3>
+<pre>blog/
+├── config.php          (conexión a DB)
+├── index.php           (lista de posts)
+├── post.php            (ver un post)
+├── admin/
+│   ├── login.php
+│   ├── dashboard.php
+│   ├── crear.php
+│   └── logout.php
+└── includes/
+    └── header.php</pre>
+
+<h3>25.2 — Base de datos</h3>
+<pre>CREATE DATABASE blog;
+USE blog;
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) UNIQUE,
+    password_hash VARCHAR(255)
+);
+
+CREATE TABLE posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(200),
+    contenido TEXT,
+    autor_id INT,
+    creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (autor_id) REFERENCES usuarios(id)
+);
+
+-- Usuario admin (password: admin123)
+INSERT INTO usuarios (usuario, password_hash) VALUES 
+('admin', '$2y$10$...');</pre>
+
+<h3>25.3 — config.php</h3>
+<pre>&lt;?php
+$host = "localhost";
+$db = "blog";
+$user = "root";
+$pass = "";
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
+    $pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Error de conexión: " . $e-&gt;getMessage());
+}
+
+session_start();
+?&gt;</pre>
+
+<h3>25.4 — index.php (lista de posts)</h3>
+<pre>&lt;?php
+require "config.php";
+
+$stmt = $pdo-&gt;query("
+    SELECT p.*, u.usuario 
+    FROM posts p 
+    JOIN usuarios u ON p.autor_id = u.id 
+    ORDER BY p.creado DESC
+");
+$posts = $stmt-&gt;fetchAll(PDO::FETCH_ASSOC);
+?&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mi Blog&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;📝 Mi Blog&lt;/h1&gt;
+    
+    &lt;?php foreach ($posts as $post): ?&gt;
+        &lt;article&gt;
+            &lt;h2&gt;
+                &lt;a href="post.php?id=&lt;?= $post['id'] ?&gt;"&gt;
+                    &lt;?= htmlspecialchars($post['titulo']) ?&gt;
+                &lt;/a&gt;
+            &lt;/h2&gt;
+            &lt;p&gt;Por &lt;?= htmlspecialchars($post['usuario']) ?&gt; 
+               el &lt;?= $post['creado'] ?&gt;&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;hr&gt;
+    &lt;?php endforeach; ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>25.5 — post.php (ver un post)</h3>
+<pre>&lt;?php
+require "config.php";
+
+$id = (int) ($_GET["id"] ?? 0);
+
+$stmt = $pdo-&gt;prepare("
+    SELECT p.*, u.usuario 
+    FROM posts p 
+    JOIN usuarios u ON p.autor_id = u.id 
+    WHERE p.id = ?
+");
+$stmt-&gt;execute([$id]);
+$post = $stmt-&gt;fetch(PDO::FETCH_ASSOC);
+
+if (!$post) {
+    die("Post no encontrado");
+}
+?&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;&lt;?= htmlspecialchars($post['titulo']) ?&gt;&lt;/h1&gt;
+    &lt;p&gt;Por &lt;?= htmlspecialchars($post['usuario']) ?&gt;&lt;/p&gt;
+    &lt;div&gt;
+        &lt;?= nl2br(htmlspecialchars($post['contenido'])) ?&gt;
+    &lt;/div&gt;
+    &lt;a href="index.php"&gt;← Volver&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>25.6 — admin/crear.php (crear post)</h3>
+<pre>&lt;?php
+require "../config.php";
+
+if (!isset($_SESSION["usuario_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $titulo = trim($_POST["titulo"] ?? "");
+    $contenido = trim($_POST["contenido"] ?? "");
+    
+    if ($titulo &amp;&amp; $contenido) {
+        $stmt = $pdo-&gt;prepare("
+            INSERT INTO posts (titulo, contenido, autor_id) 
+            VALUES (?, ?, ?)
+        ");
+        $stmt-&gt;execute([$titulo, $contenido, $_SESSION["usuario_id"]]);
+        header("Location: dashboard.php");
+        exit;
+    }
+}
+?&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;Nuevo post&lt;/h1&gt;
+    &lt;form method="POST"&gt;
+        &lt;input type="text" name="titulo" placeholder="Título" required&gt;&lt;br&gt;
+        &lt;textarea name="contenido" rows="10" required&gt;&lt;/textarea&gt;&lt;br&gt;
+        &lt;button type="submit"&gt;Publicar&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>25.7 — Buenas prácticas aplicadas</h3>
+<table>
+  <tr><th>Práctica</th><th>Dónde se aplica</th></tr>
+  <tr><td>Consultas preparadas</td><td>Todas las queries</td></tr>
+  <tr><td>htmlspecialchars()</td><td>Al mostrar datos del usuario</td></tr>
+  <tr><td>Cast a int</td><td>$_GET["id"]</td></tr>
+  <tr><td>Verificar sesión</td><td>Páginas de admin</td></tr>
+  <tr><td>Redirección tras POST</td><td>Evita reenvío</td></tr>
+</table>
+
+<hr>
+<p style="text-align:center; color:#888; padding:20px;">
+<em>

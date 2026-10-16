@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📚 Mi Biblioteca de Programación</title>
+<meta name="theme-color" content="#2a5298">
+<link rel="manifest" href="manifest.json">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    min-height: 100vh;
+    padding: 20px;
+    color: #fff;
+  }
+
+  header { text-align: center; margin-bottom: 25px; }
+  header h1 { font-size: 2em; margin-bottom: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+  header p { opacity: 0.9; font-size: 1em; }
+
+  .acciones {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-accion {
+    background: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.95em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+  .btn-accion:hover { background: #1e8449; transform: translateY(-2px); }
+
+  .btn-secundario { background: #e67e22; }
+  .btn-secundario:hover { background: #ca6f1e; }
+
+  .btn-info { background: #3498db; }
+  .btn-info:hover { background: #2874a6; }
+
+  .buscador {
+    max-width: 500px;
+    margin: 0 auto 25px;
+  }
+  .buscador input {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1em;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  /* Filtros por lenguaje */
+  .filtros {
+    max-width: 900px;
+    margin: 0 auto 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .filtro-chip {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+  }
+  .filtro-chip:hover { background: rgba(255,255,255,0.25); }
+  .filtro-chip.activo {
+    background: #fff;
+    color: #1e3c72;
+    border-color: #fff;
+  }
+
+  /* Modal formulario */
+  .modal-fondo {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  .modal-fondo.activo { display: flex; }
+
+  .modal {
+    background: #fff;
+    color: #222;
+    border-radius: 12px;
+    padding: 25px;
+    width: 100%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal h2 { color: #1e3c72; margin-bottom: 15px; }
+
+  .modal label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 4px;
+    font-size: 0.9em;
+    color: #333;
+  }
+  .modal input, .modal select, .modal textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: inherit;
+  }
+  .modal small {
+    color: #888;
+    font-size: 0.8em;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .modal .botones {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .modal .botones button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  .btn-guardar { background: #27ae60; color: #fff; }
+  .btn-cancelar { background: #95a5a6; color: #fff; }
+
+  /* Modal info PWA */
+  .info-pwa {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-size: 0.9em;
+  }
+  .info-pwa.offline { border-left-color: #e67e22; }
+  .info-pwa.online { border-left-color: #27ae60; }
+
+  .seccion-titulo {
+    max-width: 900px;
+    margin: 30px auto 15px;
+    font-size: 1.3em;
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .seccion-titulo .badge {
+    font-size: 0.7em;
+    background: rgba(255,255,255,0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: normal;
+  }
+
+  .estanteria {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .libro {
+    background: #fff;
+    color: #222;
+    border-radius: 12px;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    border-left: 8px solid #ccc;
+    position: relative;
+  }
+  .libro:hover { transform: translateY(-5px); }
+
+  .libro .icono { font-size: 2.5em; margin-bottom: 10px; display: block; }
+  .libro h2 { font-size: 1.2em; margin-bottom: 6px; color: #1e3c72; }
+  .libro p { font-size: 0.85em; color: #555; line-height: 1.4; }
+
+  .libro .etiqueta {
+    display: inline-block;
+    font-size: 0.75em;
+    padding: 3px 9px;
+    border-radius: 12px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #fff;
+    background: #95a5a6;
+  }
+
+  .libro.html { border-left-color: #e44d26; }
+  .libro.html .etiqueta { background: #e44d26; }
+  .libro.css { border-left-color: #264de4; }
+  .libro.css .etiqueta { background: #264de4; }
+  .libro.js { border-left-color: #f7df1e; }
+  .libro.js .etiqueta { background: #d4b400; color: #333; }
+  .libro.php { border-left-color: #777bb4; }
+  .libro.php .etiqueta { background: #777bb4; }
+  .libro.python { border-left-color: #3776ab; }
+  .libro.python .etiqueta { background: #3776ab; }
+  .libro.c { border-left-color: #a8b9cc; }
+  .libro.c .etiqueta { background: #a8b9cc; color: #333; }
+  .libro.referencias { border-left-color: #16a085; }
+.libro.referencias .etiqueta { background: #16a085; }
+
+  .btn-eliminar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .btn-eliminar:hover { background: #c0392b; }
+
+  .pie { text-align: center; margin-top: 40px; opacity: 0.7; font-size: 0.85em; }
+
+  /* Toast notificación */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #2c3e50;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    z-index: 2000;
+    transition: transform 0.3s;
+    opacity: 0;
+  }
+  .toast.mostrar {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Mi Biblioteca</h1>
+  <p id="contador">Cargando...</p>
+  <p id="estado-pwa" style="font-size:0.8em; margin-top:5px; opacity:0.8;"></p>
+</header>
+
+<div class="acciones">
+  <button class="btn-accion" onclick="abrirModal()">➕ Añadir libro</button>
+  <button class="btn-accion btn-secundario" onclick="borrarTodosPersonalizados()">🗑️ Borrar añadidos</button>
+  <button class="btn-accion btn-info" onclick="abrirInfo()">⚙️ Info PWA</button>
+</div>
+
+<div class="buscador">
+  <input type="text" id="buscador" placeholder="🔍 Buscar libro...">
+</div>
+
+<div class="filtros" id="filtros"></div>
+
+<main id="biblioteca"></main>
+
+<p class="pie">💡 Los archivos .html deben existir en la misma carpeta.</p>
+
+<!-- MODAL LIBRO -->
+<div class="modal-fondo" id="modal">
+  <div class="modal">
+    <h2>➕ Añadir libro</h2>
+
+    <label>Título</label>
+    <input type="text" id="f-titulo" placeholder="Ej: Python — Parte 1">
+
+    <label>Nombre del archivo</label>
+    <input type="text" id="f-archivo" placeholder="Ej: py1.html">
+    <small>Debe coincidir EXACTAMENTE con el archivo real.</small>
+
+    <label>Lenguaje</label>
+    <select id="f-lenguaje">
+      <option value="HTML">HTML</option>
+      <option value="CSS">CSS</option>
+      <option value="JavaScript">JavaScript</option>
+      <option value="PHP">PHP</option>
+      <option value="Python">Python</option>
+      <option value="C">C</option>
+      <option value="Referencias">Referencias</option>
+      <option value="Otro">Otro</option>
+    </select>
+
+    <label>Icono (emoji)</label>
+    <input type="text" id="f-icono" placeholder="📙" maxlength="4" value="📙">
+
+    <label>Descripción (opcional)</label>
+    <textarea id="f-descripcion" rows="2" placeholder="Breve descripción..."></textarea>
+
+    <label>Etiqueta (opcional)</label>
+    <input type="text" id="f-etiqueta" placeholder="Ej: Capítulos 1-5">
+
+    <div class="botones">
+      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-guardar" onclick="guardarLibro()">💾 Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL INFO PWA -->
+<div class="modal-fondo" id="modal-info">
+  <div class="modal">
+    <h2>⚙️ Estado de la PWA</h2>
+    <div id="info-contenido"></div>
+    <div class="botones">
+      <button class="btn-cancelar" onclick="cerrarInfo()">Cerrar</button>
+      <button class="btn-guardar" onclick="borrarCache()">🗑️ Limpiar caché</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================
+   📚 LIBROS BASE (siempre presentes)
+   ============================================ */
+const librosBase = [
+  // HTML
+  {
+    titulo: "Manual de HTML",
+    archivo: "html.html",
+    icono: "📘",
+    lenguaje: "HTML",
+    descripcion: "Estructura, etiquetas, formularios, semántica y proyecto final.",
+    etiqueta: "10 capítulos"
+  },
+  // CSS
+  {
+    titulo: "CSS — Parte 1",
+    archivo: "css1.html",
+    icono: "📗",
+    lenguaje: "CSS",
+    descripcion: "Selectores, colores, Box Model, bordes, fondos y position.",
+    etiqueta: "Capítulos 1-9"
+  },
+  {
+    titulo: "CSS — Parte 2",
+    archivo: "css2.html",
+    icono: "📗",
+    lenguaje: "CSS",
+    descripcion: "Flexbox, Grid, pseudo-clases y animaciones.",
+    etiqueta: "Capítulos 10-13"
+  },
+  {
+    titulo: "CSS — Parte 3",
+    archivo: "css3.html",
+    icono: "📗",
+    lenguaje: "CSS",
+    descripcion: "Responsive, buenas prácticas y proyecto final.",
+    etiqueta: "Capítulos 14-16"
+  },
+  // PHP
+  {
+    titulo: "PHP — Parte 1",
+    archivo: "php1.html",
+    icono: "🐘",
+    lenguaje: "PHP",
+    descripcion: "Sintaxis, variables, tipos, operadores, condicionales y bucles.",
+    etiqueta: "Capítulos 1-9"
+  },
+  {
+    titulo: "PHP — Parte 2",
+    archivo: "php2.html",
+    icono: "🐘",
+    lenguaje: "PHP",
+    descripcion: "Funciones, arrays, strings, formularios, validación y fechas.",
+    etiqueta: "Capítulos 10-17"
+  },
+  {
+    titulo: "PHP — Parte 3",
+    archivo: "php3.html",
+    icono: "🐘",
+    lenguaje: "PHP",
+    descripcion: "Archivos, POO, MySQL, seguridad, sesiones y proyecto final.",
+    etiqueta: "Capítulos 18-25"
+  },
+  // JavaScript
+  {
+    titulo: "JavaScript — Parte 1",
+    archivo: "js1.html",
+    icono: "⚡",
+    lenguaje: "JavaScript",
+    descripcion: "Sintaxis, variables, tipos, operadores, condicionales, bucles y funciones.",
+    etiqueta: "Capítulos 1-9"
+  },
+  {
+    titulo: "JavaScript — Parte 2",
+    archivo: "js2.html",
+    icono: "⚡",
+    lenguaje: "JavaScript",
+    descripcion: "DOM, eventos, formularios, arrays avanzados, objetos y JSON.",
+    etiqueta: "Capítulos 10-18"
+  },
+  {
+    titulo: "JavaScript — Parte 3",
+    archivo: "js3.html",
+    icono: "⚡",
+    lenguaje: "JavaScript",
+    descripcion: "Asincronía, promesas, async/await, fetch y PWA.",
+        etiqueta: "Capítulos 19-27"
+  },
+  {
+    titulo: "Tabla de Referencias 1",
+    archivo: "Table.html",
+    icono: "📊",
+    lenguaje: "Referencias",
+    descripcion: "Comparativa de lenguajes y comandos esenciales.",
+    etiqueta: "Comparativa"
+  },
+  {
+    titulo: "Tabla de Referencias 2",
+    archivo: "tabla2.html",
+    icono: "📋",
+    lenguaje: "Referencias",
+    descripcion: "Fuentes, colores, formas, librerías y herramientas.",
+    etiqueta: "Recursos"
+  }
+];
+  }
+];
+
+/* ============================================
+   💾 LOCALSTORAGE
+   ============================================ */
+const CLAVE = "mis_libros_personalizados";
+
+function obtenerPersonalizados() {
+  const datos = localStorage.getItem(CLAVE);
+  return datos ? JSON.parse(datos) : [];
+}
+
+function guardarPersonalizados(lista) {
+  localStorage.setItem(CLAVE, JSON.stringify(lista));
+}
+
+function obtenerTodos() {
+  return [...librosBase, ...obtenerPersonalizados()];
+}
+
+/* ============================================
+   🎨 CLASE CSS SEGÚN LENGUAJE
+   ============================================ */
+function clasePorLenguaje(lenguaje) {
+  const mapa = {
+    "HTML": "html",
+    "CSS": "css",
+    "JavaScript": "js",
+    "PHP": "php",
+    "Python": "python",
+    "C": "c"
+    "Referencias": "referencias",
+  };
+  return mapa[lenguaje] || "otro";
+}
+
+/* ============================================
+   🖼️ CREAR TARJETA
+   ============================================ */
+function crearTarjeta(libro, esPersonalizado = false) {
+  const clase = clasePorLenguaje(libro.lenguaje);
+  const botonBorrar = esPersonalizado
+    ? `<button class="btn-eliminar" onclick="eliminarLibro(event, '${libro.archivo}')" title="Eliminar">×</button>`
+    : "";
+
+  return `
+    <a href="${libro.archivo}" class="libro ${clase}">
+      ${botonBorrar}
+      <span class="icono">${libro.icono || "📕"}</span>
+      <h2>${libro.titulo}</h2>
+      <p>${libro.descripcion || ""}</p>
+      <span class="etiqueta">${libro.etiqueta || libro.lenguaje}</span>
+    </a>
+  `;
+}
+
+/* ============================================
+   🎬 RENDERIZAR
+   ============================================ */
+let filtroLenguajeActivo = "Todos";
+
+function renderizar(filtro = "") {
+  const contenedor = document.getElementById("biblioteca");
+  const filtroMin = filtro.toLowerCase().trim();
+
+  const personalizados = obtenerPersonalizados();
+  const archivosPersonalizados = personalizados.map(l => l.archivo);
+
+  const todos = obtenerTodos();
+  const filtrados = todos.filter(libro => {
+    // Filtro de texto
+    const coincideTexto =
+      libro.titulo.toLowerCase().includes(filtroMin) ||
+      (libro.lenguaje || "").toLowerCase().includes(filtroMin) ||
+      (libro.descripcion || "").toLowerCase().includes(filtroMin);
+
+    // Filtro de lenguaje por chips
+    const coincideLenguaje =
+      filtroLenguajeActivo === "Todos" ||
+      libro.lenguaje === filtroLenguajeActivo;
+
+    return coincideTexto && coincideLenguaje;
+  });
+
+  if (filtrados.length === 0) {
+    contenedor.innerHTML = '<p style="text-align:center; padding:40px; opacity:0.7;">No se encontraron libros.</p>';
+    return;
+  }
+
+  // Agrupar por lenguaje
+  const grupos = {};
+  filtrados.forEach(libro => {
+    const lenguaje = libro.lenguaje || "Otros";
+    if (!grupos[lenguaje]) grupos[lenguaje] = [];
+    grupos[lenguaje].push(libro);
+  });
+
+  let html = "";
+  for (const lenguaje in grupos) {
+    const cantidad = grupos[lenguaje].length;
+    html += `<div class="seccion-titulo">
+      📖 ${lenguaje}
+      <span class="badge">${cantidad} libro${cantidad !== 1 ? "s" : ""}</span>
+    </div>`;
+    html += `<div class="estanteria">`;
+    grupos[lenguaje].forEach(libro => {
+      const esPersonalizado = archivosPersonalizados.includes(libro.archivo);
+      html += crearTarjeta(libro, esPersonalizado);
+    });
+    html += `</div>`;
+  }
+
+  contenedor.innerHTML = html;
+
+  const total = todos.length;
+  document.getElementById("contador").textContent =
+    `${total} libro${total !== 1 ? "s" : ""} en tu biblioteca`;
+}
+
+/* ============================================
+   🏷️ FILTROS POR LENGUAJE
+   ============================================ */
+function renderizarFiltros() {
+  const contenedor = document.getElementById("filtros");
+  const todos = obtenerTodos();
+  const lenguajes = ["Todos", ...new Set(todos.map(l => l.lenguaje))];
+
+  contenedor.innerHTML = lenguajes.map(lang => `
+    <button class="filtro-chip ${lang === filtroLenguajeActivo ? "activo" : ""}"
+            onclick="cambiarFiltro('${lang}')">
+      ${lang}
+    </button>
+  `).join("");
+}
+
+function cambiarFiltro(lenguaje) {
+  filtroLenguajeActivo = lenguaje;
+  renderizarFiltros();
+  renderizar(document.getElementById("buscador").value);
+}
+
+/* ============================================
+   ➕ MODAL
+   ============================================ */
+function abrirModal() {
+  document.getElementById("modal").classList.add("activo");
+}
+function cerrarModal() {
+  document.getElementById("modal").classList.remove("activo");
+  document.getElementById("f-titulo").value = "";
+  document.getElementById("f-archivo").value = "";
+  document.getElementById("f-icono").value = "📙";
+  document.getElementById("f-descripcion").value = "";
+  document.getElementById("f-etiqueta").value = "";
+}
+
+function guardarLibro() {
+  const titulo = document.getElementById("f-titulo").value.trim();
+  const archivo = document.getElementById("f-archivo").value.trim();
+  const lenguaje = document.getElementById("f-lenguaje").value;
+  const icono = document.getElementById("f-icono").value.trim() || "📕";
+  const descripcion = document.getElementById("f-descripcion").value.trim();
+  const etiqueta = document.getElementById("f-etiqueta").value.trim();
+
+  if (!titulo || !archivo) {
+    alert("⚠️ El título y el nombre del archivo son obligatorios.");
+    return;
+  }
+
+  if (!archivo.toLowerCase().endsWith(".html")) {
+    alert("⚠️ El archivo debe terminar en .html");
+    return;
+  }
+
+  const personalizados = obtenerPersonalizados();
+
+  if (personalizados.some(l => l.archivo === archivo) ||
+      librosBase.some(l => l.archivo === archivo)) {
+    alert("⚠️ Ya existe un libro con ese archivo.");
+    return;
+  }
+
+  personalizados.push({
+    titulo, archivo, icono, lenguaje, descripcion,
+    etiqueta: etiqueta || lenguaje
+  });
+
+  guardarPersonalizados(personalizados);
+  cerrarModal();
+  renderizarFiltros();
+  renderizar(document.getElementById("buscador").value);
+  mostrarToast("✅ Libro añadido");
+}
+
+/* ============================================
+   🗑️ ELIMINAR
+   ============================================ */
+function eliminarLibro(evento, archivo) {
+  evento.preventDefault();
+  evento.stopPropagation();
+
+  if (!confirm(`¿Eliminar "${archivo}" de tu biblioteca?`)) return;
+
+  const personalizados = obtenerPersonalizados().filter(l => l.archivo !== archivo);
+  guardarPersonalizados(personalizados);
+  renderizarFiltros();
+  renderizar(document.getElementById("buscador").value);
+  mostrarToast("🗑️ Libro eliminado");
+}
+
+function borrarTodosPersonalizados() {
+  if (obtenerPersonalizados().length === 0) {
+    alert("No hay libros añadidos por ti.");
+    return;
+  }
+  if (!confirm("¿Borrar TODOS los libros que añadiste?")) return;
+  localStorage.removeItem(CLAVE);
+  renderizarFiltros();
+  renderizar(document.getElementById("buscador").value);
+  mostrarToast("🗑️ Todos los libros personalizados borrados");
+}
+
+/* ============================================
+   ⚙️ INFO PWA
+   ============================================ */
+function abrirInfo() {
+  const modal = document.getElementById("modal-info");
+  const contenido = document.getElementById("info-contenido");
+
+  const online = navigator.onLine;
+  const swSoportado = "serviceWorker" in navigator;
+  const swActivo = swSoportado && navigator.serviceWorker.controller;
+  const totalLibros = obtenerTodos().length;
+  const personalizados = obtenerPersonalizados().length;
+
+  contenido.innerHTML = `
+    <div class="info-pwa ${online ? "online" : "offline"}">
+      <strong>${online ? "🟢 En línea" : "🟠 Sin conexión"}</strong><br>
+      ${online ? "Tienes internet." : "Estás usando la app en modo offline."}
+    </div>
+
+    <div class="info-pwa ${swActivo ? "online" : "offline"}">
+      <strong>Service Worker:</strong>
+      ${swSoportado ? (swActivo ? "✅ Activo" : "⚠️ Registrado pero no activo") : "❌ No soportado"}
+    </div>
+
+    <div class="info-pwa">
+      <strong>📚 Libros totales:</strong> ${totalLibros}<br>
+      <strong>➕ Añadidos por ti:</strong> ${personalizados}
+    </div>
+
+    <div class="info-pwa">
+      <strong>💾 LocalStorage:</strong>
+      ${localStorage.getItem(CLAVE) ? "✅ Con datos guardados" : "Vacío"}
+    </div>
+
+    <p style="font-size:0.8em; color:#666; margin-top:10px;">
+      <strong>Nota:</strong> en Spck Code, el Service Worker puede no activarse porque requiere HTTPS.
+      Para PWA completa, súbelo a GitHub Pages.
+    </p>
+  `;
+
+  modal.classList.add("activo");
+}
+
+function cerrarInfo() {
+  document.getElementById("modal-info").classList.remove("activo");
+}
+
+function borrarCache() {
+if (!confirm("¿Borrar la caché de la PWA? (No borra tus libros personalizados)")) return;
+
+  if ("caches" in window) {
+    caches.keys().then(nombres => {
+      Promise.all(nombres.map(n => caches.delete(n))).then(() => {
+        mostrarToast("🗑️ Caché borrada");
+      });
+    });
+  } else {
+    mostrarToast("⚠️ Caché no soportada");
+  }
+}
+
+/* ============================================
+   📢 TOAST
+   ============================================ */
+function mostrarToast(mensaje) {
+  const toast = document.getElementById("toast");
+  toast.textContent = mensaje;
+  toast.classList.add("mostrar");
+  setTimeout(() => toast.classList.remove("mostrar"), 2500);
+}
+
+/* ============================================
+   🔍 BUSCADOR
+   ============================================ */
+document.getElementById("buscador").addEventListener("input", (e) => {
+  renderizar(e.target.value);
+});
+
+/* ============================================
+   🌐 ESTADO ONLINE/OFFLINE
+   ============================================ */
+function actualizarEstadoPWA() {
+  const estado = document.getElementById("estado-pwa");
+  estado.textContent = navigator.onLine
+    ? "🟢 En línea"
+    : "🟠 Modo offline";
+}
+
+window.addEventListener("online", actualizarEstadoPWA);
+window.addEventListener("offline", actualizarEstadoPWA);
+
+/* ============================================
+   🚀 REGISTRAR SERVICE WORKER (PWA)
+   ============================================ */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js")
+      .then(reg => console.log("✅ Service Worker registrado:", reg.scope))
+      .catch(err => console.warn("⚠️ Service Worker no registrado:", err.message));
+  });
+}
+
+/* ============================================
+   🚀 INICIO
+   ============================================ */
+renderizarFiltros();
+renderizar();
+actualizarEstadoPWA();
+</script>
+
+</body>
+</html>

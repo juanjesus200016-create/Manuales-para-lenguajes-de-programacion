@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabla de Referencias 1</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 15px; line-height: 1.5; font-size: 14px; color: #222; }
+  h1 { color: #2c3e50; border-bottom: 3px solid #2c3e50; padding-bottom: 8px; font-size: 1.5em; }
+  h2 { color: #fff; background: #2c3e50; padding: 8px 12px; border-radius: 5px; margin-top: 25px; font-size: 1.1em; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 11.5px; }
+  th, td { border: 1px solid #ccc; padding: 6px; text-align: left; vertical-align: top; }
+  th { background: #2c3e50; color: #fff; font-size: 11px; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; color: #c0392b; font-family: monospace; font-size: 11px; }
+  .tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 8px; font-weight: bold; color: #fff; }
+  .html { background: #e44d26; }
+  .css { background: #264de4; }
+  .js { background: #d4b400; color: #333; }
+  .php { background: #777bb4; }
+  .py { background: #3776ab; }
+  .c { background: #a8b9cc; color: #333; }
+  .btn-volver, #btnPDF {
+    position: fixed; top: 10px; padding: 8px 14px;
+    border: none; border-radius: 8px; font-weight: bold;
+    font-size: 13px; text-decoration: none; color: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    z-index: 999; cursor: pointer;
+  }
+  .btn-volver { left: 10px; background: #2c3e50; }
+  #btnPDF { right: 10px; background: #e74c3c; }
+  @media print { .btn-volver, #btnPDF { display: none; } }
+</style>
+</head>
+<body>
+
+<a href="biblioteca.html" class="btn-volver">← Biblioteca</a>
+<button id="btnPDF" onclick="window.print()">📥 PDF</button>
+
+<h1>📊 Tabla de Referencias 1</h1>
+
+<h2>1. Comparativa de lenguajes</h2>
+<table>
+  <tr>
+    <th>Lenguaje</th>
+    <th>Año</th>
+    <th>Creador</th>
+    <th>¿Qué es?</th>
+    <th>¿Para qué sirve?</th>
+  </tr>
+  <tr>
+    <td><span class="tag html">HTML</span></td>
+    <td>1991</td>
+    <td>Tim Berners-Lee</td>
+    <td>Lenguaje de marcado</td>
+    <td>Estructura de páginas web</td>
+  </tr>
+  <tr>
+    <td><span class="tag css">CSS</span></td>
+    <td>1996</td>
+    <td>Håkon Wium Lie</td>
+    <td>Lenguaje de estilos</td>
+    <td>Diseño visual</td>
+  </tr>
+  <tr>
+    <td><span class="tag js">JS</span></td>
+    <td>1995</td>
+    <td>Brendan Eich</td>
+    <td>Lenguaje de programación</td>
+    <td>Interactividad en navegador y backend</td>
+  </tr>
+  <tr>
+    <td><span class="tag php">PHP</span></td>
+    <td>1994</td>
+    <td>Rasmus Lerdorf</td>
+    <td>Lenguaje de programación</td>
+    <td>Backend web, MySQL</td>
+  </tr>
+  <tr>
+    <td><span class="tag py">Python</span></td>
+    <td>1991</td>
+    <td>Guido van Rossum</td>
+    <td>Lenguaje de programación</td>
+    <td>Backend, datos, IA, scripts</td>
+  </tr>
+  <tr>
+    <td><span class="tag c">C</span></td>
+    <td>1972</td>
+    <td>Dennis Ritchie</td>
+    <td>Lenguaje de programación</td>
+    <td>Sistemas, embebidos, drivers</td>
+  </tr>
+</table>
+
+<h2>2. Comandos HTML</h2>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+    <th>Dónde se coloca</th>
+  </tr>
+  <tr>
+    <td>Estructura</td>
+    <td><code>&lt;!DOCTYPE html&gt;</code></td>
+    <td>Declara HTML5</td>
+    <td>Primera línea</td>
+  </tr>
+  <tr>
+    <td>Raíz</td>
+    <td><code>&lt;html lang="es"&gt;</code></td>
+    <td>Contiene el documento</td>
+    <td>Después del doctype</td>
+  </tr>
+  <tr>
+    <td>Cabeza</td>
+    <td><code>&lt;head&gt;</code></td>
+    <td>Metadatos invisibles</td>
+    <td>Dentro de html</td>
+  </tr>
+  <tr>
+    <td>Cuerpo</td>
+    <td><code>&lt;body&gt;</code></td>
+    <td>Contenido visible</td>
+    <td>Dentro de html</td>
+  </tr>
+  <tr>
+    <td>Título</td>
+    <td><code>&lt;h1&gt;...&lt;/h1&gt;</code></td>
+    <td>Jerarquía de títulos h1-h6</td>
+    <td>Dentro de body</td>
+  </tr>
+  <tr>
+    <td>Párrafo</td>
+    <td><code>&lt;p&gt;texto&lt;/p&gt;</code></td>
+    <td>Bloque de texto</td>
+    <td>Dentro de body</td>
+  </tr>
+  <tr>
+    <td>Enlace</td>
+    <td><code>&lt;a href="url"&gt;texto&lt;/a&gt;</code></td>
+    <td>Hipervínculo</td>
+    <td>Dentro de body</td>
+  </tr>
+  <tr>
+    <td>Imagen</td>
+    <td><code>&lt;img src="x.jpg" alt="desc"&gt;</code></td>
+    <td>Muestra imagen</td>
+    <td>Dentro de body</td>
+  </tr>
+  <tr>
+    <td>Lista</td>
+    <td><code>&lt;ul&gt;&lt;li&gt;x&lt;/li&gt;&lt;/ul&gt;</code></td>
+    <td>Lista con viñetas</td>
+    <td>Dentro de body</td>
+  </tr>
+  <tr>
+    <td>Div</td>
+    <td><code>&lt;div&gt;...&lt;/div&gt;</code></td>
+    <td>Contenedor en bloque</td>
+    <td>Dentro de body</td>
+  </tr>
+  <tr>
+    <td>Span</td>
+    <td><code>&lt;span&gt;...&lt;/span&gt;</code></td>
+    <td>Contenedor en línea</td>
+    <td>Dentro de texto</td>
+  </tr>
+  <tr>
+    <td>Formulario</td>
+    <td><code>&lt;form action="x.php" method="POST"&gt;</code></td>
+    <td>Envía datos al servidor</td>
+    <td>Dentro de body</td>
+  </tr>
+  <tr>
+    <td>Input</td>
+    <td><code>&lt;input type="text" name="x"&gt;</code></td>
+    <td>Campo de entrada</td>
+    <td>Dentro de form</td>
+  </tr>
+  <tr>
+    <td>Botón</td>
+    <td><code>&lt;button type="submit"&gt;Enviar&lt;/button&gt;</code></td>
+    <td>Botón clicable</td>
+    <td>Dentro de form</td>
+  </tr>
+  <tr>
+    <td>Script</td>
+    <td><code>&lt;script src="x.js"&gt;&lt;/script&gt;</code></td>
+    <td>Incluye JavaScript</td>
+    <td>Body o head</td>
+  </tr>
+  <tr>
+    <td>Estilo</td>
+    <td><code>&lt;link rel="stylesheet" href="x.css"&gt;</code></td>
+    <td>Vincula CSS externo</td>
+    <td>Dentro de head</td>
+  </tr>
+  <tr>
+    <td>Comentario</td>
+    <td><code>&lt;!-- texto --&gt;</code></td>
+    <td>Comentario invisible</td>
+    <td>Cualquier lugar</td>
+  </tr>
+</table>
+
+<h2>3. Comandos CSS</h2>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+    <th>Dónde se coloca</th>
+  </tr>
+  <tr>
+    <td>Selector etiqueta</td>
+    <td><code>p { color: red; }</code></td>
+    <td>Estilo a todas las p</td>
+    <td>Archivo .css</td>
+  </tr>
+  <tr>
+    <td>Selector clase</td>
+    <td><code>.destacado { ... }</code></td>
+    <td>Estilo reutilizable</td>
+    <td>Archivo .css</td>
+  </tr>
+  <tr>
+    <td>Selector ID</td>
+    <td><code>#titulo { ... }</code></td>
+    <td>Estilo único</td>
+    <td>Archivo .css</td>
+  </tr>
+  <tr>
+    <td>Universal</td>
+    <td><code>* { box-sizing: border-box; }</code></td>
+    <td>Aplica a todo</td>
+    <td>Primera regla</td>
+  </tr>
+  <tr>
+    <td>Color texto</td>
+    <td><code>color: #333;</code></td>
+    <td>Color de letra</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Fondo</td>
+    <td><code>background: #f0f0f0;</code></td>
+    <td>Color de fondo</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Tamaño</td>
+    <td><code>font-size: 16px;</code></td>
+    <td>Tamaño de letra</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Tipografía</td>
+    <td><code>font-family: Arial, sans-serif;</code></td>
+    <td>Fuente con fallback</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Padding</td>
+    <td><code>padding: 10px 20px;</code></td>
+    <td>Espacio interno</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Margin</td>
+    <td><code>margin: 0 auto;</code></td>
+    <td>Espacio externo (auto centra)</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Borde</td>
+    <td><code>border: 2px solid #333;</code></td>
+    <td>Borde (grosor estilo color)</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Radio</td>
+    <td><code>border-radius: 8px;</code></td>
+    <td>Esquinas redondeadas</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Sombra</td>
+    <td><code>box-shadow: 2px 2px 5px rgba(0,0,0,0.3);</code></td>
+    <td>Sombra de caja</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Display</td>
+    <td><code>display: flex;</code></td>
+    <td>Tipo visual</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Grid</td>
+    <td><code>display: grid; grid-template-columns: 1fr 1fr;</code></td>
+    <td>Cuadrícula 2D</td>
+    <td>Dentro de contenedor</td>
+  </tr>
+  <tr>
+    <td>Transición</td>
+    <td><code>transition: all 0.3s ease;</code></td>
+    <td>Cambios suaves</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Hover</td>
+    <td><code>.btn:hover { ... }</code></td>
+    <td>Estilo al pasar el ratón</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Variables</td>
+    <td><code>:root { --color: #333; }</code></td>
+    <td>Valores reutilizables</td>
+    <td>Al inicio del CSS</td>
+  </tr>
+</table>
+
+<h2>4. Comandos JavaScript</h2>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+    <th>Dónde se coloca</th>
+  </tr>
+  <tr>
+    <td>Constante</td>
+    <td><code>const libro = "HTML";</code></td>
+    <td>Referencia fija reutilizable</td>
+    <td>Antes de usarla</td>
+  </tr>
+  <tr>
+    <td>Variable</td>
+    <td><code>let contador = 0;</code></td>
+    <td>Variable modificable</td>
+    <td>Antes de usarla</td>
+  </tr>
+  <tr>
+    <td>Imprimir</td>
+    <td><code>console.log("Hola");</code></td>
+    <td>Muestra en consola</td>
+    <td>Dentro de script</td>
+  </tr>
+  <tr>
+    <td>Alerta</td>
+    <td><code>alert("Hola");</code></td>
+    <td>Ventana emergente</td>
+    <td>Dentro de script</td>
+  </tr>
+  <tr>
+    <td>Función</td>
+    <td><code>function suma(a,b) { return a+b; }</code></td>
+    <td>Bloque reutilizable</td>
+    <td>Antes de llamarla</td>
+  </tr>
+  <tr>
+    <td>Arrow function</td>
+    <td><code>const suma = (a,b) => a+b;</code></td>
+    <td>Función corta</td>
+    <td>Antes de llamarla</td>
+  </tr>
+  <tr>
+    <td>Condicional</td>
+    <td><code>if (x > 5) { ... }</code></td>
+    <td>Ejecuta si cumple</td>
+    <td>Dentro de función</td>
+  </tr>
+  <tr>
+    <td>Bucle for</td>
+    <td><code>for (let i=0; i&lt;5; i++) {}</code></td>
+    <td>Repite N veces</td>
+    <td>Dentro de función</td>
+  </tr>
+  <tr>
+    <td>Array</td>
+    <td><code>const frutas = ["Manzana", "Pera"];</code></td>
+    <td>Lista ordenada</td>
+    <td>Antes de usar</td>
+  </tr>
+  <tr>
+    <td>Objeto</td>
+    <td><code>const p = { nombre: "Ana", edad: 25 };</code></td>
+    <td>Clave:valor</td>
+    <td>Antes de usar</td>
+  </tr>
+  <tr>
+    <td>Seleccionar</td>
+    <td><code>document.querySelector("#id");</code></td>
+    <td>Busca en el DOM</td>
+    <td>Después de cargar HTML</td>
+  </tr>
+  <tr>
+    <td>Modificar texto</td>
+    <td><code>el.textContent = "Hola";</code></td>
+    <td>Cambia contenido</td>
+    <td>Sobre elemento</td>
+  </tr>
+  <tr>
+    <td>Evento click</td>
+    <td><code>btn.addEventListener("click", fn);</code></td>
+    <td>Escucha clics</td>
+    <td>Sobre elemento</td>
+  </tr>
+  <tr>
+    <td>Crear elemento</td>
+    <td><code>document.createElement("p");</code></td>
+    <td>Crea nodo</td>
+    <td>En el script</td>
+  </tr>
+  <tr>
+    <td>Añadir al DOM</td>
+    <td><code>padre.appendChild(hijo);</code></td>
+    <td>Inserta elemento</td>
+    <td>Sobre elemento padre</td>
+  </tr>
+  <tr>
+    <td>Fetch</td>
+    <td><code>fetch(url).then(r => r.json())</code></td>
+    <td>Pide datos</td>
+    <td>Dentro de async</td>
+  </tr>
+  <tr>
+    <td>Async/Await</td>
+    <td><code>async function f() { await fetch(...); }</code></td>
+    <td>Espera resultados</td>
+    <td>Función async</td>
+  </tr>
+  <tr>
+    <td>JSON</td>
+    <td><code>JSON.parse('{"a":1}')</code></td>
+    <td>String → Objeto</td>
+    <td>Con datos</td>
+  </tr>
+  <tr>
+    <td>LocalStorage</td>
+    <td><code>localStorage.setItem("k","v");</code></td>
+    <td>Guarda persistente</td>
+    <td>En el script</td>
+  </tr>
+  <tr>
+    <td>Map</td>
+    <td><code>[1,2,3].map(x => x*2);</code></td>
+    <td>Transforma array</td>
+    <td>Sobre array</td>
+  </tr>
+  <tr>
+    <td>Filter</td>
+    <td><code>[1,2,3].filter(x => x>1);</code></td>
+    <td>Filtra array</td>
+    <td>Sobre array</td>
+  </tr>
+  <tr>
+    <td>Reduce</td>
+    <td><code>[1,2,3].reduce((a,b)=>a+b, 0);</code></td>
+    <td>Reduce a un valor</td>
+    <td>Sobre array</td>
+  </tr>
+</table>
+
+<h2>5. Comandos PHP</h2>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+    <th>Dónde se coloca</th>
+  </tr>
+  <tr>
+    <td>Etiqueta</td>
+    <td><code>&lt;?php ... ?&gt;</code></td>
+    <td>Delimita código PHP</td>
+    <td>En archivos .php</td>
+  </tr>
+  <tr>
+    <td>Echo corto</td>
+    <td><code>&lt;?= $var ?&gt;</code></td>
+    <td>Muestra variable</td>
+    <td>En HTML embebido</td>
+  </tr>
+  <tr>
+    <td>Variable</td>
+    <td><code>$nombre = "Ana";</code></td>
+    <td>Almacena valor (con $)</td>
+    <td>Antes de usar</td>
+  </tr>
+  <tr>
+    <td>Constante</td>
+    <td><code>const IVA = 0.16;</code></td>
+    <td>Valor fijo (sin $)</td>
+    <td>Al inicio</td>
+  </tr>
+  <tr>
+    <td>Array</td>
+    <td><code>$frutas = ["Manzana"];</code></td>
+    <td>Lista</td>
+    <td>Antes de usar</td>
+  </tr>
+  <tr>
+    <td>Concatenar</td>
+    <td><code>$a . $b</code></td>
+    <td>Une strings (con punto)</td>
+    <td>En expresiones</td>
+  </tr>
+  <tr>
+    <td>Función</td>
+    <td><code>function suma($a,$b) { return $a+$b; }</code></td>
+    <td>Bloque reutilizable</td>
+    <td>Antes de llamarla</td>
+  </tr>
+  <tr>
+    <td>Recibir POST</td>
+    <td><code>$_POST["nombre"]</code></td>
+    <td>Datos de formulario</td>
+    <td>En procesar.php</td>
+  </tr>
+  <tr>
+    <td>Recibir GET</td>
+    <td><code>$_GET["id"]</code></td>
+    <td>Datos de URL</td>
+    <td>En cualquier PHP</td>
+  </tr>
+  <tr>
+    <td>Sesión</td>
+    <td><code>session_start();</code></td>
+    <td>Inicia sesión</td>
+    <td>Antes de HTML</td>
+  </tr>
+  <tr>
+    <td>Conectar MySQL</td>
+    <td><code>new PDO("mysql:host=localhost;dbname=x","root","");</code></td>
+    <td>Conexión a DB</td>
+    <td>En config.php</td>
+  </tr>
+  <tr>
+    <td>Query segura</td>
+    <td><code>$pdo-&gt;prepare("...WHERE id=?");</code></td>
+    <td>Evita inyección SQL</td>
+    <td>Con DB</td>
+  </tr>
+  <tr>
+    <td>Escapar</td>
+    <td><code>htmlspecialchars($texto)</code></td>
+    <td>Evita XSS</td>
+    <td>Al imprimir</td>
+  </tr>
+  <tr>
+    <td>Hash</td>
+    <td><code>password_hash($p, PASSWORD_DEFAULT)</code></td>
+    <td>Contraseña segura</td>
+    <td>Al registrar</td>
+  </tr>
+  <tr>
+    <td>Redirigir</td>
+    <td><code>header("Location: x.php"); exit;</code></td>
+    <td>Redirige</td>
+    <td>Antes de output</td>
+  </tr>
+  <tr>
+    <td>Incluir</td>
+    <td><code>require "config.php";</code></td>
+    <td>Trae archivo</td>
+    <td>Al inicio</td>
+  </tr>
+  <tr>
+    <td>Foreach</td>
+    <td><code>foreach ($arr as $x) { ... }</code></td>
+    <td>Recorre array</td>
+    <td>Dentro de función</td>
+  </tr>
+</table>
+
+<h2>6. Comandos Python</h2>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+  </tr>
+  <tr>
+    <td>Imprimir</td>
+    <td><code>print("Hola")</code></td>
+    <td>Muestra en pantalla</td>
+  </tr>
+  <tr>
+    <td>Variable</td>
+    <td><code>nombre = "Ana"</code></td>
+    <td>Sin tipo, se detecta solo</td>
+  </tr>
+  <tr>
+    <td>Condicional</td>
+    <td><code>if x > 5:</code></td>
+    <td>Indentación con 4 espacios</td>
+  </tr>
+  <tr>
+    <td>Bucle</td>
+    <td><code>for i in range(5):</code></td>
+    <td>Repite 0 a 4</td>
+  </tr>
+  <tr>
+    <td>Función</td>
+    <td><code>def suma(a, b): return a+b</code></td>
+    <td>Bloque reutilizable</td>
+  </tr>
+  <tr>
+    <td>Lista</td>
+    <td><code>frutas = ["Manzana"]</code></td>
+    <td>Lista mutable</td>
+  </tr>
+  <tr>
+    <td>Diccionario</td>
+    <td><code>p = {"nombre": "Ana"}</code></td>
+    <td>Clave:valor</td>
+  </tr>
+  <tr>
+    <td>Importar</td>
+    <td><code>import math</code></td>
+    <td>Trae librería</td>
+  </tr>
+  <tr>
+    <td>F-string</td>
+    <td><code>f"Hola, {nombre}"</code></td>
+    <td>Interpola variables</td>
+  </tr>
+</table>
+
+<h2>7. Comandos C</h2>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+  </tr>
+  <tr>
+    <td>Librería</td>
+    <td><code>#include &lt;stdio.h&gt;</code></td>
+    <td>Trae printf, scanf</td>
+  </tr>
+  <tr>
+    <td>Main</td>
+    <td><code>int main() { return 0; }</code></td>
+    <td>Punto de entrada</td>
+  </tr>
+  <tr>
+    <td>Imprimir</td>
+    <td><code>printf("Hola\n");</code></td>
+    <td>Muestra en pantalla</td>
+  </tr>
+  <tr>
+    <td>Leer</td>
+    <td><code>scanf("%d", &edad);</code></td>
+    <td>Lee del teclado</td>
+  </tr>
+  <tr>
+    <td>Variable</td>
+    <td><code>int edad = 25;</code></td>
+    <td>Requiere tipo</td>
+  </tr>
+  <tr>
+    <td>Condicional</td>
+    <td><code>if (x > 5) { }</code></td>
+    <td>Ejecuta si cumple</td>
+  </tr>
+  <tr>
+    <td>Bucle</td>
+    <td><code>for (int i=0; i&lt;5; i++) {}</code></td>
+    <td>Repite N veces</td>
+  </tr>
+  <tr>
+    <td>Función</td>
+    <td><code>int suma(int a, int b) { return a+b; }</code></td>
+    <td>Requiere tipos</td>
+  </tr>
+  <tr>
+    <td>Array</td>
+    <td><code>int numeros[5] = {1,2,3,4,5};</code></td>
+    <td>Tamaño fijo</td>
+  </tr>
+  <tr>
+    <td>Puntero</td>
+    <td><code>int *ptr = &variable;</code></td>
+    <td>Dirección de memoria</td>
+  </tr>
+</table>
+
+<p style="text-align:center; color:#888; padding:20px; margin-top:30px;">
+<em>Fin de Tabla 1 · Continúa con tabla2.html</em>
+</p>
+
+</body>
+</html>

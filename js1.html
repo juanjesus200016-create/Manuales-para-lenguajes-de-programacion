@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual JavaScript - Parte 1</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 900px; margin: 0 auto; padding: 70px 20px 20px;
+    line-height: 1.7; color: #222; background: #fff;
+  }
+  h1 { color: #d4b400; border-bottom: 4px solid #d4b400; padding-bottom: 12px; font-size: 2em; }
+  h2 { color: #fff; background: #d4b400; padding: 10px 15px; border-radius: 5px; margin-top: 40px; }
+  h3 { color: #d4b400; border-left: 5px solid #d4b400; padding-left: 12px; margin-top: 30px; }
+  h4 { color: #34495e; margin-top: 20px; }
+  pre {
+    background: #2d2d2d; color: #f8f8f2; border-radius: 6px;
+    padding: 15px; overflow-x: auto;
+    font-family: 'Consolas', monospace; font-size: 13px; line-height: 1.5;
+  }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #b7950b; font-family: 'Consolas', monospace; }
+  pre code { background: none; color: inherit; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 14px; }
+  th, td { border: 1px solid #ddd; padding: 10px; text-align: left; vertical-align: top; }
+  th { background: #d4b400; color: #fff; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .nota, .tip, .warn { padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+  .nota { background: #e8f4fd; border-left: 5px solid #3498db; }
+  .tip { background: #eafaf1; border-left: 5px solid #27ae60; }
+  .warn { background: #fef5e7; border-left: 5px solid #f39c12; }
+  .indice { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px 30px; }
+  .indice a { color: #b7950b; text-decoration: none; }
+  .indice a:hover { text-decoration: underline; }
+
+  .btn-volver, #btnPDF {
+    position: fixed; top: 15px;
+    padding: 10px 16px; border: none; border-radius: 8px;
+    font-weight: bold; font-size: 14px;
+    text-decoration: none; color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 999; cursor: pointer; font-family: Arial, sans-serif;
+  }
+  .btn-volver { left: 15px; background: #2c3e50; }
+  .btn-volver:hover { background: #1a252f; }
+  #btnPDF { right: 15px; background: #d4b400; color: #333; }
+  #btnPDF:hover { background: #b7950b; }
+  @media print { .btn-volver, #btnPDF { display: none; } body { padding: 10px; font-size: 12px; } }
+</style>
+</head>
+<body>
+
+<a href="biblioteca.html" class="btn-volver">← Biblioteca</a>
+<button id="btnPDF" onclick="window.print()">📥 PDF</button>
+
+<h1>⚡ Manual de JavaScript — Parte 1</h1>
+<p><em>Fundamentos: sintaxis, variables, tipos, operadores, condicionales y bucles</em></p>
+
+<div class="indice">
+<h3>📑 Contenido</h3>
+<ol>
+  <li><a href="#cap1">¿Qué es JavaScript?</a></li>
+  <li><a href="#cap2">Cómo incluirlo en HTML</a></li>
+  <li><a href="#cap3">Variables</a></li>
+  <li><a href="#cap4">Tipos de datos</a></li>
+  <li><a href="#cap5">Operadores</a></li>
+  <li><a href="#cap6">Condicionales</a></li>
+  <li><a href="#cap7">Bucles</a></li>
+  <li><a href="#cap8">Funciones</a></li>
+  <li><a href="#cap9">Ejercicios</a></li>
+</ol>
+</div>
+
+<h2 id="cap1">Capítulo 1 — ¿Qué es JavaScript?</h2>
+
+<p>JavaScript (JS) es el lenguaje de programación <strong>del navegador</strong>. Fue creado en 1995 por Brendan Eich en solo 10 días. Hoy es uno de los lenguajes más usados del mundo.</p>
+
+<h3>1.1 — Los 3 pilares (recordatorio)</h3>
+<table>
+  <tr><th>Lenguaje</th><th>Rol</th><th>Analogía</th></tr>
+  <tr><td>HTML</td><td>Estructura</td><td>Esqueleto</td></tr>
+  <tr><td>CSS</td><td>Diseño</td><td>Ropa y piel</td></tr>
+  <tr><td><strong>JavaScript</strong></td><td><strong>Comportamiento</strong></td><td><strong>Músculos y cerebro</strong></td></tr>
+</table>
+
+<h3>1.2 — ¿Qué se puede hacer con JavaScript?</h3>
+<ul>
+  <li>Reaccionar a clics, teclas, scroll</li>
+  <li>Modificar HTML y CSS en vivo (DOM)</li>
+  <li>Validar formularios antes de enviar</li>
+  <li>Hacer peticiones a servidores (AJAX, fetch)</li>
+  <li>Crear animaciones, juegos, apps completas</li>
+  <li>Backend con Node.js</li>
+  <li>Apps móviles (React Native)</li>
+</ul>
+
+<h3>1.3 — ¿JS y Java son lo mismo?</h3>
+<p><strong>No.</strong> Son lenguajes completamente distintos. El nombre fue puro marketing en los 90.</p>
+
+<h3>1.4 — Diferencia con PHP</h3>
+<table>
+  <tr><th></th><th>JavaScript</th><th>PHP</th></tr>
+  <tr><td>Se ejecuta</td><td>En el navegador</td><td>En el servidor</td></tr>
+  <tr><td>El usuario ve el código</td><td>Sí</td><td>No</td></tr>
+  <tr><td>Puede modificar la página</td><td>En vivo</td><td>Antes de enviar</td></tr>
+</table>
+
+<div class="nota">
+  <strong>🧠 Idea clave:</strong> JS es <strong>reactivo</strong>. Reacciona a lo que hace el usuario sin recargar la página.
+</div>
+
+<h2 id="cap2">Capítulo 2 — Cómo incluirlo en HTML</h2>
+
+<h3>2.1 — Interno (dentro del HTML)</h3>
+<pre>&lt;script&gt;
+    alert("Hola mundo");
+&lt;/script&gt;</pre>
+
+<h3>2.2 — Externo (archivo .js)</h3>
+<pre>&lt;script src="script.js"&gt;&lt;/script&gt;</pre>
+
+<h3>2.3 — ¿Dónde ponerlo?</h3>
+<pre>&lt;body&gt;
+    &lt;h1&gt;Título&lt;/h1&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</pre>
+
+<p>O en el <code>&lt;head&gt;</code> con <code>defer</code>:</p>
+<pre>&lt;head&gt;
+    &lt;script src="script.js" defer&gt;&lt;/script&gt;
+&lt;/head&gt;</pre>
+
+<div class="tip">
+  <strong>💡 Regla:</strong> pon el script al final del <code>&lt;body&gt;</code> o usa <code>defer</code>. Así el HTML carga primero y JS no bloquea.
+</div>
+
+<h3>2.4 — Salidas en JS</h3>
+<pre>console.log("Hola");       // Consola del navegador (F12)
+alert("Hola");              // Ventana emergente
+document.write("Hola");     // En el HTML (evitar)
+document.getElementById("x").textContent = "Hola"; // En un elemento</pre>
+
+<h3>2.5 — La consola del navegador</h3>
+<p>En Chrome/Edge/Firefox: pulsa <strong>F12</strong> o clic derecho → Inspeccionar → Consola. Ahí ves los <code>console.log()</code>.</p>
+
+<h2 id="cap3">Capítulo 3 — Variables</h2>
+
+<h3>3.1 — Las 3 formas de declarar</h3>
+<pre>var nombre = "Ana";     // Antigua, evitar
+let edad = 25;          // Moderna, se puede cambiar
+const PI = 3.14159;     // Constante, NO se puede cambiar</pre>
+
+<h3>3.2 — var vs let vs const</h3>
+<table>
+  <tr><th></th><th>var</th><th>let</th><th>const</th></tr>
+  <tr><td>Se puede reasignar</td><td>Sí</td><td>Sí</td><td>No</td></tr>
+  <tr><td>Alcance</td><td>Función</td><td>Bloque</td><td>Bloque</td></tr>
+  <tr><td>Se puede redeclarar</td><td>Sí</td><td>No</td><td>No</td></tr>
+  <tr><td>Recomendado</td><td>❌</td><td>✅</td><td>✅</td></tr>
+</table>
+
+<div class="tip">
+  <strong>💡 Regla moderna:</strong> usa <code>const</code> por defecto. Solo usa <code>let</code> si vas a reasignar. <code>var</code> ya no se usa.
+</div>
+
+<h3>3.3 — Nombres válidos</h3>
+<pre>let nombre = "Ana";        // ✅
+let nombreCompleto = "..."; // ✅ camelCase
+let _privado = 1;          // ✅
+let $precio = 100;         // ✅
+
+let 1numero = 5;           // ❌ No puede empezar con número
+let mi-variable = 1;       // ❌ No guiones
+let class = "x";           // ❌ Palabra reservada</pre>
+
+<h3>3.4 — Alcance (scope)</h3>
+<pre>let global = "visible en todo";
+
+function ejemplo() {
+    let local = "solo dentro de la función";
+    console.log(global); // ✅
+    console.log(local);  // ✅
+}
+
+console.log(local); // ❌ Error, no existe aquí</pre>
+
+<h2 id="cap4">Capítulo 4 — Tipos de datos</h2>
+
+<h3>4.1 — Los 7 tipos primitivos</h3>
+<table>
+  <tr><th>Tipo</th><th>Ejemplo</th><th>Uso</th></tr>
+  <tr><td><code>string</code></td><td><code>"Hola"</code></td><td>Texto</td></tr>
+  <tr><td><code>number</code></td><td><code>42</code> o <code>3.14</code></td><td>Números (no hay int/float separados)</td></tr>
+  <tr><td><code>boolean</code></td><td><code>true</code> / <code>false</code></td><td>Verdadero/falso</td></tr>
+  <tr><td><code>null</code></td><td><code>null</code></td><td>Vacío intencional</td></tr>
+  <tr><td><code>undefined</code></td><td><code>undefined</code></td><td>Sin definir</td></tr>
+  <tr><td><code>symbol</code></td><td><code>Symbol("id")</code></td><td>Identificador único</td></tr>
+  <tr><td><code>bigint</code></td><td><code>9007199254740991n</code></td><td>Números enormes</td></tr>
+</table>
+
+<h3>4.2 — Ver el tipo</h3>
+<pre>typeof "Hola";       // "string"
+typeof 42;           // "number"
+typeof true;         // "boolean"
+typeof undefined;    // "undefined"
+typeof null;         // "object" (curiosidad de JS)
+typeof [];           // "object"
+typeof {};           // "object"
+typeof function(){}; // "function"</pre>
+
+<h3>4.3 — Strings</h3>
+<pre>let simple = 'Hola';           // Comillas simples
+let doble = "Hola";            // Comillas dobles
+let template = `Hola ${nombre}`; // Template literals (backticks)
+
+// Propiedades y métodos
+"Hola".length;                 // 4
+"Hola".toUpperCase();          // "HOLA"
+"Hola".toLowerCase();          // "hola"
+"Hola".charAt(0);              // "H"
+"Hola".includes("ol");         // true
+"Hola".replace("H", "J");      // "Jola"
+"Hola".split("");              // ["H","o","l","a"]
+"  Hola  ".trim();             // "Hola"
+"Hola".repeat(3);              // "HolaHolaHola"</pre>
+
+<h3>4.4 — Template literals (backticks)</h3>
+<pre>let nombre = "Ana";
+let edad = 25;
+
+// Antiguo
+let texto = "Hola, " + nombre + ". Tienes " + edad + " años.";
+
+// Moderno
+let texto2 = `Hola, ${nombre}. Tienes ${edad} años.`;
+
+// Con operaciones
+let suma = `La suma es ${5 + 3}`; // "La suma es 8"</pre>
+
+<h3>4.5 — Números</h3>
+<pre>let entero = 42;
+let decimal = 3.14;
+let negativo = -10;
+let cientifico = 1e6;       // 1,000,000
+let hexadecimal = 0xFF;     // 255
+
+// Conversiones
+Number("42");         // 42
+parseInt("42.7");     // 42
+parseFloat("42.7");   // 42.7
+"42" * 1;             // 42 (truco)
+(42).toString();      // "42"</pre>
+
+<h3>4.6 — Booleanos y valores falsy</h3>
+<pre>// Estos son los valores "falsy" (se comportan como false):
+false
+0
+-0
+""          // string vacío
+null
+undefined
+NaN         // Not a Number
+
+// Todo lo demás es "truthy"
+if ("texto") console.log("Es truthy"); // Se ejecuta
+if (0) console.log("No se ejecuta");</pre>
+
+<h3>4.7 — Arrays</h3>
+<pre>let frutas = ["Manzana", "Pera", "Uva"];
+
+frutas[0];              // "Manzana"
+frutas.length;          // 3
+frutas.push("Kiwi");    // Añade al final
+frutas.pop();           // Quita el último
+frutas.unshift("Mango");// Añade al inicio
+frutas.shift();         // Quita el primero
+frutas.indexOf("Pera"); // 1
+frutas.includes("Uva"); // true
+frutas.join(", ");      // "Manzana, Pera, Uva"</pre>
+
+<h3>4.8 — Objetos</h3>
+<pre>let persona = {
+    nombre: "Ana",
+    edad: 25,
+    ciudad: "CDMX",
+    saludar: function() {
+        return `Hola, soy ${this.nombre}`;
+    }
+};
+
+persona.nombre;         // "Ana"
+persona["edad"];        // 25
+persona.saludar();      // "Hola, soy Ana"
+persona.telefono = "555"; // Añadir propiedad</pre>
+
+<h2 id="cap5">Capítulo 5 — Operadores</h2>
+
+<h3>5.1 — Aritméticos</h3>
+<pre>10 + 3   // 13
+10 - 3   // 7
+10 * 3   // 30
+10 / 3   // 3.333...
+10 % 3   // 1 (módulo)
+10 ** 3  // 1000 (potencia)
+
+let x = 5;
+x++;     // x = 6
+x--;     // x = 5
+x += 3;  // x = 8
+x -= 2;  // x = 6
+x *= 2;  // x = 12
+x /= 3;  // x = 4</pre>
+
+<h3>5.2 — Comparación</h3>
+<table>
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr>
+  <tr><td><code>==</code></td><td>Igual valor (con conversión)</td><td><code>5 == "5"</code> → true</td></tr>
+  <tr><td><code>===</code></td><td>Igual valor Y tipo</td><td><code>5 === "5"</code> → false</td></tr>
+  <tr><td><code>!=</code></td><td>Distinto valor</td><td>—</td></tr>
+  <tr><td><code>!==</code></td><td>Distinto valor o tipo</td><td>—</td></tr>
+  <tr><td><code>&lt;</code> <code>&gt;</code></td><td>Menor/mayor</td><td>—</td></tr>
+  <tr><td><code>&lt;=</code> <code>&gt;=</code></td><td>Menor/mayor o igual</td><td>—</td></tr>
+</table>
+
+<div class="warn">
+  <strong>⚠️ MUY IMPORTANTE:</strong> usa siempre <code>===</code> y <code>!==</code>. Evitan bugs por conversión automática.
+</div>
+
+<h3>5.3 — Lógicos</h3>
+<pre>true && false;   // false (AND)
+true || false;   // true (OR)
+!true;           // false (NOT)
+
+// Short-circuit
+let nombre = usuario || "Anónimo"; // Si usuario es falsy, usa "Anónimo"
+let valor = dato && dato.propiedad; // Si dato existe, accede</pre>
+
+<h3>5.4 — Operador ternario</h3>
+<pre>let edad = 20;
+let mensaje = edad >= 18 ? "Mayor" : "Menor";</pre>
+
+<h3>5.5 — Nullish coalescing (??)</h3>
+<pre>let valor = null;
+let resultado = valor ?? "Por defecto"; // "Por defecto"
+
+// Diferencia con ||
+let cero = 0;
+cero || "default";   // "default" (0 es falsy)
+cero ?? "default";   // 0 (solo null/undefined usan default)</pre>
+
+<h2 id="cap6">Capítulo 6 — Condicionales</h2>
+
+<h3>6.1 — if simple</h3>
+<pre>let edad = 18;
+if (edad >= 18) {
+    console.log("Mayor de edad");
+}</pre>
+
+<h3>6.2 — if / else</h3>
+<pre>if (edad >= 18) {
+    console.log("Mayor");
+} else {
+    console.log("Menor");
+}</pre>
+
+<h3>6.3 — else if</h3>
+<pre>let nota = 85;
+
+if (nota >= 90) {
+    console.log("Excelente");
+} else if (nota >= 80) {
+    console.log("Muy bien");
+} else if (nota >= 70) {
+    console.log("Bien");
+} else {
+    console.log("Reprobado");
+}</pre>
+
+<h3>6.4 — switch</h3>
+<pre>let dia = "lunes";
+
+switch (dia) {
+    case "lunes":
+    case "martes":
+        console.log("Inicio de semana");
+        break;
+    case "viernes":
+        console.log("¡Por fin!");
+        break;
+    default:
+        console.log("Otro día");
+}</pre>
+
+<div class="warn">
+  <strong>⚠️ No olvides el <code>break</code>.</strong> Sin él, se ejecutan los siguientes casos.
+</div>
+
+<h3>6.5 — Ternario encadenado</h3>
+<pre>let nota = 85;
+let nivel = nota >= 90 ? "A" :
+            nota >= 80 ? "B" :
+            nota >= 70 ? "C" : "F";</pre>
+
+<h2 id="cap7">Capítulo 7 — Bucles</h2>
+
+<h3>7.1 — for clásico</h3>
+<pre>for (let i = 0; i < 5; i++) {
+    console.log(`Iteración ${i}`);
+}</pre>
+
+<h3>7.2 — while</h3>
+<pre>let i = 0;
+while (i < 5) {
+    console.log(i);
+    i++;
+}</pre>
+
+<h3>7.3 — do...while</h3>
+<pre>let i = 0;
+do {
+    console.log(i);
+    i++;
+} while (i < 5);</pre>
+
+<h3>7.4 — for...of (arrays)</h3>
+<pre>let frutas = ["Manzana", "Pera", "Uva"];
+
+for (let fruta of frutas) {
+    console.log(fruta);
+}</pre>
+
+<h3>7.5 — for...in (objetos)</h3>
+<pre>let persona = { nombre: "Ana", edad: 25 };
+
+for (let clave in persona) {
+    console.log(`${clave}: ${persona[clave]}`);
+}</pre>
+
+<h3>7.6 — forEach en arrays</h3>
+<pre>let numeros = [1, 2, 3, 4];
+
+numeros.forEach((num, indice) => {
+    console.log(`${indice}: ${num}`);
+});</pre>
+
+<h3>7.7 — break y continue</h3>
+<pre>for (let i = 0; i < 10; i++) {
+    if (i === 3) continue; // Salta el 3
+    if (i === 7) break;    // Se detiene al llegar a 7
+    console.log(i);
+}</pre>
+
+<h2 id="cap8">Capítulo 8 — Funciones</h2>
+
+<h3>8.1 — Función básica</h3>
+<pre>function saludar() {
+    console.log("Hola");
+}
+saludar();</pre>
+
+<h3>8.2 — Con parámetros</h3>
+<pre>function saludar(nombre) {
+    console.log(`Hola, ${nombre}`);
+}
+saludar("Ana");</pre>
+
+<h3>8.3 — Con retorno</h3>
+<pre>function sumar(a, b) {
+    return a + b;
+}
+let resultado = sumar(5, 3); // 8</pre>
+
+<h3>8.4 — Parámetros por defecto</h3>
+<pre>function saludar(nombre = "invitado") {
+    return `Hola, ${nombre}`;
+}
+saludar();       // "Hola, invitado"
+saludar("Ana");  // "Hola, Ana"</pre>
+
+<h3>8.5 — Funciones anónimas</h3>
+<pre>let saludar = function(nombre) {
+    return `Hola, ${nombre}`;
+};</pre>
+
+<h3>8.6 — Arrow functions (modernas)</h3>
+<pre>// Clásica
+function sumar(a, b) {
+    return a + b;
+}
+
+// Arrow
+const sumar = (a, b) => a + b;
+
+// Con cuerpo
+const sumar2 = (a, b) => {
+    let resultado = a + b;
+    return resultado;
+};
+
+// Un parámetro sin paréntesis
+const doble = x => x * 2;</pre>
+
+<h3>8.7 — Parámetros rest</h3>
+<pre>function sumarTodo(...numeros) {
+    return numeros.reduce((total, n) => total + n, 0);
+}
+
+sumarTodo(1, 2, 3, 4); // 10</pre>
+
+<h3>8.8 — Callbacks</h3>
+<pre>function procesar(datos, callback) {
+    let resultado = datos * 2;
+    callback(resultado);
+}
+
+procesar(5, function(r) {
+    console.log(r); // 10
+});</pre>
+
+<h2 id="cap9">Capítulo 9 — Ejercicios</h2>
+
+<h3>Nivel 1 — Básico</h3>
+<ol>
+  <li>Declara una variable <code>nombre</code> y muéstrala con <code>console.log()</code>.</li>
+  <li>Suma dos números y muestra el resultado.</li>
+  <li>Pide la edad y muestra si es mayor o menor de edad.</li>
+</ol>
+
+<h3>Nivel 2 — Intermedio</h3>
+<ol>
+  <li>Crea un array con 5 frutas y muéstralas con <code>forEach</code>.</li>
+  <li>Haz una función que cuente cuántas vocales tiene un texto.</li>
+  <li>Genera la tabla de multiplicar del 1 al 10 con un bucle.</li>
+</ol>
+
+<h3>Nivel 3 — Avanzado</h3>
+<ol>
+  <li>Crea un objeto "persona" con propiedades y un método que lo salude.</li>
+  <li>Dado un array de números, devuelve solo los pares usando <code>filter</code>.</li>
+  <li>Usa arrow functions para multiplicar todos los números de un array por 2.</li>
+</ol>
+
+<hr>
+<p style="text-align:center; color:#888; padding:20px;">
+<em>Fin de JavaScript — Parte 1</em><br>
+<strong>Continúa con JavaScript — Parte 2: DOM, eventos, arrays avanzados</strong>
+</p>
+
+</body>
+</html>

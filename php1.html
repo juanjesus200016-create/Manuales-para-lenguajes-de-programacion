@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual PHP - Parte 1</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 70px 20px 20px;
+    line-height: 1.7;
+    color: #222;
+    background: #fff;
+  }
+  h1 { color: #777bb4; border-bottom: 4px solid #777bb4; padding-bottom: 12px; font-size: 2em; }
+  h2 { color: #fff; background: #777bb4; padding: 10px 15px; border-radius: 5px; margin-top: 40px; }
+  h3 { color: #777bb4; border-left: 5px solid #777bb4; padding-left: 12px; margin-top: 30px; }
+  h4 { color: #34495e; margin-top: 20px; }
+  pre {
+    background: #2d2d2d; color: #f8f8f2; border-radius: 6px;
+    padding: 15px; overflow-x: auto;
+    font-family: 'Consolas', monospace; font-size: 13px; line-height: 1.5;
+  }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #777bb4; font-family: 'Consolas', monospace; }
+  pre code { background: none; color: inherit; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 14px; }
+  th, td { border: 1px solid #ddd; padding: 10px; text-align: left; vertical-align: top; }
+  th { background: #777bb4; color: #fff; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .nota, .tip, .warn { padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+  .nota { background: #e8f4fd; border-left: 5px solid #3498db; }
+  .tip { background: #eafaf1; border-left: 5px solid #27ae60; }
+  .warn { background: #fef5e7; border-left: 5px solid #f39c12; }
+  .indice { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px 30px; }
+  .indice a { color: #777bb4; text-decoration: none; }
+  .indice a:hover { text-decoration: underline; }
+
+  .btn-volver, #btnPDF {
+    position: fixed; top: 15px;
+    padding: 10px 16px;
+    border: none; border-radius: 8px;
+    font-weight: bold; font-size: 14px;
+    text-decoration: none; color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 999; cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+  .btn-volver { left: 15px; background: #2c3e50; }
+  .btn-volver:hover { background: #1a252f; }
+  #btnPDF { right: 15px; background: #777bb4; }
+  #btnPDF:hover { background: #5e61a0; }
+
+  @media print {
+    .btn-volver, #btnPDF { display: none; }
+    body { padding: 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="biblioteca.html" class="btn-volver">← Biblioteca</a>
+<button id="btnPDF" onclick="window.print()">📥 PDF</button>
+
+<h1>🐘 Manual de PHP — Parte 1</h1>
+<p><em>Fundamentos: sintaxis, variables, tipos, operadores, condicionales y bucles</em></p>
+
+<div class="indice">
+<h3>📑 Contenido</h3>
+<ol>
+  <li><a href="#cap1">¿Qué es PHP?</a></li>
+  <li><a href="#cap2">Instalación y entorno</a></li>
+  <li><a href="#cap3">Sintaxis básica</a></li>
+  <li><a href="#cap4">Variables y constantes</a></li>
+  <li><a href="#cap5">Tipos de datos</a></li>
+  <li><a href="#cap6">Operadores</a></li>
+  <li><a href="#cap7">Condicionales</a></li>
+  <li><a href="#cap8">Bucles</a></li>
+  <li><a href="#cap9">Ejercicios</a></li>
+</ol>
+</div>
+
+<h2 id="cap1">Capítulo 1 — ¿Qué es PHP?</h2>
+
+<p>PHP significa <strong>PHP: Hypertext Preprocessor</strong> (sí, es recursivo). Es un lenguaje de <strong>scripting del lado del servidor</strong> creado en 1994 por Rasmus Lerdorf.</p>
+
+<h3>1.1 — ¿Qué significa "del lado del servidor"?</h3>
+<table>
+  <tr><th></th><th>Lado cliente (navegador)</th><th>Lado servidor</th></tr>
+  <tr><td>Qué es</td><td>Lo que ve el usuario</td><td>Lo que procesa el servidor</td></tr>
+  <tr><td>Lenguajes</td><td>HTML, CSS, JavaScript</td><td>PHP, Python, Node.js, Ruby</td></tr>
+  <tr><td>El usuario puede ver el código</td><td>Sí (Ver código fuente)</td><td>No, nunca</td></tr>
+  <tr><td>Se ejecuta</td><td>En el navegador</td><td>En el servidor antes de enviar</td></tr>
+</table>
+
+<h3>1.2 — ¿Qué se puede hacer con PHP?</h3>
+<ul>
+  <li><strong>Formularios:</strong> recibir y procesar datos del usuario</li>
+  <li><strong>Bases de datos:</strong> leer y escribir en MySQL</li>
+  <li><strong>Sesiones:</strong> mantener al usuario "logueado"</li>
+  <li><strong>Archivos:</strong> subir, leer, escribir</li>
+  <li><strong>APIs:</strong> devolver JSON a apps móviles</li>
+  <li><strong>Correos:</strong> enviar emails automáticos</li>
+</ul>
+
+<h3>1.3 — Sitios famosos hechos con PHP</h3>
+<ul>
+  <li>Facebook (originalmente)</li>
+  <li>Wikipedia</li>
+  <li>WordPress (el 43% de internet)</li>
+  <li>Slack, Mailchimp, Tumblr</li>
+</ul>
+
+<div class="nota">
+  <strong>🧠 Comparación con HTML:</strong> HTML es estático. PHP es <strong>dinámico</strong>. La misma página PHP puede mostrar cosas distintas según quién entre, qué hora sea, o qué haya en la base de datos.
+</div>
+
+<h2 id="cap2">Capítulo 2 — Instalación y entorno</h2>
+
+<h3>2.1 — La realidad del móvil</h3>
+<p>PHP <strong>NO se ejecuta en el navegador</strong>. Necesita un <strong>servidor web</strong> (Apache, Nginx) con PHP instalado. En el móvil con Spck Code esto es limitado.</p>
+
+<h3>2.2 — Opciones para practicar PHP</h3>
+<table>
+  <tr><th>Opción</th><th>Dónde</th><th>Requisitos</th></tr>
+  <tr><td><strong>XAMPP</strong></td><td>PC Windows/Mac/Linux</td><td>Instalación simple</td></tr>
+  <tr><td><strong>Laragon</strong></td><td>Windows</td><td>Portable, muy fácil</td></tr>
+  <tr><td><strong>MAMP</strong></td><td>Mac</td><td>Como XAMPP</td></tr>
+  <tr><td><strong>Docker</strong></td><td>Cualquiera</td><td>Más técnico</td></tr>
+  <tr><td><strong>Servidor en línea</strong></td><td>Web</td><td>Requiere internet</td></tr>
+  <tr><td><strong>Acode / Termux</strong></td><td>Android</td><td>Complejo</td></tr>
+</table>
+
+<div class="tip">
+  <strong>💡 Recomendación:</strong> cuando tengas acceso a PC, instala <strong>XAMPP</strong>. Es lo más simple. Mientras tanto, estudia la sintaxis con este manual y prueba cuando puedas.
+</div>
+
+<h3>2.3 — Tu primer archivo PHP</h3>
+<pre>&lt;?php
+echo "Hola mundo";
+?&gt;</pre>
+
+<p>Guardado como <code>index.php</code> y accediendo desde <code>http://localhost/index.php</code>, verás "Hola mundo".</p>
+
+<div class="warn">
+  <strong>⚠️ Aviso:</strong> si abres un archivo <code>.php</code> con doble clic (sin servidor), el navegador te mostrará el código o lo descargará. <strong>PHP requiere servidor.</strong>
+</div>
+
+<h2 id="cap3">Capítulo 3 — Sintaxis básica</h2>
+
+<h3>3.1 — Etiquetas PHP</h3>
+<pre>&lt;?php
+    // Tu código aquí
+?&gt;</pre>
+<p>Todo lo que esté fuera de <code>&lt;?php ... ?&gt;</code> se envía como HTML normal.</p>
+
+<h3>3.2 — Mezclar PHP con HTML</h3>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;Bienvenido&lt;/h1&gt;
+    &lt;?php
+        echo "&lt;p&gt;Hoy es " . date("d/m/Y") . "&lt;/p&gt;";
+    ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>3.3 — Terminar instrucciones</h3>
+<pre>&lt;?php
+echo "Hola";
+echo "Mundo";
+?&gt;</pre>
+<p>Cada instrucción termina en <code>;</code> obligatoriamente.</p>
+
+<h3>3.4 — Comentarios</h3>
+<pre>&lt;?php
+// Comentario de una línea
+# También de una línea
+/* Comentario
+   de varias líneas */
+?&gt;</pre>
+
+<h3>3.5 — Mostrar en pantalla: <code>echo</code> y <code>print</code></h3>
+<pre>&lt;?php
+echo "Hola";
+echo "Hola", " ", "Mundo"; // Múltiples valores
+print "Hola"; // Solo un valor, devuelve 1
+
+// Diferencia:
+echo "a", "b"; // ✅ Válido
+print "a", "b"; // ❌ Error
+?&gt;</pre>
+
+<div class="tip">
+  <strong>💡 Usa <code>echo</code></strong> en el 99% de los casos. <code>print</code> es más lento y menos flexible.
+</div>
+
+<h2 id="cap4">Capítulo 4 — Variables y constantes</h2>
+
+<h3>4.1 — Variables</h3>
+<pre>&lt;?php
+$nombre = "Ana";
+$edad = 25;
+$altura = 1.65;
+$activo = true;
+?&gt;</pre>
+<ul>
+  <li><strong>Siempre empiezan con <code>$</code></strong></li>
+  <li>No necesitan declarar tipo (PHP lo detecta)</li>
+  <li>Sensibles a mayúsculas: <code>$nombre</code> ≠ <code>$Nombre</code></li>
+  <li>Deben empezar con letra o <code>_</code>, no con número</li>
+</ul>
+
+<h3>4.2 — Interpolar variables en strings</h3>
+<pre>&lt;?php
+$nombre = "Ana";
+
+// Comillas dobles: interpreta variables
+echo "Hola, $nombre"; // Hola, Ana
+echo "Hola, {$nombre}!"; // Hola, Ana! (más seguro)
+
+// Comillas simples: NO interpreta
+echo 'Hola, $nombre'; // Hola, $nombre
+?&gt;</pre>
+
+<div class="nota">
+  <strong>🧠 Regla:</strong> comillas dobles = variables se procesan. Comillas simples = todo literal.
+</div>
+
+<h3>4.3 — Constantes</h3>
+<pre>&lt;?php
+define("PI", 3.14159);
+echo PI; // Sin $ al mostrar
+
+// Otra forma (PHP 7+):
+const IVA = 0.16;
+echo IVA;
+?&gt;</pre>
+<p>Las constantes <strong>no se pueden cambiar</strong> después de definirlas.</p>
+
+<h3>4.4 — Variables variables (curiosidad)</h3>
+<pre>&lt;?php
+$nombre = "Ana";
+$$nombre = "Valor"; // Crea $Ana = "Valor"
+echo $Ana; // Valor
+?&gt;</pre>
+<p>Rara vez se usa, pero existe.</p>
+
+<h2 id="cap5">Capítulo 5 — Tipos de datos</h2>
+
+<h3>5.1 — Los 8 tipos principales</h3>
+<table>
+  <tr><th>Tipo</th><th>Ejemplo</th><th>Descripción</th></tr>
+  <tr><td><code>int</code></td><td><code>$x = 42;</code></td><td>Enteros</td></tr>
+  <tr><td><code>float</code></td><td><code>$x = 3.14;</code></td><td>Decimales</td></tr>
+  <tr><td><code>string</code></td><td><code>$x = "Hola";</code></td><td>Texto</td></tr>
+  <tr><td><code>bool</code></td><td><code>$x = true;</code></td><td>Verdadero/falso</td></tr>
+  <tr><td><code>array</code></td><td><code>$x = [1, 2, 3];</code></td><td>Lista</td></tr>
+  <tr><td><code>object</code></td><td><code>$x = new Clase();</code></td><td>Objeto</td></tr>
+  <tr><td><code>null</code></td><td><code>$x = null;</code></td><td>Sin valor</td></tr>
+  <tr><td><code>resource</code></td><td>Archivos, conexiones</td><td>Recursos externos</td></tr>
+</table>
+
+<h3>5.2 — Saber el tipo de una variable</h3>
+<pre>&lt;?php
+$numero = 42;
+$texto = "Hola";
+
+var_dump($numero); // int(42)
+var_dump($texto);  // string(4) "Hola"
+
+gettype($numero); // "integer"
+
+is_int($numero);     // true
+is_string($texto);   // true
+is_array($numero);   // false
+?&gt;</pre>
+
+<h3>5.3 — Conversión de tipos (casting)</h3>
+<pre>&lt;?php
+$numero = "42";           // string
+$entero = (int) $numero;   // int 42
+$decimal = (float) $numero;// float 42.0
+$texto = (string) 42;      // string "42"
+$booleano = (bool) 0;      // false
+?&gt;</pre>
+
+<h3>5.4 — Arrays básicos</h3>
+<pre>&lt;?php
+// Array indexado
+$frutas = ["Manzana", "Pera", "Uva"];
+echo $frutas[0]; // Manzana
+
+// Array asociativo (como diccionario)
+$persona = [
+    "nombre" => "Ana",
+    "edad" => 25,
+    "ciudad" => "CDMX"
+];
+echo $persona["nombre"]; // Ana
+?&gt;</pre>
+
+<h2 id="cap6">Capítulo 6 — Operadores</h2>
+
+<h3>6.1 — Aritméticos</h3>
+<pre>&lt;?php
+$a = 10;
+$b = 3;
+
+echo $a + $b; // 13
+echo $a - $b; // 7
+echo $a * $b; // 30
+echo $a / $b; // 3.3333...
+echo $a % $b; // 1 (módulo, resto)
+echo $a ** $b;// 1000 (10^3)
+?&gt;</pre>
+
+<h3>6.2 — Comparación</h3>
+<table>
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr>
+  <tr><td><code>==</code></td><td>Igual valor</td><td><code>5 == "5"</code> → true</td></tr>
+  <tr><td><code>===</code></td><td>Igual valor Y tipo</td><td><code>5 === "5"</code> → false</td></tr>
+  <tr><td><code>!=</code></td><td>Distinto valor</td><td>—</td></tr>
+  <tr><td><code>!==</code></td><td>Distinto valor o tipo</td><td>—</td></tr>
+  <tr><td><code>&lt;</code> <code>&gt;</code></td><td>Menor/mayor</td><td>—</td></tr>
+  <tr><td><code>&lt;=</code> <code>&gt;=</code></td><td>Menor/mayor o igual</td><td>—</td></tr>
+  <tr><td><code>&lt;=&gt;</code></td><td>Comparación 3 vías</td><td>Devuelve -1, 0 o 1</td></tr>
+</table>
+
+<div class="warn">
+  <strong>⚠️ MUY IMPORTANTE:</strong> usa <strong><code>===</code></strong> siempre que puedas. <code>==</code> hace conversiones raras que causan bugs.
+</div>
+
+<h3>6.3 — Lógicos</h3>
+<pre>&lt;?php
+$a = true;
+$b = false;
+
+$a && $b;  // AND: false
+$a || $b;  // OR: true
+!$a;       // NOT: false
+
+$a and $b; // Igual que &&
+$a or $b;  // Igual que ||
+?&gt;</pre>
+
+<h3>6.4 — Asignación compuesta</h3>
+<pre>&lt;?php
+$x = 10;
+$x += 5;  // $x = $x + 5 → 15
+$x -= 3;  // $x = 12
+$x *= 2;  // $x = 24
+$x /= 4;  // $x = 6
+$x++;     // $x = 7
+$x--;     // $x = 6
+?&gt;</pre>
+
+<h3>6.5 — Concatenación de strings</h3>
+<pre>&lt;?php
+$nombre = "Ana";
+$saludo = "Hola, " . $nombre . "!"; // Con punto
+echo $saludo; // Hola, Ana!
+
+// Con .= acumulativo
+$texto = "Hola";
+$texto .= " mundo"; // "Hola mundo"
+?&gt;</pre>
+
+<h2 id="cap7">Capítulo 7 — Condicionales</h2>
+
+<h3>7.1 — <code>if</code> simple</h3>
+<pre>&lt;?php
+$edad = 18;
+
+if ($edad >= 18) {
+    echo "Eres mayor de edad";
+}
+?&gt;</pre>
+
+<h3>7.2 — <code>if / else</code></h3>
+<pre>&lt;?php
+$edad = 15;
+
+if ($edad >= 18) {
+    echo "Mayor de edad";
+} else {
+    echo "Menor de edad";
+}
+?&gt;</pre>
+
+<h3>7.3 — <code>elseif</code> (varias condiciones)</h3>
+<pre>&lt;?php
+$nota = 85;
+
+if ($nota >= 90) {
+    echo "Excelente";
+} elseif ($nota >= 80) {
+    echo "Muy bien";
+} elseif ($nota >= 70) {
+    echo "Bien";
+} elseif ($nota >= 60) {
+    echo "Aprobado";
+} else {
+    echo "Reprobado";
+}
+?&gt;</pre>
+
+<h3>7.4 — Operador ternario</h3>
+<pre>&lt;?php
+$edad = 20;
+$mensaje = ($edad >= 18) ? "Mayor" : "Menor";
+echo $mensaje;
+?&gt;</pre>
+
+<h3>7.5 — <code>switch</code></h3>
+<pre>&lt;?php
+$dia = "lunes";
+
+switch ($dia) {
+    case "lunes":
+    case "martes":
+        echo "Inicio de semana";
+        break;
+    case "miercoles":
+        echo "Mitad de semana";
+        break;
+    case "viernes":
+        echo "¡Por fin!";
+        break;
+    default:
+        echo "Otro día";
+}
+?&gt;</pre>
+
+<h3>7.6 — <code>match</code> (PHP 8+)</h3>
+<pre>&lt;?php
+$codigo = 200;
+
+$mensaje = match ($codigo) {
+    200 => "OK",
+    404 => "No encontrado",
+    500 => "Error servidor",
+    default => "Desconocido"
+};
+echo $mensaje;
+?&gt;</pre>
+<p><code>match</code> es más estricto que <code>switch</code> (usa <code>===</code>).</p>
+
+<h2 id="cap8">Capítulo 8 — Bucles</h2>
+
+<h3>8.1 — <code>for</code></h3>
+<pre>&lt;?php
+for ($i = 0; $i &lt; 5; $i++) {
+    echo "Número: $i &lt;br&gt;";
+}
+// Imprime 0, 1, 2, 3, 4
+?&gt;</pre>
+
+<h3>8.2 — <code>while</code></h3>
+<pre>&lt;?php
+$i = 0;
+while ($i &lt; 5) {
+    echo "Valor: $i &lt;br&gt;";
+    $i++;
+}
+?&gt;</pre>
+
+<h3>8.3 — <code>do...while</code></h3>
+<pre>&lt;?php
+$i = 0;
+do {
+    echo "Valor: $i &lt;br&gt;";
+    $i++;
+} while ($i &lt; 5);
+?&gt;</pre>
+<p><strong>Diferencia:</strong> <code>do...while</code> ejecuta al menos una vez, aunque la condición sea falsa desde el inicio.</p>
+
+<h3>8.4 — <code>foreach</code> (para arrays)</h3>
+<pre>&lt;?php
+$frutas = ["Manzana", "Pera", "Uva"];
+
+foreach ($frutas as $fruta) {
+    echo "$fruta &lt;br&gt;";
+}
+
+// Con índice
+foreach ($frutas as $indice => $fruta) {
+    echo "$indice: $fruta &lt;br&gt;";
+}
+?&gt;</pre>
+
+<h3>8.5 — <code>foreach</code> en arrays asociativos</h3>
+<pre>&lt;?php
+$persona = [
+    "nombre" => "Ana",
+    "edad" => 25,
+    "ciudad" => "CDMX"
+];
+
+foreach ($persona as $clave => $valor) {
+    echo "$clave: $valor &lt;br&gt;";
+}
+?&gt;</pre>
+
+<h3>8.6 — <code>break</code> y <code>continue</code></h3>
+<pre>&lt;?php
+for ($i = 0; $i &lt; 10; $i++) {
+    if ($i == 3) continue; // Salta el 3
+    if ($i == 7) break;    // Se detiene en el 7
+    echo "$i &lt;br&gt;";
+}
+// Imprime 0, 1, 2, 4, 5, 6
+?&gt;</pre>
+
+<h2 id="cap9">Capítulo 9 — Ejercicios</h2>
+
+<h3>Nivel 1 — Básico</h3>
+<ol>
+  <li>Crea una variable <code>$nombre</code> con tu nombre y muéstrala en un <code>echo</code>.</li>
+  <li>Crea dos números y muestra su suma, resta, multiplicación y división.</li>
+  <li>Usa un <code>if</code> para decir si un número es par o impar (pista: usa <code>%</code>).</li>
+</ol>
+
+<h3>Nivel 2 — Intermedio</h3>
+<ol>
+  <li>Crea un array con 5 frutas y muéstralas con <code>foreach</code>.</li>
+  <li>Haz una tabla HTML con PHP que muestre los números del 1 al 10 y su cuadrado.</li>
+  <li>Crea un <code>switch</code> que según el día de la semana diga si es laboral o fin de semana.</li>
+</ol>
+
+<h3>Nivel 3 — Avanzado</h3>
+<ol>
+  <li>Crea un array asociativo con 3 personas (nombre, edad) y muéstralas en una tabla.</li>
+  <li>Haz un bucle que genere la tabla de multiplicar del 1 al 10.</li>
+  <li>Combina <code>if</code> con <code>foreach</code>: dado un array de números, muestra solo los pares.</li>
+</ol>
+
+<hr>
+<p style="text-align:center; color:#888; padding:20px;">
+<em>Fin de PHP — Parte 1</em><br>
+<strong>Continúa con PHP — Parte 2: funciones, arrays avanzados, formularios</strong>
+</p>
+
+</body>
+</html>

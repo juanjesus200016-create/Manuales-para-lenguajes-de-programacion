@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual PHP - Parte 2</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 70px 20px 20px;
+    line-height: 1.7;
+    color: #222;
+    background: #fff;
+  }
+  h1 { color: #777bb4; border-bottom: 4px solid #777bb4; padding-bottom: 12px; font-size: 2em; }
+  h2 { color: #fff; background: #777bb4; padding: 10px 15px; border-radius: 5px; margin-top: 40px; }
+  h3 { color: #777bb4; border-left: 5px solid #777bb4; padding-left: 12px; margin-top: 30px; }
+  h4 { color: #34495e; margin-top: 20px; }
+  pre {
+    background: #2d2d2d; color: #f8f8f2; border-radius: 6px;
+    padding: 15px; overflow-x: auto;
+    font-family: 'Consolas', monospace; font-size: 13px; line-height: 1.5;
+  }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #777bb4; font-family: 'Consolas', monospace; }
+  pre code { background: none; color: inherit; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 14px; }
+  th, td { border: 1px solid #ddd; padding: 10px; text-align: left; vertical-align: top; }
+  th { background: #777bb4; color: #fff; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .nota, .tip, .warn { padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+  .nota { background: #e8f4fd; border-left: 5px solid #3498db; }
+  .tip { background: #eafaf1; border-left: 5px solid #27ae60; }
+  .warn { background: #fef5e7; border-left: 5px solid #f39c12; }
+  .indice { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px 30px; }
+  .indice a { color: #777bb4; text-decoration: none; }
+  .indice a:hover { text-decoration: underline; }
+
+  .btn-volver, #btnPDF {
+    position: fixed; top: 15px;
+    padding: 10px 16px;
+    border: none; border-radius: 8px;
+    font-weight: bold; font-size: 14px;
+    text-decoration: none; color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 999; cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+  .btn-volver { left: 15px; background: #2c3e50; }
+  .btn-volver:hover { background: #1a252f; }
+  #btnPDF { right: 15px; background: #777bb4; }
+  #btnPDF:hover { background: #5e61a0; }
+
+  @media print {
+    .btn-volver, #btnPDF { display: none; }
+    body { padding: 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="biblioteca.html" class="btn-volver">← Biblioteca</a>
+<button id="btnPDF" onclick="window.print()">📥 PDF</button>
+
+<h1>🐘 Manual de PHP — Parte 2</h1>
+<p><em>Funciones, arrays avanzados, strings, formularios y fechas</em></p>
+
+<div class="indice">
+<h3>📑 Contenido</h3>
+<ol>
+  <li><a href="#cap10">Funciones</a></li>
+  <li><a href="#cap11">Arrays avanzados</a></li>
+  <li><a href="#cap12">Funciones de strings</a></li>
+  <li><a href="#cap13">Formularios GET y POST</a></li>
+  <li><a href="#cap14">Validación de datos</a></li>
+  <li><a href="#cap15">Fechas y horas</a></li>
+  <li><a href="#cap16">Superglobales</a></li>
+  <li><a href="#cap17">Ejercicios</a></li>
+</ol>
+</div>
+
+<h2 id="cap10">Capítulo 10 — Funciones</h2>
+
+<h3>10.1 — Función básica</h3>
+<pre>&lt;?php
+function saludar() {
+    echo "Hola mundo";
+}
+
+saludar(); // Llama a la función
+?&gt;</pre>
+
+<h3>10.2 — Función con parámetros</h3>
+<pre>&lt;?php
+function saludar($nombre) {
+    echo "Hola, $nombre";
+}
+
+saludar("Ana");   // Hola, Ana
+saludar("Luis");  // Hola, Luis
+?&gt;</pre>
+
+<h3>10.3 — Función con retorno</h3>
+<pre>&lt;?php
+function sumar($a, $b) {
+    return $a + $b;
+}
+
+$resultado = sumar(5, 3);
+echo $resultado; // 8
+?&gt;</pre>
+<p><strong>Diferencia:</strong> <code>echo</code> muestra, <code>return</code> devuelve el valor para usarlo después.</p>
+
+<h3>10.4 — Parámetros por defecto</h3>
+<pre>&lt;?php
+function saludar($nombre = "invitado") {
+    return "Hola, $nombre";
+}
+
+echo saludar();        // Hola, invitado
+echo saludar("Ana");   // Hola, Ana
+?&gt;</pre>
+
+<h3>10.5 — Tipado (PHP 7+)</h3>
+<pre>&lt;?php
+function sumar(int $a, int $b): int {
+    return $a + $b;
+}
+
+// Los tipos se validan automáticamente
+?&gt;</pre>
+
+<h3>10.6 — Funciones anónimas (closures)</h3>
+<pre>&lt;?php
+$saludo = function($nombre) {
+    return "Hola, $nombre";
+};
+
+echo $saludo("Ana"); // Hola, Ana
+?&gt;</pre>
+
+<h3>10.7 — Arrow functions (PHP 7.4+)</h3>
+<pre>&lt;?php
+$multiplicar = fn($x) => $x * 2;
+echo $multiplicar(5); // 10
+?&gt;</pre>
+
+<h3>10.8 — <code>require</code> e <code>include</code></h3>
+<pre>&lt;?php
+// Incluir otro archivo
+include 'header.php';   // Si falla: warning
+require 'config.php';   // Si falla: error fatal
+
+include_once 'funciones.php'; // Solo una vez
+require_once 'db.php';        // Solo una vez
+?&gt;</pre>
+
+<div class="tip">
+  <strong>💡 Regla:</strong> usa <code>require_once</code> para archivos críticos (config, funciones, clases).
+</div>
+
+<h2 id="cap11">Capítulo 11 — Arrays avanzados</h2>
+
+<h3>11.1 — Crear arrays</h3>
+<pre>&lt;?php
+// Forma moderna
+$frutas = ["Manzana", "Pera", "Uva"];
+
+// Forma antigua
+$colores = array("rojo", "verde", "azul");
+
+// Asociativo
+$persona = [
+    "nombre" => "Ana",
+    "edad" => 25
+];
+?&gt;</pre>
+
+<h3>11.2 — Operaciones básicas</h3>
+<pre>&lt;?php
+$frutas = ["Manzana", "Pera"];
+
+// Añadir al final
+$frutas[] = "Uva";
+
+// Añadir al inicio
+array_unshift($frutas, "Kiwi");
+
+// Quitar último
+array_pop($frutas);
+
+// Quitar primero
+array_shift($frutas);
+
+// Contar elementos
+echo count($frutas); // 3
+
+// Comprobar si existe
+if (in_array("Pera", $frutas)) {
+    echo "Sí está";
+}
+?&gt;</pre>
+
+<h3>11.3 — Funciones útiles</h3>
+<table>
+  <tr><th>Función</th><th>Qué hace</th></tr>
+  <tr><td><code>sort()</code></td><td>Ordena ascendente</td></tr>
+  <tr><td><code>rsort()</code></td><td>Ordena descendente</td></tr>
+  <tr><td><code>array_reverse()</code></td><td>Invierte el orden</td></tr>
+  <tr><td><code>array_unique()</code></td><td>Elimina duplicados</td></tr>
+  <tr><td><code>array_merge()</code></td><td>Une dos arrays</td></tr>
+  <tr><td><code>array_slice()</code></td><td>Extrae una porción</td></tr>
+  <tr><td><code>array_keys()</code></td><td>Todas las claves</td></tr>
+  <tr><td><code>array_values()</code></td><td>Todos los valores</td></tr>
+  <tr><td><code>array_sum()</code></td><td>Suma todos los valores</td></tr>
+  <tr><td><code>array_map()</code></td><td>Aplica una función a cada elemento</td></tr>
+  <tr><td><code>array_filter()</code></td><td>Filtra según condición</td></tr>
+</table>
+
+<h3>11.4 — Ejemplo con <code>array_map</code></h3>
+<pre>&lt;?php
+$numeros = [1, 2, 3, 4, 5];
+
+$dobles = array_map(fn($n) => $n * 2, $numeros);
+print_r($dobles); // [2, 4, 6, 8, 10]
+?&gt;</pre>
+
+<h3>11.5 — Ejemplo con <code>array_filter</code></h3>
+<pre>&lt;?php
+$numeros = [1, 2, 3, 4, 5, 6];
+
+$pares = array_filter($numeros, fn($n) => $n % 2 === 0);
+print_r($pares); // [2, 4, 6]
+?&gt;</pre>
+
+<h3>11.6 — Arrays multidimensionales</h3>
+<pre>&lt;?php
+$alumnos = [
+    ["nombre" => "Ana", "nota" => 9],
+    ["nombre" => "Luis", "nota" => 7],
+    ["nombre" => "Sofía", "nota" => 10]
+];
+
+foreach ($alumnos as $alumno) {
+    echo $alumno["nombre"] . ": " . $alumno["nota"] . "&lt;br&gt;";
+}
+?&gt;</pre>
+
+<h3>11.7 — <code>print_r</code> y <code>var_dump</code></h3>
+<pre>&lt;?php
+$array = [1, 2, ["a", "b"]];
+
+print_r($array);   // Más legible
+var_dump($array);  // Más detallado (con tipos)
+
+// Para ver bonito en navegador:
+echo "&lt;pre&gt;";
+print_r($array);
+echo "&lt;/pre&gt;";
+?&gt;</pre>
+
+<h2 id="cap12">Capítulo 12 — Funciones de strings</h2>
+
+<h3>12.1 — Longitud y conversión</h3>
+<pre>&lt;?php
+$texto = "Hola Mundo";
+
+strlen($texto);            // 10
+strtoupper($texto);        // "HOLA MUNDO"
+strtolower($texto);        // "hola mundo"
+ucfirst("hola");           // "Hola"
+ucwords("hola mundo");     // "Hola Mundo"
+?&gt;</pre>
+
+<h3>12.2 — Buscar y reemplazar</h3>
+<pre>&lt;?php
+$texto = "Hola Mundo";
+
+strpos($texto, "Mundo");     // 5 (posición)
+str_contains($texto, "Mundo"); // true (PHP 8+)
+str_replace("Mundo", "PHP", $texto); // "Hola PHP"
+?&gt;</pre>
+
+<h3>12.3 — Cortar y dividir</h3>
+<pre>&lt;?php
+$texto = "Hola Mundo";
+
+substr($texto, 0, 4);       // "Hola"
+substr($texto, 5);          // "Mundo"
+
+$csv = "manzana,pera,uva";
+$frutas = explode(",", $csv); // ["manzana", "pera", "uva"]
+
+$unido = implode(" - ", $frutas); // "manzana - pera - uva"
+?&gt;</pre>
+
+<h3>12.4 — Limpiar espacios</h3>
+<pre>&lt;?php
+$texto = "   Hola   ";
+trim($texto);   // "Hola"
+ltrim($texto);  // "Hola   " (izquierda)
+rtrim($texto);  // "   Hola" (derecha)
+?&gt;</pre>
+
+<h3>12.5 — Formato de números</h3>
+<pre>&lt;?php
+$precio = 1234.5678;
+
+number_format($precio, 2);       // "1,234.57"
+number_format($precio, 2, ",", "."); // "1.234,57" (formato español)
+?&gt;</pre>
+
+<h3>12.6 — Escapar HTML</h3>
+<pre>&lt;?php
+$comentario = "&lt;script&gt;alert('hack')&lt;/script&gt;";
+
+htmlspecialchars($comentario);
+// "&amp;lt;script&amp;gt;alert('hack')&amp;lt;/script&amp;gt;"
+?&gt;</pre>
+<div class="warn">
+  <strong>⚠️ IMPORTANTE:</strong> usa <code>htmlspecialchars()</code> SIEMPRE que muestres datos del usuario. Evita ataques XSS.
+</div>
+
+<h3>12.7 — Contraseñas seguras</h3>
+<pre>&lt;?php
+$password = "miClave123";
+
+// Guardar (nunca en texto plano)
+$hash = password_hash($password, PASSWORD_DEFAULT);
+// "$2y$10$..." (cadena larga)
+
+// Verificar
+if (password_verify("miClave123", $hash)) {
+    echo "Contraseña correcta";
+}
+?&gt;</pre>
+
+<h2 id="cap13">Capítulo 13 — Formularios GET y POST</h2>
+
+<h3>13.1 — Formulario HTML básico</h3>
+<pre>&lt;form action="procesar.php" method="POST"&gt;
+    &lt;label&gt;Nombre: &lt;input type="text" name="nombre"&gt;&lt;/label&gt;
+    &lt;label&gt;Email: &lt;input type="email" name="email"&gt;&lt;/label&gt;
+    &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</pre>
+
+<h3>13.2 — Recibir con POST</h3>
+<pre>&lt;?php
+// procesar.php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nombre = $_POST["nombre"] ?? "";
+    $email = $_POST["email"] ?? "";
+    
+    echo "Hola, $nombre. Tu email es: $email";
+}
+?&gt;</pre>
+
+<h3>13.3 — Recibir con GET</h3>
+<pre>&lt;?php
+// URL: pagina.php?nombre=Ana&amp;edad=25
+$nombre = $_GET["nombre"] ?? "";
+$edad = $_GET["edad"] ?? 0;
+?&gt;</pre>
+
+<h3>13.4 — GET vs POST</h3>
+<table>
+  <tr><th></th><th>GET</th><th>POST</th></tr>
+  <tr><td>Datos visibles en URL</td><td>Sí</td><td>No</td></tr>
+  <tr><td>Ideal para</td><td>Búsquedas, filtros</td><td>Login, formularios largos</td></tr>
+  <tr><td>Límite de tamaño</td><td>~2000 caracteres</td><td>Sin límite práctico</td></tr>
+  <tr><td>Se puede marcar</td><td>Sí (favoritos)</td><td>No</td></tr>
+  <tr><td>Back/refresh</td><td>Inofensivo</td><td>Puede reenviar datos</td></tr>
+</table>
+
+<h3>13.5 — Comprobar si se envió</h3>
+<pre>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Se envió el formulario
+}
+?&gt;</pre>
+
+<h3>13.6 — Ejemplo completo: formulario de contacto</h3>
+<pre>&lt;?php
+$mensajeExito = "";
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nombre = trim($_POST["nombre"] ?? "");
+    $email = trim($_POST["email"] ?? "");
+    $mensaje = trim($_POST["mensaje"] ?? "");
+    
+    if (empty($nombre) || empty($email) || empty($mensaje)) {
+        $error = "Todos los campos son obligatorios";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Email no válido";
+    } else {
+        $mensajeExito = "¡Gracias, $nombre! Te contactaremos pronto.";
+    }
+}
+?&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;?php if ($error): ?&gt;
+        &lt;p style="color:red"&gt;&lt;?= $error ?&gt;&lt;/p&gt;
+    &lt;?php endif; ?&gt;
+    
+    &lt;?php if ($mensajeExito): ?&gt;
+        &lt;p style="color:green"&gt;&lt;?= $mensajeExito ?&gt;&lt;/p&gt;
+    &lt;?php endif; ?&gt;
+    
+    &lt;form method="POST"&gt;
+        &lt;input type="text" name="nombre" placeholder="Nombre"&gt;
+        &lt;input type="email" name="email" placeholder="Email"&gt;
+        &lt;textarea name="mensaje"&gt;&lt;/textarea&gt;
+        &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<div class="tip">
+  <strong>💡 Atajo:</strong> <code>&lt;?= $variable ?&gt;</code> es lo mismo que <code>&lt;?php echo $variable; ?&gt;</code>.
+</div>
+
+<h2 id="cap14">Capítulo 14 — Validación de datos</h2>
+
+<h3>14.1 — Funciones de validación</h3>
+<pre>&lt;?php
+$email = "test@ejemplo.com";
+
+// Validar email
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Email válido";
+}
+
+// Validar URL
+$url = "https://google.com";
+if (filter_var($url, FILTER_VALIDATE_URL)) {
+    echo "URL válida";
+}
+
+// Validar entero
+$numero = "42";
+if (filter_var($numero, FILTER_VALIDATE_INT)) {
+    echo "Es entero";
+}
+?&gt;</pre>
+
+<h3>14.2 — Comprobaciones útiles</h3>
+<pre>&lt;?php
+$nombre = "Ana";
+
+// ¿Está vacío?
+empty($nombre);      // false
+isset($nombre);      // true (existe y no es null)
+
+// ¿Es número?
+is_numeric("123");   // true
+is_numeric("abc");   // false
+
+// ¿Está entre valores?
+$edad = 25;
+if ($edad &gt;= 18 &amp;&amp; $edad &lt;= 65) {
+    echo "Edad válida";
+}
+?&gt;</pre>
+
+<h3>14.3 — Sanitizar datos</h3>
+<pre>&lt;?php
+$nombre = "&lt;script&gt;alert(1)&lt;/script&gt;Ana";
+
+// Limpiar HTML
+$limpio = htmlspecialchars($nombre);
+
+// O eliminar etiquetas
+$sinEtiquetas = strip_tags($nombre);
+
+// Quitar espacios extremos
+$limpio = trim($nombre);
+?&gt;</pre>
+
+<h3>14.4 — Expresión regular simple</h3>
+<pre>&lt;?php
+// Validar teléfono (10 dígitos)
+$telefono = "5512345678";
+
+if (preg_match("/^[0-9]{10}$/", $telefono)) {
+    echo "Teléfono válido";
+}
+?&gt;</pre>
+
+<h2 id="cap15">Capítulo 15 — Fechas y horas</h2>
+
+<h3>15.1 — Mostrar la fecha actual</h3>
+<pre>&lt;?php
+echo date("d/m/Y");       // 15/10/2026
+echo date("Y-m-d");       // 2026-10-15
+echo date("H:i:s");       // 14:30:00
+echo date("d/m/Y H:i");   // 15/10/2026 14:30
+
+// Día de la semana en español
+setlocale(LC_TIME, "es_ES");
+?&gt;</pre>
+
+<h3>15.2 — Códigos de formato</h3>
+<table>
+  <tr><th>Código</th><th>Significado</th><th>Ejemplo</th></tr>
+  <tr><td><code>d</code></td><td>Día (2 dígitos)</td><td>01-31</td></tr>
+  <tr><td><code>m</code></td><td>Mes (2 dígitos)</td><td>01-12</td></tr>
+  <tr><td><code>Y</code></td><td>Año (4 dígitos)</td><td>2026</td></tr>
+  <tr><td><code>H</code></td><td>Hora (24h)</td><td>00-23</td></tr>
+  <tr><td><code>i</code></td><td>Minutos</td><td>00-59</td></tr>
+  <tr><td><code>s</code></td><td>Segundos</td><td>00-59</td></tr>
+  <tr><td><code>l</code></td><td>Día de la semana</td><td>Monday</td></tr>
+  <tr><td><code>F</code></td><td>Mes en texto</td><td>January</td></tr>
+</table>
+
+<h3>15.3 — Timestamp (marca de tiempo)</h3>
+<pre>&lt;?php
+$ahora = time(); // Segundos desde 1970
+echo $ahora;     // 1760000000 aprox
+
+// Sumar 1 día
+$manana = time() + (24 * 60 * 60);
+echo date("d/m/Y", $manana);
+?&gt;</pre>
+
+<h3>15.4 — Calcular diferencia entre fechas</h3>
+<pre>&lt;?php
+$fecha1 = new DateTime("2026-01-01");
+$fecha2 = new DateTime("2026-12-31");
+
+$diferencia = $fecha1-&gt;diff($fecha2);
+echo $diferencia-&gt;days . " días";
+?&gt;</pre>
+
+<h3>15.5 — Crear fecha personalizada</h3>
+<pre>&lt;?php
+$fecha = mktime(12, 30, 0, 10, 15, 2026);
+// Hora, min, seg, mes, día, año
+echo date("Y-m-d H:i", $fecha); // 2026-10-15 12:30
+?&gt;</pre>
+
+<h2 id="cap16">Capítulo 16 — Superglobales</h2>
+
+<p>PHP tiene variables especiales que están disponibles en <strong>cualquier parte del código</strong>.</p>
+
+<h3>16.1 — Las 9 superglobales</h3>
+<table>
+  <tr><th>Variable</th><th>Contiene</th></tr>
+  <tr><td><code>$_GET</code></td><td>Datos enviados por URL</td></tr>
+  <tr><td><code>$_POST</code></td><td>Datos enviados por formulario POST</td></tr>
+  <tr><td><code>$_REQUEST</code></td><td>Combina GET, POST y COOKIE</td></tr>
+  <tr><td><code>$_SERVER</code></td><td>Info del servidor y petición</td></tr>
+  <tr><td><code>$_SESSION</code></td><td>Datos de sesión del usuario</td></tr>
+  <tr><td><code>$_COOKIE</code></td><td>Cookies del navegador</td></tr>
+  <tr><td><code>$_FILES</code></td><td>Archivos subidos</td></tr>
+  <tr><td><code>$_ENV</code></td><td>Variables de entorno</td></tr>
+  <tr><td><code>$GLOBALS</code></td><td>Todas las variables globales</td></tr>
+</table>
+
+<h3>16.2 — <code>$_SERVER</code> útil</h3>
+<pre>&lt;?php
+$_SERVER["REQUEST_METHOD"];  // GET, POST
+$_SERVER["PHP_SELF"];        // Ruta del script
+$_SERVER["HTTP_USER_AGENT"]; // Navegador del usuario
+$_SERVER["REMOTE_ADDR"];     // IP del visitante
+$_SERVER["HTTP_HOST"];       // Dominio
+?&gt;</pre>
+
+<h3>16.3 — Variables de sesión (login básico)</h3>
+<pre>&lt;?php
+// Iniciar sesión (SIEMPRE al inicio del script)
+session_start();
+
+// Guardar datos
+$_SESSION["usuario_id"] = 123;
+$_SESSION["nombre"] = "Ana";
+
+// Leer
+if (isset($_SESSION["usuario_id"])) {
+    echo "Bienvenido, " . $_SESSION["nombre"];
+}
+
+// Cerrar sesión
+session_destroy();
+?&gt;</pre>
+
+<div class="warn">
+  <strong>⚠️ Orden importa:</strong> <code>session_start()</code> debe ir <strong>antes</strong> de cualquier HTML o <code>echo</code>.
+</div>
+
+<h2 id="cap17">Capítulo 17 — Ejercicios</h2>
+
+<h3>Nivel 1 — Básico</h3>
+<ol>
+  <li>Crea una función que reciba dos números y devuelva su multiplicación.</li>
+  <li>Crea un array con 5 nombres y muéstralos ordenados alfabéticamente.</li>
+  <li>Pide un nombre por URL con <code>?nombre=Ana</code> y muéstralo.</li>
+</ol>
+
+<h3>Nivel 2 — Intermedio</h3>
+<ol>
+  <li>Crea un formulario HTML con nombre y email. Valídalos en PHP y muestra un mensaje de éxito o error.</li>
+  <li>Crea una función que cuente cuántas vocales tiene un texto.</li>
+  <li>Muestra la fecha actual en formato "Miércoles, 15 de Octubre de 2026".</li>
+</ol>
+
+<h3>Nivel 3 — Avanzado</h3>
+<ol>
+  <li>Crea una mini calculadora: formulario con dos números y una operación (suma, resta, etc.), procesa en PHP.</li>
+  <li>Simula un login: si el usuario y contraseña coinciden con datos fijos, guarda sesión y muestra "Bienvenido". Si no, muestra error.</li>
+  <li>Dado un array de personas (nombre, edad), filtra solo los mayores de edad usando <code>array_filter</code>.</li>
+</ol>
+
+<hr>
+<p style="text-align:center; color:#888; padding:20px;">
+<em>Fin de PHP — Parte 2</em><br>
+<strong>Continúa con PHP — Parte 3: archivos, POO, MySQL, sesiones avanzadas</strong>
+</p>
+
+</body>
+</html>

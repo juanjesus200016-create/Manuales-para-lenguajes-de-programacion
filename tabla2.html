@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabla de Referencias 2 - Recursos y Herramientas</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 15px; line-height: 1.5; font-size: 14px; color: #222; }
+  h1 { color: #8e44ad; border-bottom: 3px solid #8e44ad; padding-bottom: 8px; font-size: 1.5em; }
+  h2 { color: #fff; background: #8e44ad; padding: 8px 12px; border-radius: 5px; margin-top: 25px; font-size: 1.1em; }
+  h3 { color: #8e44ad; border-left: 4px solid #8e44ad; padding-left: 10px; margin-top: 18px; font-size: 1em; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 11.5px; }
+  th, td { border: 1px solid #ccc; padding: 6px; text-align: left; vertical-align: top; }
+  th { background: #8e44ad; color: #fff; font-size: 11px; }
+  tr:nth-child(even) { background: #faf5ff; }
+  code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; color: #c0392b; font-family: monospace; font-size: 11px; }
+  .color-box {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-right: 6px;
+    border: 1px solid #999;
+  }
+  .btn-volver, #btnPDF {
+    position: fixed; top: 10px; padding: 8px 14px;
+    border: none; border-radius: 8px; font-weight: bold;
+    font-size: 13px; text-decoration: none; color: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    z-index: 999; cursor: pointer;
+  }
+  .btn-volver { left: 10px; background: #2c3e50; }
+  #btnPDF { right: 10px; background: #e74c3c; }
+  @media print { .btn-volver, #btnPDF { display: none; } }
+</style>
+</head>
+<body>
+
+<a href="biblioteca.html" class="btn-volver">← Biblioteca</a>
+<button id="btnPDF" onclick="window.print()">📥 PDF</button>
+
+<h1>📊 Tabla de Referencias 2</h1>
+<p><em>Fuentes · Colores · Formatos · Formas · Librerías · Herramientas</em></p>
+
+<!-- ============================================ -->
+<h2>1. Fuentes tipográficas (font-family)</h2>
+
+<h3>1.1 — Familias genéricas (siempre disponibles)</h3>
+<table>
+  <tr>
+    <th>Familia</th>
+    <th>Ejemplo</th>
+    <th>Estilo</th>
+    <th>Uso típico</th>
+  </tr>
+  <tr>
+    <td><code>serif</code></td>
+    <td style="font-family:serif;">Texto de ejemplo</td>
+    <td>Con serifas (patitas)</td>
+    <td>Libros, artículos formales</td>
+  </tr>
+  <tr>
+    <td><code>sans-serif</code></td>
+    <td style="font-family:sans-serif;">Texto de ejemplo</td>
+    <td>Sin serifas</td>
+    <td>Web moderna, interfaces</td>
+  </tr>
+  <tr>
+    <td><code>monospace</code></td>
+    <td style="font-family:monospace;">Texto ejemplo</td>
+    <td>Ancho fijo</td>
+    <td>Código, terminal</td>
+  </tr>
+  <tr>
+    <td><code>cursive</code></td>
+    <td style="font-family:cursive;">Texto ejemplo</td>
+    <td>Manuscrita</td>
+    <td>Decoración</td>
+  </tr>
+  <tr>
+    <td><code>fantasy</code></td>
+    <td style="font-family:fantasy;">Texto ejemplo</td>
+    <td>Decorativa</td>
+    <td>Títulos llamativos</td>
+  </tr>
+</table>
+
+<h3>1.2 — Fuentes seguras para web (no requieren descarga)</h3>
+<table>
+  <tr>
+    <th>Fuente</th>
+    <th>Familia</th>
+    <th>Ejemplo</th>
+    <th>Sistema donde funciona</th>
+  </tr>
+  <tr>
+    <td>Arial</td>
+    <td>sans-serif</td>
+    <td style="font-family:Arial;">Ejemplo Arial</td>
+    <td>Todos</td>
+  </tr>
+  <tr>
+    <td>Helvetica</td>
+    <td>sans-serif</td>
+    <td style="font-family:Helvetica;">Ejemplo Helvetica</td>
+    <td>Mac, iOS</td>
+  </tr>
+  <tr>
+    <td>Verdana</td>
+    <td>sans-serif</td>
+    <td style="font-family:Verdana;">Ejemplo Verdana</td>
+    <td>Todos</td>
+  </tr>
+  <tr>
+    <td>Tahoma</td>
+    <td>sans-serif</td>
+    <td style="font-family:Tahoma;">Ejemplo Tahoma</td>
+    <td>Todos</td>
+  </tr>
+  <tr>
+    <td>Times New Roman</td>
+    <td>serif</td>
+    <td style="font-family:'Times New Roman';">Ejemplo Times</td>
+    <td>Todos</td>
+  </tr>
+  <tr>
+    <td>Georgia</td>
+    <td>serif</td>
+    <td style="font-family:Georgia;">Ejemplo Georgia</td>
+    <td>Todos</td>
+  </tr>
+  <tr>
+    <td>Courier New</td>
+    <td>monospace</td>
+    <td style="font-family:'Courier New';">Ejemplo Courier</td>
+    <td>Todos</td>
+  </tr>
+  <tr>
+    <td>Consolas</td>
+    <td>monospace</td>
+    <td style="font-family:Consolas;">Ejemplo Consolas</td>
+    <td>Windows</td>
+  </tr>
+</table>
+
+<h3>1.3 — Cómo se escribe en CSS</h3>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+    <th>Dónde se coloca</th>
+  </tr>
+  <tr>
+    <td>Una fuente</td>
+    <td><code>font-family: Arial;</code></td>
+    <td>Aplica Arial</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Varias con fallback</td>
+    <td><code>font-family: 'Segoe UI', Arial, sans-serif;</code></td>
+    <td>Prueba en orden hasta que una funcione</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Fuente con espacios</td>
+    <td><code>font-family: 'Times New Roman';</code></td>
+    <td>Comillas obligatorias</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Tamaño</td>
+    <td><code>font-size: 16px;</code></td>
+    <td>Define tamaño (px, rem, em)</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Peso</td>
+    <td><code>font-weight: bold;</code></td>
+    <td>Negrita (100-900 o normal/bold)</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Estilo</td>
+    <td><code>font-style: italic;</code></td>
+    <td>Cursiva (normal/italic/oblique)</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Interlineado</td>
+    <td><code>line-height: 1.6;</code></td>
+    <td>Espacio entre líneas</td>
+    <td>Dentro de selector</td>
+  </tr>
+  <tr>
+    <td>Espacio letras</td>
+    <td><code>letter-spacing: 1px;</code></td>
+    <td>Separación entre letras</td>
+    <td>Dentro de selector</td>
+  </tr>
+</table>
+
+<h3>1.4 — Google Fonts (requiere internet)</h3>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+    <th>Dónde se coloca</th>
+  </tr>
+  <tr>
+    <td>Importar</td>
+    <td><code>&lt;link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet"&gt;</code></td>
+    <td>Descarga la fuente</td>
+    <td>Dentro de head</td>
+  </tr>
+  <tr>
+    <td>Usar</td>
+    <td><code>font-family: 'Roboto', sans-serif;</code></td>
+    <td>Aplica la fuente descargada</td>
+    <td>Dentro de selector</td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<h2>2. Colores</h2>
+
+<h3>2.1 — Formas de escribir colores</h3>
+<table>
+  <tr>
+    <th>Formato</th>
+    <th>Cómo se escribe</th>
+    <th>Ejemplo visual</th>
+    <th>Cuándo usar</th>
+  </tr>
+  <tr>
+    <td>Nombre</td>
+    <td><code>color: red;</code></td>
+    <td><span class="color-box" style="background:red;"></span>red</td>
+    <td>Prototipos rápidos</td>
+  </tr>
+  <tr>
+    <td>HEX 6 dígitos</td>
+    <td><code>color: #ff0000;</code></td>
+    <td><span class="color-box" style="background:#ff0000;"></span>#ff0000</td>
+    <td>Uso general web</td>
+  </tr>
+  <tr>
+    <td>HEX 3 dígitos</td>
+    <td><code>color: #f00;</code></td>
+    <td><span class="color-box" style="background:#f00;"></span>#f00</td>
+    <td>Abreviar cuando coinciden</td>
+  </tr>
+  <tr>
+    <td>RGB</td>
+    <td><code>color: rgb(255, 0, 0);</code></td>
+    <td><span class="color-box" style="background:rgb(255,0,0);"></span>rgb(255,0,0)</td>
+    <td>Cuando calculas valores</td>
+  </tr>
+  <tr>
+    <td>RGBA (transparencia)</td>
+    <td><code>color: rgba(255, 0, 0, 0.5);</code></td>
+    <td><span class="color-box" style="background:rgba(255,0,0,0.5);"></span>50% opaco</td>
+    <td>Transparencias</td>
+  </tr>
+  <tr>
+    <td>HSL</td>
+    <td><code>color: hsl(0, 100%, 50%);</code></td>
+    <td><span class="color-box" style="background:hsl(0,100%,50%);"></span>hsl(0,100%,50%)</td>
+    <td>Ajustar tono/saturación</td>
+  </tr>
+  <tr>
+    <td>HSLA</td>
+    <td><code>color: hsla(0, 100%, 50%, 0.5);</code></td>
+    <td><span class="color-box" style="background:hsla(0,100%,50%,0.5);"></span>50%</td>
+    <td>Transparencia + tono</td>
+  </tr>
+</table>
+
+<h3>2.2 — Paleta de colores comunes</h3>
+<table>
+  <tr>
+    <th>Color</th>
+    <th>HEX</th>
+    <th>Vista</th>
+    <th>Uso típico</th>
+  </tr>
+  <tr>
+    <td>Blanco</td>
+    <td><code>#ffffff</code></td>
+    <td><span class="color-box" style="background:#ffffff;"></span></td>
+    <td>Fondos claros</td>
+  </tr>
+  <tr>
+    <td>Negro</td>
+    <td><code>#000000</code></td>
+    <td><span class="color-box" style="background:#000000;"></span></td>
+    <td>Texto principal</td>
+  </tr>
+  <tr>
+    <td>Gris claro</td>
+    <td><code>#f5f5f5</code></td>
+    <td><span class="color-box" style="background:#f5f5f5;"></span></td>
+    <td>Fondos alternos</td>
+  </tr>
+  <tr>
+    <td>Gris texto</td>
+    <td><code>#333333</code></td>
+    <td><span class="color-box" style="background:#333333;"></span></td>
+    <td>Texto legible</td>
+  </tr>
+  <tr>
+    <td>Rojo</td>
+    <td><code>#e74c3c</code></td>
+    <td><span class="color-box" style="background:#e74c3c;"></span></td>
+    <td>Alertas, errores</td>
+  </tr>
+  <tr>
+    <td>Verde</td>
+    <td><code>#27ae60</code></td>
+    <td><span class="color-box" style="background:#27ae60;"></span></td>
+    <td>Éxito, confirmar</td>
+  </tr>
+  <tr>
+    <td>Azul</td>
+    <td><code>#3498db</code></td>
+    <td><span class="color-box" style="background:#3498db;"></span></td>
+    <td>Información, links</td>
+  </tr>
+  <tr>
+    <td>Amarillo</td>
+    <td><code>#f1c40f</code></td>
+    <td><span class="color-box" style="background:#f1c40f;"></span></td>
+    <td>Advertencias</td>
+  </tr>
+  <tr>
+    <td>Naranja</td>
+    <td><code>#e67e22</code></td>
+    <td><span class="color-box" style="background:#e67e22;"></span></td>
+    <td>Avisos</td>
+  </tr>
+  <tr>
+    <td>Morado</td>
+    <td><code>#8e44ad</code></td>
+    <td><span class="color-box" style="background:#8e44ad;"></span></td>
+    <td>Creativo, decorativo</td>
+  </tr>
+</table>
+
+<h3>2.3 — Propiedades relacionadas con color</h3>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+  </tr>
+  <tr>
+    <td>Color texto</td>
+    <td><code>color: #333;</code></td>
+    <td>Color del texto</td>
+  </tr>
+  <tr>
+    <td>Color fondo</td>
+    <td><code>background-color: #f0f0f0;</code></td>
+    <td>Color de fondo del elemento</td>
+  </tr>
+  <tr>
+    <td>Color borde</td>
+    <td><code>border-color: #ccc;</code></td>
+    <td>Color del borde</td>
+  </tr>
+  <tr>
+    <td>Opacidad</td>
+    <td><code>opacity: 0.5;</code></td>
+    <td>Transparencia del elemento (0 a 1)</td>
+  </tr>
+  <tr>
+    <td>Degradado lineal</td>
+    <td><code>background: linear-gradient(to right, red, blue);</code></td>
+    <td>Gradiente de un color a otro</td>
+  </tr>
+  <tr>
+    <td>Degradado radial</td>
+    <td><code>background: radial-gradient(circle, white, black);</code></td>
+    <td>Gradiente circular</td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<h2>3. Formatos y medidas</h2>
+
+<h3>3.1 — Unidades CSS</h3>
+<table>
+  <tr>
+    <th>Unidad</th>
+    <th>Significado</th>
+    <th>Relativa a</th>
+    <th>Uso típico</th>
+  </tr>
+  <tr>
+    <td><code>px</code></td>
+    <td>Píxel</td>
+    <td>Absoluta</td>
+    <td>Tamaños fijos</td>
+  </tr>
+  <tr>
+    <td><code>%</code></td>
+    <td>Porcentaje</td>
+    <td>Padre</td>
+    <td>Anchos fluidos</td>
+  </tr>
+  <tr>
+    <td><code>em</code></td>
+    <td>Relativo al padre</td>
+    <td>Fuente padre</td>
+    <td>Márgenes proporcionales</td>
+  </tr>
+  <tr>
+    <td><code>rem</code></td>
+    <td>Relativo al root</td>
+    <td>Fuente html</td>
+    <td>Texto (recomendado)</td>
+  </tr>
+  <tr>
+    <td><code>vw</code></td>
+    <td>Viewport width</td>
+    <td>Ancho pantalla</td>
+    <td>Diseño responsive</td>
+  </tr>
+  <tr>
+    <td><code>vh</code></td>
+    <td>Viewport height</td>
+    <td>Alto pantalla</td>
+    <td>Pantalla completa</td>
+  </tr>
+  <tr>
+    <td><code>vmin</code></td>
+    <td>Menor de vw/vh</td>
+    <td>Pantalla</td>
+    <td>Adaptativo</td>
+  </tr>
+  <tr>
+    <td><code>vmax</code></td>
+    <td>Mayor de vw/vh</td>
+    <td>Pantalla</td>
+    <td>Adaptativo</td>
+  </tr>
+</table>
+
+<h3>3.2 — Formatos de imagen</h3>
+<table>
+  <tr>
+    <th>Formato</th>
+    <th>Extensión</th>
+    <th>Transparencia</th>
+    <th>Uso</th>
+  </tr>
+  <tr>
+    <td>JPEG</td>
+    <td><code>.jpg / .jpeg</code></td>
+    <td>No</td>
+    <td>Fotos reales</td>
+  </tr>
+  <tr>
+    <td>PNG</td>
+    <td><code>.png</code></td>
+    <td>Sí</td>
+    <td>Gráficos con transparencia</td>
+  </tr>
+  <tr>
+    <td>GIF</td>
+    <td><code>.gif</code></td>
+    <td>Sí (limitada)</td>
+    <td>Animaciones simples</td>
+  </tr>
+  <tr>
+    <td>SVG</td>
+    <td><code>.svg</code></td>
+    <td>Sí</td>
+    <td>Logos, iconos vectoriales</td>
+  </tr>
+  <tr>
+    <td>WebP</td>
+    <td><code>.webp</code></td>
+    <td>Sí</td>
+    <td>Moderno, mejor compresión</td>
+  </tr>
+  <tr>
+    <td>AVIF</td>
+    <td><code>.avif</code></td>
+    <td>Sí</td>
+    <td>Más moderno aún</td>
+  </tr>
+</table>
+
+<h3>3.3 — Formatos de video y audio</h3>
+<table>
+  <tr>
+    <th>Formato</th>
+    <th>Extensión</th>
+    <th>Tipo</th>
+    <th>Uso</th>
+  </tr>
+  <tr>
+    <td>MP4</td>
+    <td><code>.mp4</code></td>
+    <td>Video</td>
+    <td>Estándar, compatible con todo</td>
+  </tr>
+  <tr>
+    <td>WebM</td>
+    <td><code>.webm</code></td>
+    <td>Video</td>
+    <td>Moderno, libre</td>
+  </tr>
+  <tr>
+    <td>OGG</td>
+    <td><code>.ogv</code></td>
+    <td>Video</td>
+    <td>Alternativa libre</td>
+  </tr>
+  <tr>
+    <td>MP3</td>
+    <td><code>.mp3</code></td>
+    <td>Audio</td>
+    <td>Estándar de audio</td>
+  </tr>
+  <tr>
+    <td>WAV</td>
+    <td><code>.wav</code></td>
+    <td>Audio</td>
+    <td>Sin compresión, calidad alta</td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<h2>4. Formas y estilos visuales</h2>
+
+<h3>4.1 — border-style (estilos de borde)</h3>
+<table>
+  <tr>
+    <th>Estilo</th>
+    <th>Cómo se escribe</th>
+    <th>Vista</th>
+  </tr>
+  <tr>
+    <td>Solid</td>
+    <td><code>border: 2px solid #333;</code></td>
+    <td style="border:2px solid #333;">Línea continua</td>
+  </tr>
+  <tr>
+    <td>Dashed</td>
+    <td><code>border: 2px dashed #333;</code></td>
+    <td style="border:2px dashed #333;">Guiones</td>
+  </tr>
+  <tr>
+    <td>Dotted</td>
+    <td><code>border: 2px dotted #333;</code></td>
+    <td style="border:2px dotted #333;">Puntos</td>
+  </tr>
+  <tr>
+    <td>Double</td>
+    <td><code>border: 4px double #333;</code></td>
+    <td style="border:4px double #333;">Doble línea</td>
+  </tr>
+  <tr>
+    <td>Groove</td>
+    <td><code>border: 4px groove #999;</code></td>
+    <td style="border:4px groove #999;">Relieve</td>
+  </tr>
+  <tr>
+    <td>Ridge</td>
+    <td><code>border: 4px ridge #999;</code></td>
+    <td style="border:4px ridge #999;">Cresta</td>
+  </tr>
+  <tr>
+    <td>Inset</td>
+    <td><code>border: 4px inset #999;</code></td>
+    <td style="border:4px inset #999;">Hundido</td>
+  </tr>
+  <tr>
+    <td>Outset</td>
+    <td><code>border: 4px outset #999;</code></td>
+    <td style="border:4px outset #999;">Salido</td>
+  </tr>
+</table>
+
+<h3>4.2 — Formas con border-radius</h3>
+<table>
+  <tr>
+    <th>Forma</th>
+    <th>Cómo se escribe</th>
+    <th>Vista</th>
+  </tr>
+  <tr>
+    <td>Rectángulo normal</td>
+    <td><code>border-radius: 0;</code></td>
+    <td><div style="background:#3498db; width:60px; height:30px;"></div></td>
+  </tr>
+  <tr>
+    <td>Redondeado</td>
+    <td><code>border-radius: 8px;</code></td>
+    <td><div style="background:#3498db; width:60px; height:30px; border-radius:8px;"></div></td>
+  </tr>
+  <tr>
+    <td>Muy redondeado</td>
+    <td><code>border-radius: 20px;</code></td>
+    <td><div style="background:#3498db; width:60px; height:30px; border-radius:20px;"></div></td>
+  </tr>
+  <tr>
+    <td>Círculo</td>
+    <td><code>border-radius: 50%;</code></td>
+    <td><div style="background:#3498db; width:40px; height:40px; border-radius:50%;"></div></td>
+  </tr>
+  <tr>
+    <td>Pastilla</td>
+    <td><code>border-radius: 999px;</code></td>
+    <td><div style="background:#3498db; width:80px; height:30px; border-radius:999px;"></div></td>
+  </tr>
+</table>
+
+<h3>4.3 — Box-shadow (sombras)</h3>
+<table>
+  <tr>
+    <th>Tipo</th>
+    <th>Cómo se escribe</th>
+    <th>Vista</th>
+  </tr>
+  <tr>
+    <td>Sombra suave</td>
+    <td><code>box-shadow: 0 2px 5px rgba(0,0,0,0.2);</code></td>
+    <td><div style="background:#fff; width:80px; height:30px; box-shadow:0 2px 5px rgba(0,0,0,0.2);"></div></td>
+  </tr>
+  <tr>
+    <td>Sombra dura</td>
+    <td><code>box-shadow: 4px 4px 0 #333;</code></td>
+    <td><div style="background:#fff; width:80px; height:30px; box-shadow:4px 4px 0 #333;"></div></td>
+  </tr>
+  <tr>
+    <td>Sombra interna</td>
+    <td><code>box-shadow: inset 0 0 10px rgba(0,0,0,0.3);</code></td>
+    <td><div style="background:#fff; width:80px; height:30px; box-shadow:inset 0 0 10px rgba(0,0,0,0.3);"></div></td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<h2>5. Librerías y frameworks</h2>
+
+<h3>5.1 — CSS Frameworks</h3>
+<table>
+  <tr>
+    <th>Librería</th>
+    <th>¿Qué es?</th>
+    <th>Ventaja</th>
+    <th>Cómo se incluye</th>
+  </tr>
+  <tr>
+    <td>Bootstrap</td>
+    <td>Framework CSS más popular</td>
+    <td>Componentes listos, grid</td>
+    <td><code>&lt;link href="bootstrap.min.css"&gt;</code></td>
+  </tr>
+  <tr>
+    <td>Tailwind CSS</td>
+    <td>Framework de clases utilitarias</td>
+    <td>Muy flexible, sin CSS personalizado</td>
+    <td><code>&lt;script src="tailwind.js"&gt;</code></td>
+  </tr>
+  <tr>
+    <td>Bulma</td>
+    <td>Framework CSS moderno</td>
+    <td>Sin JS obligatorio, sintaxis simple</td>
+    <td><code>&lt;link href="bulma.min.css"&gt;</code></td>
+  </tr>
+  <tr>
+    <td>Foundation</td>
+    <td>Framework profesional</td>
+    <td>Componentes avanzados</td>
+    <td><code>&lt;link href="foundation.css"&gt;</code></td>
+  </tr>
+  <tr>
+    <td>Materialize</td>
+    <td>Basado en Material Design</td>
+    <td>Estilo Google</td>
+    <td><code>&lt;link href="materialize.css"&gt;</code></td>
+  </tr>
+</table>
+
+<h3>5.2 — JavaScript Frameworks y librerías</h3>
+<table>
+  <tr>
+    <th>Librería</th>
+    <th>¿Qué es?</th>
+    <th>Para qué sirve</th>
+    <th>Tipo</th>
+  </tr>
+  <tr>
+    <td>React</td>
+    <td>Librería de Facebook</td>
+    <td>Interfaces de usuario</td>
+    <td>Frontend</td>
+  </tr>
+  <tr>
+    <td>Vue.js</td>
+    <td>Framework progresivo</td>
+    <td>Apps web reactivas</td>
+    <td>Frontend</td>
+  </tr>
+  <tr>
+    <td>Angular</td>
+    <td>Framework de Google</td>
+    <td>Aplicaciones grandes</td>
+    <td>Frontend</td>
+  </tr>
+  <tr>
+    <td>Svelte</td>
+    <td>Compilador</td>
+    <td>Apps rápidas sin virtual DOM</td>
+    <td>Frontend</td>
+  </tr>
+  <tr>
+    <td>jQuery</td>
+    <td>Librería clásica</td>
+    <td>Manipular DOM fácilmente</td>
+    <td>Frontend (legacy)</td>
+  </tr>
+  <tr>
+    <td>Node.js</td>
+    <td>Runtime de JS</td>
+    <td>JS en el servidor</td>
+    <td>Backend</td>
+  </tr>
+  <tr>
+    <td>Express</td>
+    <td>Framework de Node</td>
+    <td>APIs y servidores web</td>
+    <td>Backend</td>
+  </tr>
+  <tr>
+    <td>Axios</td>
+    <td>Cliente HTTP</td>
+    <td>Peticiones más simples que fetch</td>
+    <td>Frontend/Backend</td>
+  </tr>
+  <tr>
+    <td>Three.js</td>
+    <td>Librería 3D</td>
+    <td>Gráficos 3D en navegador</td>
+    <td>Frontend</td>
+  </tr>
+  <tr>
+    <td>Chart.js</td>
+    <td>Librería de gráficos</td>
+    <td>Gráficas estadísticas</td>
+    <td>Frontend</td>
+  </tr>
+</table>
+
+<h3>5.3 — Librerías de PHP</h3>
+<table>
+  <tr>
+    <th>Librería</th>
+    <th>¿Qué es?</th>
+    <th>Para qué sirve</th>
+  </tr>
+  <tr>
+    <td>Laravel</td>
+    <td>Framework PHP moderno</td>
+    <td>Aplicaciones web grandes</td>
+  </tr>
+  <tr>
+    <td>Symfony</td>
+    <td>Framework empresarial</td>
+    <td>Proyectos complejos</td>
+  </tr>
+  <tr>
+    <td>CodeIgniter</td>
+    <td>Framework ligero</td>
+    <td>Apps simples y rápidas</td>
+  </tr>
+  <tr>
+    <td>Composer</td>
+    <td>Gestor de dependencias</td>
+    <td>Instalar librerías PHP</td>
+  </tr>
+  <tr>
+    <td>PHPMailer</td>
+    <td>Librería de correo</td>
+    <td>Enviar emails desde PHP</td>
+  </tr>
+  <tr>
+    <td>PHPUnit</td>
+    <td>Framework de testing</td>
+    <td>Probar código PHP</td>
+  </tr>
+</table>
+
+<h3>5.4 — Librerías de Python</h3>
+<table>
+  <tr>
+    <th>Librería</th>
+    <th>¿Qué es?</th>
+    <th>Para qué sirve</th>
+  </tr>
+  <tr>
+    <td>Django</td>
+    <td>Framework web completo</td>
+    <td>Apps web grandes</td>
+  </tr>
+  <tr>
+    <td>Flask</td>
+    <td>Micro framework</td>
+    <td>APIs y apps simples</td>
+  </tr>
+  <tr>
+    <td>FastAPI</td>
+    <td>Framework moderno</td>
+    <td>APIs rápidas</td>
+  </tr>
+  <tr>
+    <td>NumPy</td>
+    <td>Cálculo numérico</td>
+    <td>Matrices, álgebra</td>
+  </tr>
+  <tr>
+    <td>Pandas</td>
+    <td>Análisis de datos</td>
+    <td>DataFrames, CSV, Excel</td>
+  </tr>
+  <tr>
+    <td>Matplotlib</td>
+    <td>Gráficos</td>
+    <td>Visualización de datos</td>
+  </tr>
+  <tr>
+    <td>Requests</td>
+    <td>Cliente HTTP</td>
+    <td>Peticiones web</td>
+  </tr>
+  <tr>
+    <td>TensorFlow / PyTorch</td>
+    <td>IA / Machine Learning</td>
+    <td>Redes neuronales</td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<h2>6. Herramientas y complementos</h2>
+
+<h3>6.1 — Editores de código</h3>
+<table>
+  <tr>
+    <th>Herramienta</th>
+    <th>Plataforma</th>
+    <th>Gratis</th>
+    <th>Ideal para</th>
+  </tr>
+  <tr>
+    <td>VS Code</td>
+    <td>Win/Mac/Linux</td>
+    <td>Sí</td>
+    <td>Todo tipo de proyectos</td>
+  </tr>
+  <tr>
+    <td>Sublime Text</td>
+    <td>Win/Mac/Linux</td>
+    <td>Parcial</td>
+    <td>Edición rápida</td>
+  </tr>
+  <tr>
+    <td>Atom</td>
+    <td>Win/Mac/Linux</td>
+    <td>Sí</td>
+    <td>Personalizable</td>
+  </tr>
+  <tr>
+    <td>Notepad++</td>
+    <td>Windows</td>
+    <td>Sí</td>
+    <td>Edición ligera</td>
+  </tr>
+  <tr>
+    <td>Spck Code</td>
+    <td>Android/iOS</td>
+    <td>Sí</td>
+    <td>Programar desde móvil</td>
+  </tr>
+  <tr>
+    <td>Acode</td>
+    <td>Android</td>
+    <td>Sí</td>
+    <td>Editor avanzado móvil</td>
+  </tr>
+  <tr>
+    <td>Replit</td>
+    <td>Web</td>
+    <td>Sí</td>
+    <td>Colaborativo online</td>
+  </tr>
+  <tr>
+    <td>CodePen</td>
+    <td>Web</td>
+    <td>Sí</td>
+    <td>Prototipos HTML/CSS/JS</td>
+  </tr>
+</table>
+
+<h3>6.2 — Extensiones útiles para VS Code</h3>
+<table>
+  <tr>
+    <th>Extensión</th>
+    <th>Para qué sirve</th>
+  </tr>
+  <tr>
+    <td>Live Server</td>
+    <td>Recarga automática del navegador</td>
+  </tr>
+  <tr>
+    <td>Prettier</td>
+    <td>Formatea código automáticamente</td>
+  </tr>
+  <tr>
+    <td>ESLint</td>
+    <td>Detecta errores en JavaScript</td>
+  </tr>
+  <tr>
+    <td>PHP Intelephense</td>
+    <td>Autocompletado para PHP</td>
+  </tr>
+  <tr>
+    <td>Python</td>
+    <td>Soporte oficial para Python</td>
+  </tr>
+  <tr>
+    <td>C/C++</td>
+    <td>Soporte oficial para C/C++</td>
+  </tr>
+  <tr>
+    <td>Auto Rename Tag</td>
+    <td>Renombra etiquetas HTML emparejadas</td>
+  </tr>
+  <tr>
+    <td>Bracket Pair Colorizer</td>
+    <td>Colorea llaves y paréntesis</td>
+  </tr>
+  <tr>
+    <td>GitLens</td>
+    <td>Historial de cambios con Git</td>
+  </tr>
+  <tr>
+    <td>Path Intellisense</td>
+    <td>Autocompleta rutas de archivos</td>
+  </tr>
+</table>
+
+<h3>6.3 — Herramientas de diseño</h3>
+<table>
+  <tr>
+    <th>Herramienta</th>
+    <th>Tipo</th>
+    <th>Para qué sirve</th>
+  </tr>
+  <tr>
+    <td>Figma</td>
+    <td>Diseño UI</td>
+    <td>Prototipos y mockups web</td>
+  </tr>
+  <tr>
+    <td>Adobe XD</td>
+    <td>Diseño UI</td>
+    <td>Diseño de interfaces</td>
+  </tr>
+  <tr>
+    <td>Canva</td>
+    <td>Diseño gráfico</td>
+    <td>Gráficos rápidos</td>
+  </tr>
+  <tr>
+    <td>GIMP</td>
+    <td>Edición de imágenes</td>
+    <td>Alternativa gratis a Photoshop</td>
+  </tr>
+  <tr>
+    <td>Inkscape</td>
+    <td>Vectorial</td>
+    <td>Editar SVG</td>
+  </tr>
+  <tr>
+    <td>Coolors</td>
+    <td>Paletas</td>
+    <td>Generar combinaciones de colores</td>
+  </tr>
+  <tr>
+    <td>Google Fonts</td>
+    <td>Tipografías</td>
+    <td>Fuentes gratis para web</td>
+  </tr>
+  <tr>
+    <td>Font Awesome</td>
+    <td>Iconos</td>
+    <td>Iconos vectoriales para web</td>
+  </tr>
+</table>
+
+<h3>6.4 — Herramientas de testing y validación</h3>
+<table>
+  <tr>
+    <th>Herramienta</th>
+    <th>Para qué sirve</th>
+  </tr>
+  <tr>
+    <td>W3C Validator</td>
+    <td>Valida HTML y CSS según estándares</td>
+  </tr>
+  <tr>
+    <td>Lighthouse (Chrome)</td>
+    <td>Auditoría de rendimiento, SEO, accesibilidad</td>
+  </tr>
+  <tr>
+    <td>Can I Use</td>
+    <td>Compatibilidad de características CSS/JS</td>
+  </tr>
+  <tr>
+    <td>PageSpeed Insights</td>
+    <td>Velocidad de carga de tu web</td>
+  </tr>
+  <tr>
+    <td>Postman</td>
+    <td>Probar APIs y peticiones HTTP</td>
+  </tr>
+  <tr>
+    <td>Regex101</td>
+    <td>Probar expresiones regulares</td>
+  </tr>
+</table>
+
+<h3>6.5 — Repositorios y hosting gratis</h3>
+<table>
+  <tr>
+    <th>Servicio</th>
+    <th>Para qué sirve</th>
+    <th>Tipo</th>
+  </tr>
+  <tr>
+    <td>GitHub</td>
+    <td>Repositorio de código + GitHub Pages</td>
+    <td>Gratis</td>
+  </tr>
+  <tr>
+    <td>GitLab</td>
+    <td>Alternativa a GitHub</td>
+    <td>Gratis</td>
+  </tr>
+  <tr>
+    <td>Bitbucket</td>
+    <td>Repositorios privados gratis</td>
+    <td>Gratis</td>
+  </tr>
+  <tr>
+    <td>Netlify</td>
+    <td>Hosting de sitios estáticos</td>
+    <td>Gratis con subdominio</td>
+  </tr>
+  <tr>
+    <td>Vercel</td>
+    <td>Hosting moderno</td>
+    <td>Gratis</td>
+  </tr>
+  <tr>
+    <td>GitHub Pages</td>
+    <td>Hosting desde repositorio</td>
+    <td>Gratis</td>
+  </tr>
+</table>
+
+<h3>6.6 — Entornos de servidor locales</h3>
+<table>
+  <tr>
+    <th>Entorno</th>
+    <th>Plataforma</th>
+    <th>Incluye</th>
+  </tr>
+  <tr>
+    <td>XAMPP</td>
+    <td>Win/Mac/Linux</td>
+    <td>Apache + MySQL + PHP + Perl</td>
+  </tr>
+  <tr>
+    <td>WAMP</td>
+    <td>Windows</td>
+    <td>Windows + Apache + MySQL + PHP</td>
+  </tr>
+  <tr>
+    <td>MAMP</td>
+    <td>Mac/Windows</td>
+    <td>Mac + Apache + MySQL + PHP</td>
+  </tr>
+  <tr>
+    <td>LAMP</td>
+    <td>Linux</td>
+    <td>Linux + Apache + MySQL + PHP</td>
+  </tr>
+  <tr>
+    <td>Laragon</td>
+    <td>Windows</td>
+    <td>Portable, incluye todo</td>
+  </tr>
+  <tr>
+    <td>Docker</td>
+    <td>Todos</td>
+    <td>Contenedores personalizables</td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<h2>7. Formatos de archivo y codificaciones</h2>
+
+<h3>7.1 — Extensiones por lenguaje</h3>
+<table>
+  <tr>
+    <th>Lenguaje</th>
+    <th>Extensión</th>
+    <th>Ejemplo</th>
+  </tr>
+  <tr>
+    <td>HTML</td>
+    <td><code>.html</code> o <code>.htm</code></td>
+    <td>index.html</td>
+  </tr>
+  <tr>
+    <td>CSS</td>
+    <td><code>.css</code></td>
+    <td>estilos.css</td>
+  </tr>
+  <tr>
+    <td>JavaScript</td>
+    <td><code>.js</code> o <code>.mjs</code></td>
+    <td>app.js</td>
+  </tr>
+  <tr>
+    <td>TypeScript</td>
+    <td><code>.ts</code></td>
+    <td>app.ts</td>
+  </tr>
+  <tr>
+    <td>PHP</td>
+    <td><code>.php</code></td>
+    <td>index.php</td>
+  </tr>
+  <tr>
+    <td>Python</td>
+    <td><code>.py</code></td>
+    <td>script.py</td>
+  </tr>
+  <tr>
+    <td>C</td>
+    <td><code>.c</code> o <code>.h</code></td>
+    <td>main.c</td>
+  </tr>
+  <tr>
+    <td>JSON</td>
+    <td><code>.json</code></td>
+    <td>datos.json</td>
+  </tr>
+  <tr>
+    <td>Markdown</td>
+    <td><code>.md</code></td>
+    <td>README.md</td>
+  </tr>
+  <tr>
+    <td>XML</td>
+    <td><code>.xml</code></td>
+    <td>config.xml</td>
+  </tr>
+</table>
+
+<h3>7.2 — Codificaciones de caracteres</h3>
+<table>
+  <tr>
+    <th>Codificación</th>
+    <th>Cómo se escribe</th>
+    <th>Cuándo usar</th>
+  </tr>
+  <tr>
+    <td>UTF-8</td>
+    <td><code>&lt;meta charset="UTF-8"&gt;</code></td>
+    <td>Siempre. Soporta todos los idiomas</td>
+  </tr>
+  <tr>
+    <td>ISO-8859-1</td>
+    <td><code>&lt;meta charset="ISO-8859-1"&gt;</code></td>
+    <td>Legacy, evitar</td>
+  </tr>
+  <tr>
+    <td>ASCII</td>
+    <td>Sin emojis ni acentos</td>
+    <td>Solo inglés básico</td>
+  </tr>
+</table>
+
+<h3>7.3 — Meta tags útiles</h3>
+<table>
+  <tr>
+    <th>Qué</th>
+    <th>Cómo se escribe</th>
+    <th>Qué hace</th>
+  </tr>
+  <tr>
+    <td>Charset</td>
+    <td><code>&lt;meta charset="UTF-8"&gt;</code></td>
+    <td>Acentos y ñ correctos</td>
+  </tr>
+  <tr>
+    <td>Viewport</td>
+    <td><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></td>
+    <td>Diseño responsive en móvil</td>
+  </tr>
+  <tr>
+    <td>Descripción</td>
+    <td><code>&lt;meta name="description" content="..."&gt;</code></td>
+    <td>SEO: texto en Google</td>
+  </tr>
+  <tr>
+    <td>Keywords</td>
+    <td><code>&lt;meta name="keywords" content="html,css"&gt;</code></td>
+    <td>Obsoleto, no usar</td>
+  </tr>
+  <tr>
+    <td>Author</td>
+    <td><code>&lt;meta name="author" content="Tu nombre"&gt;</code></td>
+    <td>Autor del sitio</td>
+  </tr>
+  <tr>
+    <td>Theme color</td>
+    <td><code>&lt;meta name="theme-color" content="#3498db"&gt;</code></td>
+    <td>Color de la barra en móvil</td>
+  </tr>
+  <tr>
+    <td>Open Graph</td>
+    <td><code>&lt;meta property="og:title" content="..."&gt;</code></td>
+    <td>Vista previa en redes sociales</td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<h2>8. Atajos útiles</h2>
+
+<h3>8.1 — Atajos universales de editores</h3>
+<table>
+  <tr>
+    <th>Atajo</th>
+    <th>Qué hace</th>
+  </tr>
+  <tr>
+    <td><code>Ctrl + S</code></td>
+    <td>Guardar</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + Z</code></td>
+    <td>Deshacer</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + Y</code></td>
+    <td>Rehacer</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + C / V</code></td>
+    <td>Copiar / Pegar</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + F</code></td>
+    <td>Buscar</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + H</code></td>
+    <td>Buscar y reemplazar</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + /</code></td>
+    <td>Comentar línea</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + D</code></td>
+    <td>Seleccionar siguiente ocurrencia</td>
+  </tr>
+  <tr>
+    <td><code>Alt + ↑/↓</code></td>
+    <td>Mover línea</td>
+  </tr>
+  <tr>
+    <td><code>Shift + Alt + ↓</code></td>
+    <td>Duplicar línea</td>
+  </tr>
+</table>
+
+<h3>8.2 — Atajos del navegador</h3>
+<table>
+  <tr>
+    <th>Atajo</th>
+    <th>Qué hace</th>
+  </tr>
+  <tr>
+    <td><code>F12</code></td>
+    <td>Abrir DevTools</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + Shift + R</code></td>
+    <td>Recarga forzada (sin caché)</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + P</code></td>
+    <td>Imprimir / Guardar como PDF</td>
+  </tr>
+  <tr>
+    <td><code>Ctrl + U</code></td>
+    <td>Ver código fuente</td>
+  </tr>
+  <tr>
+    <td><code>F5</code></td>
+    <td>Recargar</td>
+  </tr>
+</table>
+
+<h3>8.3 — Emmet (abreviaciones HTML/CSS)</h3>
+<table>
+  <tr>
+    <th>Escribes</th>
+    <th>Se convierte en</th>
+  </tr>
+  <tr>
+    <td><code>!</code> + Tab</td>
+    <td>Plantilla HTML5 completa</td>
+  </tr>
+  <tr>
+    <td><code>div</code> + Tab</td>
+    <td><code>&lt;div&gt;&lt;/div&gt;</code></td>
+  </tr>
+  <tr>
+    <td><code>p.clase</code> + Tab</td>
+    <td><code>&lt;p class="clase"&gt;&lt;/p&gt;</code></td>
+  </tr>
+  <tr>
+    <td><code>ul&gt;li*3</code> + Tab</td>
+    <td>Lista con 3 items</td>
+  </tr>
+  <tr>
+    <td><code>h1{titulo}</code> + Tab</td>
+    <td><code>&lt;h1&gt;titulo&lt;/h1&gt;</code></td>
+  </tr>
+  <tr>
+    <td><code>a[href=#]</code> + Tab</td>
+    <td><code>&lt;a href="#"&gt;&lt;/a&gt;</code></td>
+  </tr>
+</table>
+
+<p style="text-align:center; color:#888; padding:20px; margin-top:30px;">
+<em>Fin de Tabla 2 · Referencias completas</em>
+</p>
+
+</body>
+</html>

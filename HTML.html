@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Extendido de HTML — Guía Completa</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.7;
+    color: #222;
+    background: #fff;
+    font-size: 16px;
+  }
+  h1 {
+    color: #c0392b;
+    border-bottom: 4px solid #c0392b;
+    padding-bottom: 12px;
+    font-size: 2em;
+  }
+  h2 {
+    color: #fff;
+    background: #c0392b;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 40px;
+    font-size: 1.4em;
+  }
+  h3 {
+    color: #c0392b;
+    border-left: 5px solid #c0392b;
+    padding-left: 12px;
+    margin-top: 30px;
+  }
+  h4 { color: #34495e; margin-top: 20px; }
+  pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    border-radius: 6px;
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    color: #c0392b;
+  }
+  pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #c0392b; color: #fff; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .nota, .tip, .warn {
+    padding: 12px 18px;
+    margin: 18px 0;
+    border-radius: 5px;
+  }
+  .nota { background: #e8f4fd; border-left: 5px solid #3498db; }
+  .tip { background: #eafaf1; border-left: 5px solid #27ae60; }
+  .warn { background: #fef5e7; border-left: 5px solid #f39c12; }
+  .indice {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px 30px;
+  }
+  .indice ol { padding-left: 20px; }
+  .indice a { color: #c0392b; text-decoration: none; }
+  .indice a:hover { text-decoration: underline; }
+  #btnPDF {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 999;
+  }
+  #btnPDF:hover { background: #a93226; }
+  @media print {
+    #btnPDF { display: none; }
+    body { padding: 10px; font-size: 12px; }
+    h2 { page-break-after: avoid; }
+    pre { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<button id="btnPDF" onclick="window.print()">📥 Descargar como PDF</button>
+
+<h1>📘 Manual Extendido de HTML</h1>
+<p><em>Guía completa de referencia · Nivel principiante a intermedio · Con base en VBS/Excel</em></p>
+
+<div class="indice">
+<h3>📑 Índice General</h3>
+<ol>
+  <li><a href="#cap1">¿Qué es HTML?</a></li>
+  <li><a href="#cap2">Estructura de un documento</a></li>
+  <li><a href="#cap3">Etiquetas de texto y formato</a></li>
+  <li><a href="#cap4">Enlaces (hipervínculos)</a></li>
+  <li><a href="#cap5">Imágenes y multimedia</a></li>
+  <li><a href="#cap6">Listas</a></li>
+  <li><a href="#cap7">Tablas</a></li>
+  <li><a href="#cap8">Formularios</a></li>
+  <li><a href="#cap9">HTML semántico</a></li>
+  <li><a href="#cap10">Atributos globales</a></li>
+  <li><a href="#cap11">Entidades HTML</a></li>
+  <li><a href="#cap12">Buenas prácticas</a></li>
+  <li><a href="#cap13">Ejercicios progresivos</a></li>
+  <li><a href="#cap14">Proyecto final</a></li>
+</ol>
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap1">Capítulo 1 — ¿Qué es HTML?</h2>
+
+<p>HTML significa <strong>HyperText Markup Language</strong> (Lenguaje de Marcado de Hipertexto). Fue creado por Tim Berners-Lee en 1991 y es la base de <strong>toda</strong> página web del mundo.</p>
+
+<h3>1.1 — ¿Qué significa cada palabra?</h3>
+<table>
+  <tr><th>Palabra</th><th>Significado</th><th>Ejemplo</th></tr>
+  <tr><td><strong>HyperText</strong></td><td>Texto que enlaza a otro texto</td><td>Un enlace que te lleva a otra página</td></tr>
+  <tr><td><strong>Markup</strong></td><td>Marcas que describen el contenido</td><td><code>&lt;h1&gt;</code> marca algo como título</td></tr>
+  <tr><td><strong>Language</strong></td><td>Conjunto de reglas</td><td>Sintaxis de etiquetas y atributos</td></tr>
+</table>
+
+<h3>1.2 — ¿Por qué NO es un lenguaje de programación?</h3>
+<p>Un lenguaje de programación (como VBS, JavaScript o PHP) tiene:</p>
+<ul>
+  <li>Variables</li>
+  <li>Condicionales (<code>If</code>, <code>Else</code>)</li>
+  <li>Bucles (<code>For</code>, <code>While</code>)</li>
+  <li>Funciones que devuelven valores</li>
+  <li>Capacidad de tomar decisiones</li>
+</ul>
+<p>HTML <strong>no tiene nada de eso</strong>. Solo tiene etiquetas que describen contenido. Es más parecido al formato de un documento de Word que a un programa.</p>
+
+<h3>1.3 — ¿Cómo funciona HTML en el navegador?</h3>
+<pre>
+1. Escribes un archivo .html
+2. El navegador lo lee
+3. Interpreta cada etiqueta
+4. Dibuja el resultado en pantalla
+5. El usuario ve la página
+</pre>
+
+<div class="nota">
+  <strong>🧠 Analogía con VBS:</strong> en VBS tenías <code>Sub Nombre() ... End Sub</code>. En HTML tienes <code>&lt;body&gt; ... &lt;/body&gt;</code>. Ambos son bloques que contienen cosas dentro.
+</div>
+
+<h3>1.4 — Los 3 pilares de una página web moderna</h3>
+<table>
+  <tr><th>Lenguaje</th><th>Rol</th><th>Analogía con un cuerpo humano</th></tr>
+  <tr><td><strong>HTML</strong></td><td>Estructura y contenido</td><td>Esqueleto y órganos</td></tr>
+  <tr><td><strong>CSS</strong></td><td>Diseño visual</td><td>Piel, ropa, colores</td></tr>
+  <tr><td><strong>JavaScript</strong></td><td>Interactividad</td><td>Músculos y cerebro</td></tr>
+</table>
+
+<!-- ============================================ -->
+<h2 id="cap2">Capítulo 2 — Estructura de un documento HTML</h2>
+
+<h3>2.1 — Plantilla mínima obligatoria</h3>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi primera página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hola mundo&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>2.2 — Explicación detallada de cada línea</h3>
+
+<h4>🔹 <code>&lt;!DOCTYPE html&gt;</code></h4>
+<ul>
+  <li><strong>Qué es:</strong> una declaración (no es una etiqueta).</li>
+  <li><strong>Para qué sirve:</strong> le dice al navegador que use el estándar HTML5.</li>
+  <li><strong>Si lo olvidas:</strong> el navegador entra en "modo quirks" y algunas cosas se ven mal.</li>
+  <li><strong>Posición:</strong> debe ser la <strong>primera línea</strong>, antes de todo.</li>
+</ul>
+
+<h4>🔹 <code>&lt;html lang="es"&gt;</code></h4>
+<ul>
+  <li><strong>Qué es:</strong> la etiqueta raíz. Contiene todo el documento.</li>
+  <li><strong>Atributo <code>lang</code>:</strong> indica el idioma. Ayuda a lectores de pantalla y a Google.</li>
+  <li><strong>Valores comunes:</strong> <code>es</code> español, <code>en</code> inglés, <code>pt</code> portugués, <code>fr</code> francés.</li>
+  <li><strong>Cierre obligatorio:</strong> <code>&lt;/html&gt;</code> al final.</li>
+</ul>
+
+<h4>🔹 <code>&lt;head&gt;</code></h4>
+<ul>
+  <li><strong>Qué es:</strong> "cabeza" del documento.</li>
+  <li><strong>Contiene:</strong> información que <strong>NO se ve</strong> en pantalla.</li>
+  <li><strong>Ejemplos:</strong> título de pestaña, enlaces a CSS, metadatos, favicon.</li>
+  <li><strong>No confundir con:</strong> <code>&lt;header&gt;</code> (esa sí se ve, es encabezado visible).</li>
+</ul>
+
+<h4>🔹 <code>&lt;meta charset="UTF-8"&gt;</code></h4>
+<ul>
+  <li><strong>Qué hace:</strong> define la codificación de caracteres.</li>
+  <li><strong>Por qué importa:</strong> sin esto, los acentos y la ñ se ven como símbolos raros (Ã±, Ã¡).</li>
+  <li><strong>UTF-8:</strong> estándar universal que soporta todos los idiomas.</li>
+</ul>
+
+<h4>🔹 <code>&lt;meta name="viewport" ...&gt;</code></h4>
+<ul>
+  <li><strong>Qué hace:</strong> controla cómo se muestra la página en móviles.</li>
+  <li><strong><code>width=device-width</code>:</strong> el ancho se ajusta al ancho real del dispositivo.</li>
+  <li><strong><code>initial-scale=1.0</code>:</strong> zoom inicial al 100%.</li>
+  <li><strong>Sin esto:</strong> la página se ve como si fuera de PC, miniaturizada.</li>
+</ul>
+
+<h4>🔹 <code>&lt;title&gt;</code></h4>
+<ul>
+  <li><strong>Qué hace:</strong> texto que aparece en la pestaña del navegador.</li>
+  <li><strong>También se usa:</strong> como título en resultados de Google.</li>
+  <li><strong>Recomendación:</strong> máximo 60 caracteres.</li>
+  <li><strong>No confundir con:</strong> <code>&lt;h1&gt;</code>, que es un título visible en la página.</li>
+</ul>
+
+<h4>🔹 <code>&lt;body&gt;</code></h4>
+<ul>
+  <li><strong>Qué es:</strong> el "cuerpo" del documento.</li>
+  <li><strong>Contiene:</strong> TODO lo visible: textos, imágenes, botones, formularios.</li>
+  <li><strong>Solo puede haber uno</strong> por documento.</li>
+</ul>
+
+<div class="tip">
+  <strong>💡 Truco:</strong> en Spck Code o VS Code, escribe <code>!</code> y presiona Tab. Se autogenera esta plantilla completa.
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap3">Capítulo 3 — Etiquetas de texto y formato</h2>
+
+<h3>3.1 — Títulos jerárquicos: <code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code></h3>
+
+<p>Existen 6 niveles de títulos. <code>&lt;h1&gt;</code> es el más importante (y grande), <code>&lt;h6&gt;</code> el menos importante (y pequeño).</p>
+
+<pre>&lt;h1&gt;Título principal de la página&lt;/h1&gt;
+&lt;h2&gt;Sección grande&lt;/h2&gt;
+&lt;h3&gt;Subsección&lt;/h3&gt;
+&lt;h4&gt;Sub-subsección&lt;/h4&gt;
+&lt;h5&gt;Detalle menor&lt;/h5&gt;
+&lt;h6&gt;El más pequeño&lt;/h6&gt;</pre>
+
+<h4>¿Cómo decidir qué nivel usar?</h4>
+<table>
+  <tr><th>Nivel</th><th>Uso típico</th></tr>
+  <tr><td>h1</td><td>Título de la página (SOLO UNO por página)</td></tr>
+  <tr><td>h2</td><td>Grandes secciones dentro de la página</td></tr>
+  <tr><td>h3</td><td>Subsecciones dentro de un h2</td></tr>
+  <tr><td>h4, h5, h6</td><td>Niveles cada vez más internos</td></tr>
+</table>
+
+<div class="warn">
+  <strong>⚠️ Error común:</strong> usar <code>&lt;h2&gt;</code> solo porque "se ve más grande". Los títulos son para <strong>jerarquía semántica</strong>, no para hacer letras grandes. Para tamaño usa CSS.
+</div>
+
+<h3>3.2 — Párrafos: <code>&lt;p&gt;</code></h3>
+
+<pre>&lt;p&gt;Este es un párrafo. El navegador añade espacio automáticamente antes y después.&lt;/p&gt;
+&lt;p&gt;Este es otro párrafo separado del anterior.&lt;/p&gt;</pre>
+
+<ul>
+  <li><strong>Qué hace:</strong> agrupa texto en un bloque.</li>
+  <li><strong>Comportamiento:</strong> añade margen arriba y abajo automáticamente.</li>
+  <li><strong>NO se pueden anidar:</strong> un <code>&lt;p&gt;</code> dentro de otro <code>&lt;p&gt;</code> es error.</li>
+  <li><strong>Los espacios múltiples se colapsan:</strong> si escribes 10 espacios, se ve como 1.</li>
+</ul>
+
+<h3>3.3 — Formato de texto dentro de párrafos</h3>
+
+<h4>🔹 <code>&lt;strong&gt;</code> — Texto importante (negrita semántica)</h4>
+<pre>&lt;p&gt;Esto es &lt;strong&gt;muy importante&lt;/strong&gt;.&lt;/p&gt;</pre>
+<ul>
+  <li><strong>Visualmente:</strong> se ve en negrita.</li>
+  <li><strong>Semánticamente:</strong> indica importancia real (lectores de pantalla lo enfatizan).</li>
+  <li><strong>No confundir con <code>&lt;b&gt;</code>:</strong> <code>&lt;b&gt;</code> solo pone negrita visual, sin significado.</li>
+</ul>
+
+<h4>🔹 <code>&lt;em&gt;</code> — Énfasis (cursiva semántica)</h4>
+<pre>&lt;p&gt;Esto es &lt;em&gt;énfasis real&lt;/em&gt;.&lt;/p&gt;</pre>
+<ul>
+  <li><strong>Visualmente:</strong> se ve en cursiva.</li>
+  <li><strong>Semánticamente:</strong> énfasis que cambiaría el sentido de la frase.</li>
+  <li><strong>No confundir con <code>&lt;i&gt;</code>:</strong> <code>&lt;i&gt;</code> solo pone cursiva visual.</li>
+</ul>
+
+<h4>🔹 <code>&lt;mark&gt;</code> — Texto resaltado</h4>
+<pre>&lt;p&gt;Este texto está &lt;mark&gt;resaltado como con marcador&lt;/mark&gt;.&lt;/p&gt;</pre>
+<p>Fondo amarillo por defecto, como si pasaras un resaltador.</p>
+
+<h4>🔹 <code>&lt;small&gt;</code> — Texto pequeño</h4>
+<pre>&lt;p&gt;Texto normal. &lt;small&gt;Texto legal pequeño.&lt;/small&gt;&lt;/p&gt;</pre>
+<p>Útil para notas al pie, avisos legales, copyright.</p>
+
+<h4>🔹 <code>&lt;del&gt;</code> y <code>&lt;ins&gt;</code> — Texto tachado y añadido</h4>
+<pre>&lt;p&gt;Precio: &lt;del&gt;$100&lt;/del&gt; &lt;ins&gt;$80&lt;/ins&gt;&lt;/p&gt;</pre>
+<ul>
+  <li><code>&lt;del&gt;</code> → texto tachado (eliminado)</li>
+  <li><code>&lt;ins&gt;</code> → texto subrayado (insertado)</li>
+</ul>
+
+<h4>🔹 <code>&lt;sub&gt;</code> y <code>&lt;sup&gt;</code> — Subíndice y superíndice</h4>
+<pre>&lt;p&gt;Agua: H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;
+&lt;p&gt;Einstein: E = mc&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;</pre>
+
+<h4>🔹 <code>&lt;br&gt;</code> — Salto de línea</h4>
+<pre>&lt;p&gt;Primera línea&lt;br&gt;Segunda línea&lt;/p&gt;</pre>
+<ul>
+  <li><strong>Etiqueta vacía:</strong> no tiene cierre <code>&lt;/br&gt;</code>.</li>
+  <li><strong>Uso:</strong> solo cuando realmente necesitas cortar una línea.</li>
+  <li><strong>NO usar</strong> para separar párrafos. Para eso existe <code>&lt;p&gt;</code>.</li>
+</ul>
+
+<h4>🔹 <code>&lt;hr&gt;</code> — Línea horizontal</h4>
+<pre>&lt;p&gt;Sección 1&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Sección 2&lt;/p&gt;</pre>
+<p>Dibuja una línea divisoria. También es etiqueta vacía.</p>
+
+<h4>🔹 <code>&lt;blockquote&gt;</code> — Cita larga</h4>
+<pre>&lt;blockquote&gt;
+    La imaginación es más importante que el conocimiento.
+    — Albert Einstein
+&lt;/blockquote&gt;</pre>
+<p>El navegador añade sangría automáticamente.</p>
+
+<h4>🔹 <code>&lt;q&gt;</code> — Cita corta en línea</h4>
+<pre>&lt;p&gt;Einstein dijo &lt;q&gt;la imaginación es más importante&lt;/q&gt;.&lt;/p&gt;</pre>
+<p>Añade comillas automáticamente.</p>
+
+<h4>🔹 <code>&lt;abbr&gt;</code> — Abreviatura</h4>
+<pre>&lt;p&gt;El &lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; es genial.&lt;/p&gt;</pre>
+<p>Al pasar el ratón por encima, muestra el título completo.</p>
+
+<h4>🔹 <code>&lt;code&gt;</code> — Código en línea</h4>
+<pre>&lt;p&gt;Usa la etiqueta &lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt; para agrupar.&lt;/p&gt;</pre>
+<p>Muestra texto con fuente monoespaciada. Se usa para fragmentos de código dentro de un párrafo.</p>
+
+<h4>🔹 <code>&lt;pre&gt;</code> — Texto preformateado</h4>
+<pre>&lt;pre&gt;
+  Este texto
+    conserva   los
+  espacios
+    y saltos
+&lt;/pre&gt;</pre>
+<p>Respeta espacios y saltos de línea exactamente como los escribes. Ideal para bloques de código.</p>
+
+<div class="tip">
+  <strong>💡 Combinación clásica:</strong>
+  <pre style="margin-top:8px">&lt;pre&gt;&lt;code&gt;
+    tu código aquí
+&lt;/code&gt;&lt;/pre&gt;</pre>
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap4">Capítulo 4 — Enlaces (hipervínculos)</h2>
+
+<h3>4.1 — La etiqueta <code>&lt;a&gt;</code></h3>
+<p>Es la etiqueta más importante de la web. <strong>Sin enlaces, internet no existiría como lo conocemos.</strong></p>
+
+<pre>&lt;a href="https://google.com"&gt;Ir a Google&lt;/a&gt;</pre>
+
+<h4>Anatomía completa</h4>
+<table>
+  <tr><th>Parte</th><th>Función</th></tr>
+  <tr><td><code>&lt;a&gt;</code></td><td>Abre la etiqueta (a = anchor, ancla)</td></tr>
+  <tr><td><code>href="..."</code></td><td>Atributo que indica el destino</td></tr>
+  <tr><td><code>Ir a Google</code></td><td>Texto visible que el usuario toca</td></tr>
+  <tr><td><code>&lt;/a&gt;</code></td><td>Cierra la etiqueta</td></tr>
+</table>
+
+<h3>4.2 — Tipos de enlaces según su destino</h3>
+
+<h4>🔹 Enlace externo (a otra web)</h4>
+<pre>&lt;a href="https://google.com"&gt;Google&lt;/a&gt;</pre>
+<p>Debe empezar con <code>https://</code> o <code>http://</code>.</p>
+
+<h4>🔹 Enlace interno (a otra página tuya)</h4>
+<pre>&lt;a href="contacto.html"&gt;Ir a contacto&lt;/a&gt;
+&lt;a href="carpeta/acerca.html"&gt;Acerca de&lt;/a&gt;</pre>
+<p>Ruta relativa: no lleva dominio, busca el archivo en tu proyecto.</p>
+
+<h4>🔹 Enlace a una sección de la misma página</h4>
+<pre>&lt;a href="#seccion-final"&gt;Ir al final&lt;/a&gt;
+...
+&lt;h2 id="seccion-final"&gt;Final&lt;/h2&gt;</pre>
+<p>El <code>#</code> indica que busque un <code>id</code> dentro del mismo documento.</p>
+
+<h4>🔹 Enlace a correo</h4>
+<pre>&lt;a href="mailto:correo@ejemplo.com"&gt;Escríbeme&lt;/a&gt;</pre>
+<p>Abre el gestor de correo del usuario.</p>
+
+<h4>🔹 Enlace a teléfono</h4>
+<pre>&lt;a href="tel:+521234567890"&gt;Llámame&lt;/a&gt;</pre>
+<p>En móviles, abre el marcador.</p>
+
+<h4>🔹 Enlace que descarga un archivo</h4>
+<pre>&lt;a href="documento.pdf" download&gt;Descargar PDF&lt;/a&gt;</pre>
+<p>El atributo <code>download</code> fuerza la descarga en lugar de abrir.</p>
+
+<h3>4.3 — El atributo <code>target</code></h3>
+<table>
+  <tr><th>Valor</th><th>Comportamiento</th></tr>
+  <tr><td><code>_self</code></td><td>Abre en la misma pestaña (por defecto)</td></tr>
+  <tr><td><code>_blank</code></td><td>Abre en pestaña nueva</td></tr>
+  <tr><td><code>_parent</code></td><td>Abre en el frame padre</td></tr>
+  <tr><td><code>_top</code></td><td>Abre en la ventana completa</td></tr>
+</table>
+
+<pre>&lt;a href="https://google.com" target="_blank"&gt;Abrir en nueva pestaña&lt;/a&gt;</pre>
+
+<div class="warn">
+  <strong>⚠️ Seguridad:</strong> cuando uses <code>target="_blank"</code>, añade también <code>rel="noopener noreferrer"</code> para evitar vulnerabilidades.
+</div>
+
+<h3>4.4 — Estados de un enlace</h3>
+<p>Aunque el estilo se define en CSS, HTML permite ver los estados:</p>
+<ul>
+  <li><strong>Normal:</strong> enlace sin tocar (azul subrayado)</li>
+  <li><strong>Hover:</strong> cuando pasas el ratón</li>
+  <li><strong>Active:</strong> mientras haces clic</li>
+  <li><strong>Visited:</strong> después de visitarlo (morado)</li>
+</ul>
+
+<!-- ============================================ -->
+<h2 id="cap5">Capítulo 5 — Imágenes y multimedia</h2>
+
+<h3>5.1 — La etiqueta <code>&lt;img&gt;</code></h3>
+
+<pre>&lt;img src="foto.jpg" alt="Descripción de la foto"&gt;</pre>
+
+<h4>Es una etiqueta vacía</h4>
+<p>No tiene cierre <code>&lt;/img&gt;</code>. Es autocontenida.</p>
+
+<h4>Atributos de <code>&lt;img&gt;</code></h4>
+<table>
+  <tr><th>Atributo</th><th>Obligatorio</th><th>Función</th></tr>
+  <tr><td><code>src</code></td><td>Sí</td><td>Ruta de la imagen</td></tr>
+  <tr><td><code>alt</code></td><td>Sí (por accesibilidad)</td><td>Texto alternativo si no carga</td></tr>
+  <tr><td><code>width</code></td><td>No</td><td>Ancho en píxeles</td></tr>
+  <tr><td><code>height</code></td><td>No</td><td>Alto en píxeles</td></tr>
+  <tr><td><code>title</code></td><td>No</td><td>Tooltip al pasar el ratón</td></tr>
+  <tr><td><code>loading</code></td><td>No</td><td><code>lazy</code> para carga diferida</td></tr>
+</table>
+
+<h3>5.2 — Formatos de imagen</h3>
+<table>
+  <tr><th>Formato</th><th>Uso ideal</th><th>Transparencia</th></tr>
+  <tr><td>JPG</td><td>Fotos reales</td><td>No</td></tr>
+  <tr><td>PNG</td><td>Gráficos con transparencia</td><td>Sí</td></tr>
+  <tr><td>GIF</td><td>Animaciones simples</td><td>Sí (limitada)</td></tr>
+  <tr><td>SVG</td><td>Logos e iconos vectoriales</td><td>Sí</td></tr>
+  <tr><td>WebP</td><td>Moderno, mejor compresión</td><td>Sí</td></tr>
+</table>
+
+<h3>5.3 — Rutas de imágenes</h3>
+
+<h4>Relativa (dentro de tu proyecto)</h4>
+<pre>&lt;img src="foto.jpg"&gt;               &lt;!-- misma carpeta --&gt;
+&lt;img src="img/foto.jpg"&gt;           &lt;!-- subcarpeta --&gt;
+&lt;img src="../foto.jpg"&gt;            &lt;!-- carpeta padre --&gt;</pre>
+
+<h4>Absoluta (desde internet)</h4>
+<pre>&lt;img src="https://ejemplo.com/foto.jpg"&gt;</pre>
+
+<h3>5.4 — La etiqueta <code>&lt;figure&gt;</code> y <code>&lt;figcaption&gt;</code></h3>
+
+<pre>&lt;figure&gt;
+    &lt;img src="grafico.png" alt="Gráfico de ventas"&gt;
+    &lt;figcaption&gt;Figura 1: Ventas anuales 2024&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+<p><code>&lt;figure&gt;</code> agrupa una imagen con su descripción. <code>&lt;figcaption&gt;</code> es el texto descriptivo.</p>
+
+<h3>5.5 — Video y audio</h3>
+
+<h4>Video</h4>
+<pre>&lt;video width="320" controls&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+    Tu navegador no soporta video HTML5.
+&lt;/video&gt;</pre>
+
+<h4>Audio</h4>
+<pre>&lt;audio controls&gt;
+    &lt;source src="cancion.mp3" type="audio/mpeg"&gt;
+    Tu navegador no soporta audio.
+&lt;/audio&gt;</pre>
+
+<h4>Atributos comunes</h4>
+<ul>
+  <li><code>controls</code> → muestra botones de reproducción</li>
+  <li><code>autoplay</code> → reproduce automáticamente (muchos navegadores lo bloquean)</li>
+  <li><code>loop</code> → repite infinitamente</li>
+  <li><code>muted</code> → silenciado</li>
+  <li><code>poster</code> → imagen de portada del video</li>
+</ul>
+
+<!-- ============================================ -->
+<h2 id="cap6">Capítulo 6 — Listas</h2>
+
+<h3>6.1 — Lista desordenada: <code>&lt;ul&gt;</code></h3>
+<pre>&lt;ul&gt;
+    &lt;li&gt;Manzana&lt;/li&gt;
+    &lt;li&gt;Pera&lt;/li&gt;
+    &lt;li&gt;Uva&lt;/li&gt;
+&lt;/ul&gt;</pre>
+<ul>
+  <li><strong><code>&lt;ul&gt;</code></strong> = unordered list (lista sin orden)</li>
+  <li><strong><code>&lt;li&gt;</code></strong> = list item (elemento de lista)</li>
+  <li>Se muestra con viñetas (•)</li>
+</ul>
+
+<h3>6.2 — Lista ordenada: <code>&lt;ol&gt;</code></h3>
+<pre>&lt;ol&gt;
+    &lt;li&gt;Precalentar el horno&lt;/li&gt;
+    &lt;li&gt;Mezclar ingredientes&lt;/li&gt;
+    &lt;li&gt;Hornear 30 minutos&lt;/li&gt;
+&lt;/ol&gt;</pre>
+<ul>
+  <li><strong><code>&lt;ol&gt;</code></strong> = ordered list (lista con orden)</li>
+  <li>Se muestra con números (1, 2, 3...)</li>
+  <li>Útil cuando el orden importa (recetas, instrucciones)</li>
+</ul>
+
+<h4>Atributos de <code>&lt;ol&gt;</code></h4>
+<table>
+  <tr><th>Atributo</th><th>Valores</th><th>Efecto</th></tr>
+  <tr><td><code>type</code></td><td>1, A, a, I, i</td><td>Números, letras, romanos</td></tr>
+  <tr><td><code>start</code></td><td>número</td><td>Desde qué número empieza</td></tr>
+  <tr><td><code>reversed</code></td><td>—</td><td>Cuenta hacia atrás</td></tr>
+</table>
+
+<pre>&lt;ol type="A"&gt;
+    &lt;li&gt;Opción A&lt;/li&gt;
+    &lt;li&gt;Opción B&lt;/li&gt;
+&lt;/ol&gt;</pre>
+
+<h3>6.3 — Lista de descripción: <code>&lt;dl&gt;</code></h3>
+<pre>&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;Lenguaje de marcado para estructurar páginas web.&lt;/dd&gt;
+
+    &lt;dt&gt;CSS&lt;/dt&gt;
+    &lt;dd&gt;Lenguaje de estilos para dar diseño.&lt;/dd&gt;
+&lt;/dl&gt;</pre>
+<ul>
+  <li><code>&lt;dl&gt;</code> = description list</li>
+  <li><code>&lt;dt&gt;</code> = description term (término)</li>
+  <li><code>&lt;dd&gt;</code> = description definition (definición)</li>
+</ul>
+
+<h3>6.4 — Anidar listas</h3>
+<pre>&lt;ul&gt;
+    &lt;li&gt;Frutas
+        &lt;ul&gt;
+            &lt;li&gt;Manzana&lt;/li&gt;
+            &lt;li&gt;Pera&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Verduras
+        &lt;ul&gt;
+            &lt;li&gt;Zanahoria&lt;/li&gt;
+            &lt;li&gt;Lechuga&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</pre>
+
+<div class="nota">
+  <strong>🧠 Comparación con VBS:</strong> una lista en HTML es como un array. Cada <code>&lt;li&gt;</code> es un elemento del array.
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap7">Capítulo 7 — Tablas</h2>
+
+<h3>7.1 — Estructura básica</h3>
+<pre>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Nombre&lt;/th&gt;
+        &lt;th&gt;Edad&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Ana&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Luis&lt;/td&gt;
+        &lt;td&gt;30&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</pre>
+
+<h3>7.2 — Cada etiqueta explicada</h3>
+<table>
+  <tr><th>Etiqueta</th><th>Nombre completo</th><th>Función</th></tr>
+  <tr><td><code>&lt;table&gt;</code></td><td>Table</td><td>Contenedor de toda la tabla</td></tr>
+  <tr><td><code>&lt;tr&gt;</code></td><td>Table Row</td><td>Fila completa</td></tr>
+  <tr><td><code>&lt;td&gt;</code></td><td>Table Data</td><td>Celda de datos normal</td></tr>
+  <tr><td><code>&lt;th&gt;</code></td><td>Table Header</td><td>Celda de encabezado (negrita, centrada)</td></tr>
+  <tr><td><code>&lt;thead&gt;</code></td><td>Table Head</td><td>Agrupa las filas de encabezado</td></tr>
+  <tr><td><code>&lt;tbody&gt;</code></td><td>Table Body</td><td>Agrupa las filas de contenido</td></tr>
+  <tr><td><code>&lt;tfoot&gt;</code></td><td>Table Foot</td><td>Agrupa las filas de pie (totales)</td></tr>
+  <tr><td><code>&lt;caption&gt;</code></td><td>Caption</td><td>Título de la tabla</td></tr>
+</table>
+
+<h3>7.3 — Tabla completa y semántica</h3>
+<pre>&lt;table&gt;
+    &lt;caption&gt;Notas del trimestre&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Alumno&lt;/th&gt;
+            &lt;th&gt;Matemáticas&lt;/th&gt;
+            &lt;th&gt;Historia&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Ana&lt;/td&gt;
+            &lt;td&gt;9&lt;/td&gt;
+            &lt;td&gt;8&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Luis&lt;/td&gt;
+            &lt;td&gt;7&lt;/td&gt;
+            &lt;td&gt;10&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Promedio&lt;/td&gt;
+            &lt;td&gt;8&lt;/td&gt;
+            &lt;td&gt;9&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;</pre>
+
+<h3>7.4 — Combinar celdas: <code>colspan</code> y <code>rowspan</code></h3>
+
+<h4><code>colspan</code> — Combinar columnas (horizontal)</h4>
+<pre>&lt;tr&gt;
+    &lt;td colspan="2"&gt;Ocupa 2 columnas&lt;/td&gt;
+&lt;/tr&gt;</pre>
+
+<h4><code>rowspan</code> — Combinar filas (vertical)</h4>
+<pre>&lt;tr&gt;
+    &lt;td rowspan="2"&gt;Ocupa 2 filas&lt;/td&gt;
+    &lt;td&gt;Celda 1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Celda 2&lt;/td&gt;
+&lt;/tr&gt;</pre>
+
+<div class="tip">
+  <strong>💡 Combinación con Excel:</strong> <code>colspan</code> y <code>rowspan</code> son como "Combinar celdas" en Excel.
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap8">Capítulo 8 — Formularios</h2>
+
+<p>Los formularios son la forma en que el usuario <strong>introduce datos</strong> que se envían al servidor (aquí es donde PHP entra en juego).</p>
+
+<h3>8.1 — La etiqueta <code>&lt;form&gt;</code></h3>
+<pre>&lt;form action="procesar.php" method="POST"&gt;
+    ...campos...
+&lt;/form&gt;</pre>
+
+<table>
+  <tr><th>Atributo</th><th>Función</th></tr>
+  <tr><td><code>action</code></td><td>URL donde se envían los datos</td></tr>
+  <tr><td><code>method</code></td><td>GET (datos en URL) o POST (datos ocultos)</td></tr>
+  <tr><td><code>enctype</code></td><td>Tipo de codificación (para subir archivos)</td></tr>
+  <tr><td><code>target</code></td><td>Dónde mostrar la respuesta</td></tr>
+</table>
+
+<h4>GET vs POST</h4>
+<table>
+  <tr><th></th><th>GET</th><th>POST</th></tr>
+  <tr><td>Datos visibles en URL</td><td>Sí</td><td>No</td></tr>
+  <tr><td>Ideal para</td><td>Búsquedas, filtros</td><td>Login, registro, datos sensibles</td></tr>
+  <tr><td>Límite de tamaño</td><td>Sí (~2000 caracteres)</td><td>No</td></tr>
+  <tr><td>Seguridad</td><td>Baja</td><td>Alta</td></tr>
+</table>
+
+<h3>8.2 — La etiqueta <code>&lt;label&gt;</code></h3>
+<pre>&lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+&lt;input type="text" id="nombre" name="nombre"&gt;</pre>
+<ul>
+  <li><strong>Qué hace:</strong> asocia un texto descriptivo con un campo.</li>
+  <li><strong>Atributo <code>for</code>:</strong> debe coincidir con el <code>id</code> del input.</li>
+  <li><strong>Beneficio:</strong> al tocar el label, el cursor va al campo. Mejora accesibilidad.</li>
+</ul>
+
+<h3>8.3 — La etiqueta <code>&lt;input&gt;</code></h3>
+<p>Es la más versátil. Su comportamiento cambia según el atributo <code>type</code>.</p>
+
+<h4>Tipos de input más usados</h4>
+<table>
+  <tr><th>type</th><th>Qué muestra</th><th>Uso</th></tr>
+  <tr><td><code>text</code></td><td>Caja de texto simple</td><td>Nombres, apellidos</td></tr>
+  <tr><td><code>email</code></td><td>Caja con validación de correo</td><td>Email</td></tr>
+  <tr><td><code>password</code></td><td>Caja con caracteres ocultos</td><td>Contraseñas</td></tr>
+  <tr><td><code>number</code></td><td>Caja numérica con flechas</td><td>Edad, cantidad</td></tr>
+  <tr><td><code>tel</code></td><td>Caja de teléfono</td><td>Móvil en móviles abre teclado numérico</td></tr>
+  <tr><td><code>date</code></td><td>Selector de fecha</td><td>Fecha de nacimiento</td></tr>
+  <tr><td><code>time</code></td><td>Selector de hora</td><td>Horarios</td></tr>
+  <tr><td><code>color</code></td><td>Selector de color</td><td>Preferencias</td></tr>
+  <tr><td><code>range</code></td><td>Deslizador</td><td>Volumen, valoración</td></tr>
+  <tr><td><code>checkbox</code></td><td>Casilla de verificación</td><td>Múltiples opciones</td></tr>
+  <tr><td><code>radio</code></td><td>Botón de opción</td><td>Una sola opción entre varias</td></tr>
+  <tr><td><code>file</code></td><td>Selector de archivos</td><td>Subir fotos, documentos</td></tr>
+  <tr><td><code>hidden</code></td><td>Oculto</td><td>Datos que se envían sin que el usuario vea</td></tr>
+  <tr><td><code>submit</code></td><td>Botón de envío</td><td>Enviar formulario</td></tr>
+  <tr><td><code>reset</code></td><td>Botón de limpiar</td><td>Borrar todos los campos</td></tr>
+  <tr><td><code>button</code></td><td>Botón sin acción</td><td>Requiere JavaScript</td></tr>
+</table>
+
+<h3>8.4 — Atributos importantes de <code>&lt;input&gt;</code></h3>
+<table>
+  <tr><th>Atributo</th><th>Función</th></tr>
+  <tr><td><code>name</code></td><td>Nombre del campo (para recibirlo en PHP)</td></tr>
+  <tr><td><code>id</code></td><td>Identificador único (para label o CSS)</td></tr>
+  <tr><td><code>value</code></td><td>Valor por defecto</td></tr>
+  <tr><td><code>placeholder</code></td><td>Texto de ayuda gris dentro del campo</td></tr>
+  <tr><td><code>required</code></td><td>Obligatorio para enviar</td></tr>
+  <tr><td><code>readonly</code></td><td>Solo lectura (no editable pero se envía)</td></tr>
+  <tr><td><code>disabled</code></td><td>Deshabilitado (no editable ni se envía)</td></tr>
+  <tr><td><code>maxlength</code></td><td>Máximo de caracteres</td></tr>
+  <tr><td><code>min</code> / <code>max</code></td><td>Valor mínimo/máximo (números, fechas)</td></tr>
+  <tr><td><code>pattern</code></td><td>Expresión regular de validación</td></tr>
+</table>
+
+<h3>8.5 — Área de texto: <code>&lt;textarea&gt;</code></h3>
+<pre>&lt;textarea name="mensaje" rows="5" cols="40"&gt;
+Escribe tu mensaje aquí...
+&lt;/textarea&gt;</pre>
+<ul>
+  <li><strong>Para qué:</strong> textos largos de varias líneas.</li>
+  <li><strong>Atributos:</strong> <code>rows</code> (filas) y <code>cols</code> (columnas).</li>
+  <li><strong>NO es etiqueta vacía:</strong> tiene apertura y cierre.</li>
+</ul>
+
+<h3>8.6 — Lista desplegable: <code>&lt;select&gt;</code></h3>
+<pre>&lt;select name="pais"&gt;
+    &lt;option value=""&gt;-- Elige un país --&lt;/option&gt;
+    &lt;option value="mx"&gt;México&lt;/option&gt;
+    &lt;option value="ar"&gt;Argentina&lt;/option&gt;
+    &lt;option value="es"&gt;España&lt;/option&gt;
+&lt;/select&gt;</pre>
+<ul>
+  <li><strong><code>&lt;select&gt;</code>:</strong> el menú desplegable.</li>
+  <li><strong><code>&lt;option&gt;</code>:</strong> cada opción disponible.</li>
+  <li><strong>Atributo <code>value</code>:</strong> lo que se envía al servidor.</li>
+  <li><strong><code>selected</code>:</strong> opción por defecto.</li>
+  <li><strong><code>multiple</code>:</strong> permite seleccionar varias.</li>
+</ul>
+
+<h3>8.7 — Botones</h3>
+
+<h4>Botón de envío</h4>
+<pre>&lt;button type="submit"&gt;Enviar formulario&lt;/button&gt;
+&lt;input type="submit" value="Enviar"&gt;</pre>
+<p>Ambos funcionan, pero <code>&lt;button&gt;</code> es más flexible (puede contener HTML).</p>
+
+<h4>Botón de reset</h4>
+<pre>&lt;button type="reset"&gt;Limpiar&lt;/button&gt;</pre>
+
+<h4>Botón genérico</h4>
+<pre>&lt;button type="button" onclick="miFuncion()"&gt;Clic&lt;/button&gt;</pre>
+<p>No hace nada por defecto, requiere JavaScript.</p>
+
+<h3>8.8 — Agrupar campos: <code>&lt;fieldset&gt;</code> y <code>&lt;legend&gt;</code></h3>
+<pre>&lt;fieldset&gt;
+    &lt;legend&gt;Datos personales&lt;/legend&gt;
+    &lt;label&gt;Nombre: &lt;input type="text" name="nombre"&gt;&lt;/label&gt;
+    &lt;label&gt;Edad: &lt;input type="number" name="edad"&gt;&lt;/label&gt;
+&lt;/fieldset&gt;</pre>
+<p>Dibuja un borde alrededor del grupo con un título.</p>
+
+<div class="nota">
+  <strong>🧠 Aquí conectas con PHP:</strong> cada <code>name</code> de los inputs será la clave que recibirás en PHP con <code>$_POST['nombre']</code>.
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap9">Capítulo 9 — HTML semántico</h2>
+
+<p>Antes de HTML5, todo se hacía con <code>&lt;div&gt;</code>. Ahora hay etiquetas con <strong>significado</strong>.</p>
+
+<h3>9.1 — Etiquetas estructurales</h3>
+<table>
+  <tr><th>Etiqueta</th><th>Significado</th><th>Uso típico</th></tr>
+  <tr><td><code>&lt;header&gt;</code></td><td>Encabezado</td><td>Logo, título, menú superior</td></tr>
+  <tr><td><code>&lt;nav&gt;</code></td><td>Navegación</td><td>Menú de enlaces</td></tr>
+  <tr><td><code>&lt;main&gt;</code></td><td>Contenido principal</td><td>Único por página</td></tr>
+  <tr><td><code>&lt;article&gt;</code></td><td>Artículo independiente</td><td>Post, noticia, producto</td></tr>
+  <tr><td><code>&lt;section&gt;</code></td><td>Sección temática</td><td>Bloques con título propio</td></tr>
+  <tr><td><code>&lt;aside&gt;</code></td><td>Contenido lateral</td><td>Barra lateral, publicidad</td></tr>
+  <tr><td><code>&lt;footer&gt;</code></td><td>Pie de página</td><td>Copyright, contacto</td></tr>
+  <tr><td><code>&lt;figure&gt;</code></td><td>Figura</td><td>Imagen con descripción</td></tr>
+  <tr><td><code>&lt;figcaption&gt;</code></td><td>Pie de figura</td><td>Texto descriptivo de figura</td></tr>
+  <tr><td><code>&lt;details&gt;</code></td><td>Detalles expandibles</td><td>FAQ, acordeones</td></tr>
+  <tr><td><code>&lt;summary&gt;</code></td><td>Resumen de details</td><td>Título visible antes de expandir</td></tr>
+</table>
+
+<h3>9.2 — Ejemplo de estructura semántica completa</h3>
+<pre>&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Mi Sitio Web&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;a href="#"&gt;Inicio&lt;/a&gt;
+            &lt;a href="#"&gt;Blog&lt;/a&gt;
+            &lt;a href="#"&gt;Contacto&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;h2&gt;Título del artículo&lt;/h2&gt;
+            &lt;p&gt;Contenido del artículo...&lt;/p&gt;
+        &lt;/article&gt;
+
+        &lt;aside&gt;
+            &lt;h3&gt;Sobre mí&lt;/h3&gt;
+            &lt;p&gt;Breve biografía...&lt;/p&gt;
+        &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2024 Mi Sitio Web&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;</pre>
+
+<h3>9.3 — <code>&lt;details&gt;</code> y <code>&lt;summary&gt;</code></h3>
+<pre>&lt;details&gt;
+    &lt;summary&gt;¿Qué es HTML?&lt;/summary&gt;
+    &lt;p&gt;HTML es el lenguaje de marcado para estructurar páginas web.&lt;/p&gt;
+&lt;/details&gt;</pre>
+<p>Al hacer clic se expande sin necesidad de JavaScript.</p>
+
+<div class="tip">
+  <strong>💡 Beneficio del HTML semántico:</strong> Google te posiciona mejor, lectores de pantalla entienden la página, y tu código es más fácil de mantener.
+</div>
+
+<!-- ============================================ -->
+<h2 id="cap10">Capítulo 10 — Atributos globales</h2>
+
+<p>Estos atributos funcionan en <strong>casi cualquier etiqueta</strong>.</p>
+
+<table>
+  <tr><th>Atributo</th><th>Función</th></tr>
+  <tr><td><code>id</code></td><td>Identificador único (solo uno por página)</td></tr>
+  <tr><td><code>class</code></td><td>Clase para CSS (se puede repetir)</td></tr>
+  <tr><td><code>style</code></td><td>Estilos CSS en línea</td></tr>
+  <tr><td><code>title</code></td><td>Tooltip al pasar el ratón</td></tr>
+  <tr><td><code>hidden</code></td><td>Oculta el elemento</td></tr>
+  <tr><td><code>lang</code></td><td>Idioma del contenido</td></tr>
+  <tr><td><code>tabindex</code></td><td>Orden de tabulación</td></tr>
+  <tr><td><code>contenteditable</code></td><td>Permite editar el contenido</td></tr>
+  <tr><td><code>draggable</code></td><td>Permite arrastrar</td></tr>
+  <tr><td><code>data-*</code></td><td>Datos personalizados (para JS)</td></tr>
+</table>
+
+<h3>Ejemplo</h3>
+<pre>&lt;p id="intro" class="destacado" title="Pasa el ratón" style="color:red;"&gt;
+    Texto con varios atributos globales
+&lt;/p&gt;</pre>
+
+<!-- ============================================ -->
+<h2 id="cap11">Capítulo 11 — Entidades HTML</h2>
+
+<p>Algunos caracteres tienen significado especial en HTML (como <code>&lt;</code> y <code>&gt;</code>). Para mostrarlos literalmente, se usan <strong>entidades</strong>.</p>
+
+<table>
+  <tr><th>Carácter</th><th>Entidad</th><th>Resultado</th></tr>
+  <tr><td>Menor que</td><td><code>&amp;lt;</code></td><td>&lt;</td></tr>
+  <tr><td>Mayor que</td><td><code>&amp;gt;</code></td><td>&gt;</td></tr>
+  <tr><td>Ampersand</td><td><code>&amp;amp;</code></td><td>&amp;</td></tr>
+  <tr><td>Comillas dobles</td><td><code>&amp;quot;</code></td><td>&quot;</td></tr>
+  <tr><td>Apóstrofo</td><td><code>&amp;apos;</code></td><td>&apos;</td></tr>
+  <tr><td>Espacio duro</td><td><code>&amp;nbsp;</code></td><td>&nbsp;</td></tr>
+  <tr><td>Copyright</td><td><code>&amp;copy;</code></td><td>&copy;</td></tr>
+  <tr><td>Marca registrada</td><td><code>&amp;reg;</code></td><td>&reg;</td></tr>
+  <tr><td>Grado</td><td><code>&amp;deg;</code></td><td>&deg;</td></tr>
+  <tr><td>Euro</td><td><code>&amp;euro;</code></td><td>&euro;</td></tr>
+  <tr><td>Flecha derecha</td><td><code>&amp;rarr;</code></td><td>&rarr;</td></tr>
+  <tr><td>Corazón</td><td><code>&amp;hearts;</code></td><td>&hearts;</td></tr>
+</table>
+
+<!-- ============================================ -->
+<h2 id="cap12">Capítulo 12 — Buenas prácticas</h2>
+
+<h3>12.1 — Reglas de oro</h3>
+<ol>
+  <li><strong>Siempre usa minúsculas</strong> en etiquetas: <code>&lt;div&gt;</code>, no <code>&lt;DIV&gt;</code>.</li>
+  <li><strong>Cierra todas las etiquetas</strong> que no sean vacías.</li>
+  <li><strong>Indenta el código</strong> con 2 o 4 espacios.</li>
+  <li><strong>Un solo <code>&lt;h1&gt;</code></strong> por página.</li>
+  <li><strong>Siempre <code>alt</code></strong> en imágenes.</li>
+  <li><strong>Enlaces con texto descriptivo</strong> (no "clic aquí").</li>
+  <li><strong>Comenta el código</strong> cuando sea complejo.</li>
+  <li><strong>Valida tu HTML</strong> en <code>validator.w3.org</code>.</li>
+</ol>
+
+<h3>12.2 — Comentarios en HTML</h3>
+<pre>&lt;!-- Esto es un comentario, no se ve en pantalla --&gt;
+
+&lt;!-- 
+    Comentario
+    de varias
+    líneas
+--&gt;</pre>
+
+<h3>12.3 — Estructura de carpetas recomendada</h3>
+<pre>mi-proyecto/
+│
+├── index.html
+├── contacto.html
+├── css/
+│   └── estilos.css
+├── js/
+│   └── script.js
+├── img/
+│   └── logo.png
+└── docs/
+    └── manual.pdf</pre>
+
+<!-- ============================================ -->
+<h2 id="cap13">Capítulo 13 — Ejercicios progresivos</h2>
+
+<h3>Nivel 1 — Básico</h3>
+<ol>
+  <li>Crea una página con tu nombre en <code>&lt;h1&gt;</code> y un párrafo de presentación.</li>
+  <li>Añade una lista con 5 comidas favoritas.</li>
+  <li>Incluye un enlace a Wikipedia.</li>
+  <li>Agrega una imagen (puede ser de internet).</li>
+</ol>
+
+<h3>Nivel 2 — Intermedio</h3>
+<ol>
+  <li>Crea una tabla de 4 columnas × 5 filas con datos inventados.</li>
+  <li>Usa <code>colspan</code> para combinar el título de la tabla.</li>
+  <li>Crea un formulario de contacto con 5 campos diferentes.</li>
+  <li>Aplica HTML semántico (<code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code>).</li>
+</ol>
+
+<h3>Nivel 3 — Avanzado</h3>
+<ol>
+  <li>Recrea la estructura HTML de una página de Wikipedia (sin estilos).</li>
+  <li>Crea un formulario de registro completo con validaciones HTML5 (<code>required</code>, <code>pattern</code>, <code>min</code>).</li>
+  <li>Usa <code>&lt;details&gt;</code> y <code>&lt;summary&gt;</code> para hacer una sección de FAQ.</li>
+  <li>Incluye un video con controles y poster.</li>
+</ol>
+
+<!-- ============================================ -->
+<h2 id="cap14">Capítulo 14 — Proyecto final: CV personal</h2>
+
+<p>Construye un CV completo en HTML que incluya:</p>
+
+<ol>
+  <li><strong>Encabezado (<code>&lt;header&gt;</code>):</strong> foto, nombre, profesión.</li>
+  <li><strong>Navegación (<code>&lt;nav&gt;</code>):</strong> enlaces a secciones (Sobre mí, Estudios, Experiencia, Contacto).</li>
+  <li><strong>Sobre mí:</strong> párrafo descriptivo.</li>
+  <li><strong>Estudios:</strong> lista ordenada o tabla.</li>
+  <li><strong>Experiencia:</strong> tabla con empresa, cargo, años.</li>
+  <li><strong>Habilidades:</strong> lista con niveles (usando <code>&lt;mark&gt;</code> para destacar).</li>
+  <li><strong>Contacto:</strong> formulario completo.</li>
+  <li><strong>Pie (<code>&lt;footer&gt;</code>):</strong> copyright y redes sociales (enlaces).</li>
+</ol>
+
+<h3>Estructura sugerida</h3>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;CV de [Tu Nombre]&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header&gt;
+    &lt;img src="foto.jpg" alt="Mi foto" width="150"&gt;
+    &lt;h1&gt;Tu Nombre&lt;/h1&gt;
+    &lt;p&gt;Desarrollador Web&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;nav&gt;
+    &lt;a href="#sobre-mi"&gt;Sobre mí&lt;/a&gt; |
+    &lt;a href="#estudios"&gt;Estudios&lt;/a&gt; |
+    &lt;a href="#experiencia"&gt;Experiencia&lt;/a&gt; |
+    &lt;a href="#contacto"&gt;Contacto&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;main&gt;
+    &lt;section id="sobre-mi"&gt;
+        &lt;h2&gt;Sobre mí&lt;/h2&gt;
+        &lt;p&gt;Descripción personal...&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="estudios"&gt;
+        &lt;h2&gt;Estudios&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Primaria - Escuela X&lt;/li&gt;
+            &lt;li&gt;Secundaria - Escuela Y&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section id="experiencia"&gt;
+        &lt;h2&gt;Experiencia&lt;/h2&gt;
+        &lt;table&gt;
+            &lt;tr&gt;&lt;th&gt;Empresa&lt;/th&gt;&lt;th&gt;Cargo&lt;/th&gt;&lt;th&gt;Años&lt;/th&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;Empresa A&lt;/td&gt;&lt;td&gt;Programador&lt;/td&gt;&lt;td&gt;2020-2024&lt;/td&gt;&lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/section&gt;
+
+    &lt;section id="contacto"&gt;
+        &lt;h2&gt;Contacto&lt;/h2&gt;
+        &lt;form action="procesar.php" method="POST"&gt;
+            &lt;label&gt;Nombre: &lt;input type="text" name="nombre" required&gt;&lt;/label&gt;&lt;br&gt;
+            &lt;label&gt;Correo: &lt;input type="email" name="correo" required&gt;&lt;/label&gt;&lt;br&gt;
+            &lt;label&gt;Mensaje:&lt;br&gt;&lt;textarea name="mensaje" rows="5"&gt;&lt;/textarea&gt;&lt;/label&gt;&lt;br&gt;
+            &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2024 Tu Nombre - Todos los derechos reservados&lt;/p&gt;
+&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<hr>
+<p style="text-align:center; color:#888; padding:20px;">
+<em>Fin del Manual Extendido de HTML</em><br>
+<strong>Cuando lo domines, pide el de CSS 💪</strong>
+</p>
+
+<script>
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+      e.preventDefault();
+      window.print();
+    }
+  });
+</script>
+
+</body>
+</html>

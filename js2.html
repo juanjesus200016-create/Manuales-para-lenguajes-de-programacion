@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual JavaScript - Parte 2</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 900px; margin: 0 auto; padding: 70px 20px 20px;
+    line-height: 1.7; color: #222; background: #fff;
+  }
+  h1 { color: #d4b400; border-bottom: 4px solid #d4b400; padding-bottom: 12px; font-size: 2em; }
+  h2 { color: #fff; background: #d4b400; padding: 10px 15px; border-radius: 5px; margin-top: 40px; }
+  h3 { color: #d4b400; border-left: 5px solid #d4b400; padding-left: 12px; margin-top: 30px; }
+  h4 { color: #34495e; margin-top: 20px; }
+  pre {
+    background: #2d2d2d; color: #f8f8f2; border-radius: 6px;
+    padding: 15px; overflow-x: auto;
+    font-family: 'Consolas', monospace; font-size: 13px; line-height: 1.5;
+  }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #b7950b; font-family: 'Consolas', monospace; }
+  pre code { background: none; color: inherit; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 14px; }
+  th, td { border: 1px solid #ddd; padding: 10px; text-align: left; vertical-align: top; }
+  th { background: #d4b400; color: #fff; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .nota, .tip, .warn { padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+  .nota { background: #e8f4fd; border-left: 5px solid #3498db; }
+  .tip { background: #eafaf1; border-left: 5px solid #27ae60; }
+  .warn { background: #fef5e7; border-left: 5px solid #f39c12; }
+  .indice { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px 30px; }
+  .indice a { color: #b7950b; text-decoration: none; }
+
+  .btn-volver, #btnPDF {
+    position: fixed; top: 15px; padding: 10px 16px;
+    border: none; border-radius: 8px;
+    font-weight: bold; font-size: 14px;
+    text-decoration: none; color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 999; cursor: pointer; font-family: Arial, sans-serif;
+  }
+  .btn-volver { left: 15px; background: #2c3e50; }
+  #btnPDF { right: 15px; background: #d4b400; color: #333; }
+  @media print { .btn-volver, #btnPDF { display: none; } body { padding: 10px; font-size: 12px; } }
+</style>
+</head>
+<body>
+
+<a href="biblioteca.html" class="btn-volver">← Biblioteca</a>
+<button id="btnPDF" onclick="window.print()">📥 PDF</button>
+
+<h1>⚡ Manual de JavaScript — Parte 2</h1>
+<p><em>DOM, eventos, arrays avanzados, objetos y JSON</em></p>
+
+<div class="indice">
+<h3>📑 Contenido</h3>
+<ol>
+  <li><a href="#cap10">El DOM</a></li>
+  <li><a href="#cap11">Seleccionar elementos</a></li>
+  <li><a href="#cap12">Modificar elementos</a></li>
+  <li><a href="#cap13">Crear y eliminar elementos</a></li>
+  <li><a href="#cap14">Eventos</a></li>
+  <li><a href="#cap15">Formularios</a></li>
+  <li><a href="#cap16">Arrays avanzados</a></li>
+  <li><a href="#cap17">Objetos y JSON</a></li>
+  <li><a href="#cap18">Ejercicios</a></li>
+</ol>
+</div>
+
+<h2 id="cap10">Capítulo 10 — El DOM</h2>
+
+<p>DOM = <strong>Document Object Model</strong>. Es la representación en memoria del HTML. JavaScript lo modifica para cambiar la página en vivo.</p>
+
+<h3>10.1 — El árbol del DOM</h3>
+<pre>document
+└── html
+    ├── head
+    │   └── title
+    └── body
+        ├── h1
+        ├── p
+        └── div
+            └── span</pre>
+
+<p>Cada etiqueta HTML es un <strong>nodo</strong> del árbol. JavaScript puede:
+- Leerlos
+- Modificarlos
+- Crearlos
+- Eliminarlos</p>
+
+<h3>10.2 — El objeto <code>document</code></h3>
+<pre>document.title;         // Título de la pestaña
+document.URL;           // URL actual
+document.body;          // El body
+document.cookie;        // Cookies</pre>
+
+<h2 id="cap11">Capítulo 11 — Seleccionar elementos</h2>
+
+<h3>11.1 — Los 5 métodos principales</h3>
+<table>
+  <tr><th>Método</th><th>Qué devuelve</th></tr>
+  <tr><td><code>getElementById("id")</code></td><td>Un elemento</td></tr>
+  <tr><td><code>getElementsByClassName("clase")</code></td><td>Colección HTML</td></tr>
+  <tr><td><code>getElementsByTagName("p")</code></td><td>Colección HTML</td></tr>
+  <tr><td><code>querySelector("sel")</code></td><td>El primero que coincida</td></tr>
+  <tr><td><code>querySelectorAll("sel")</code></td><td>Todos (NodeList)</td></tr>
+</table>
+
+<h3>11.2 — Ejemplos</h3>
+<pre>// Por ID
+let titulo = document.getElementById("titulo");
+
+// Por clase (devuelve lista)
+let items = document.getElementsByClassName("item");
+
+// Por etiqueta
+let parrafos = document.getElementsByTagName("p");
+
+// querySelector: acepta CSS
+let primero = document.querySelector(".item");
+let todos = document.querySelectorAll(".item");
+
+// Convertir NodeList a array
+let array = [...document.querySelectorAll(".item")];</pre>
+
+<div class="tip">
+  <strong>💡 Recomendación:</strong> usa <code>querySelector</code> y <code>querySelectorAll</code>. Aceptan cualquier selector CSS, son más flexibles.
+</div>
+
+<h2 id="cap12">Capítulo 12 — Modificar elementos</h2>
+
+<h3>12.1 — Contenido</h3>
+<pre>let caja = document.querySelector("#caja");
+
+caja.textContent = "Hola";           // Solo texto
+caja.innerHTML = "&lt;b&gt;Hola&lt;/b&gt;";       // Acepta HTML
+caja.innerText = "Hola";             // Como textContent</pre>
+
+<div class="warn">
+  <strong>⚠️ Cuidado con <code>innerHTML</code>:</strong> si el contenido viene del usuario, puede inyectar scripts maliciosos (XSS). Usa <code>textContent</code> para datos de usuario.
+</div>
+
+<h3>12.2 — Atributos</h3>
+<pre>let enlace = document.querySelector("a");
+
+enlace.getAttribute("href");           // Leer
+enlace.setAttribute("href", "/nuevo"); // Modificar
+enlace.removeAttribute("target");      // Eliminar
+
+// Atributos directos
+enlace.href = "/otro";
+enlace.id = "nuevoId";
+enlace.className = "nueva-clase";</pre>
+
+<h3>12.3 — Clases CSS</h3>
+<pre>let caja = document.querySelector("#caja");
+
+caja.classList.add("activo");      // Añadir
+caja.classList.remove("activo");   // Quitar
+caja.classList.toggle("activo");   // Alternar
+caja.classList.contains("activo"); // Comprobar (true/false)
+caja.classList.replace("viejo", "nuevo");</pre>
+
+<h3>12.4 — Estilos</h3>
+<pre>let caja = document.querySelector("#caja");
+
+caja.style.color = "red";
+caja.style.backgroundColor = "yellow"; // camelCase
+caja.style.fontSize = "20px";
+caja.style.display = "none";
+
+// Ver estilo computado
+getComputedStyle(caja).color;</pre>
+
+<h3>12.5 — Atributos data-*</h3>
+<pre>&lt;div id="producto" data-precio="100" data-categoria="ropa"&gt;&lt;/div&gt;
+
+let prod = document.querySelector("#producto");
+prod.dataset.precio;    // "100"
+prod.dataset.categoria; // "ropa"
+prod.dataset.precio = "200"; // Modificar</pre>
+
+<h2 id="cap13">Capítulo 13 — Crear y eliminar elementos</h2>
+
+<h3>13.1 — Crear</h3>
+<pre>let nuevo = document.createElement("p");
+nuevo.textContent = "Soy nuevo";
+nuevo.classList.add("importante");</pre>
+
+<h3>13.2 — Insertar</h3>
+<pre>let contenedor = document.querySelector("#contenedor");
+
+// Al final
+contenedor.appendChild(nuevo);
+
+// Al inicio
+contenedor.prepend(nuevo);
+
+// Antes/después de otro
+otroElemento.before(nuevo);
+otroElemento.after(nuevo);</pre>
+
+<h3>13.3 — Eliminar</h3>
+<pre>let elemento = document.querySelector(".borrar");
+
+elemento.remove(); // Moderno
+
+// Antiguo
+elemento.parentNode.removeChild(elemento);</pre>
+
+<h3>13.4 — Ejemplo completo: lista dinámica</h3>
+<pre>&lt;ul id="lista"&gt;&lt;/ul&gt;
+&lt;button id="btn"&gt;Añadir&lt;/button&gt;
+
+&lt;script&gt;
+let contador = 1;
+document.querySelector("#btn").addEventListener("click", () =&gt; {
+    let li = document.createElement("li");
+    li.textContent = `Elemento ${contador++}`;
+    document.querySelector("#lista").appendChild(li);
+});
+&lt;/script&gt;</pre>
+
+<h2 id="cap14">Capítulo 14 — Eventos</h2>
+
+<h3>14.1 — addEventListener</h3>
+<pre>let boton = document.querySelector("#btn");
+
+boton.addEventListener("click", function() {
+    console.log("Clic");
+});</pre>
+
+<h3>14.2 — Eventos comunes</h3>
+<table>
+  <tr><th>Evento</th><th>Cuándo se dispara</th></tr>
+  <tr><td><code>click</code></td><td>Al hacer clic</td></tr>
+  <tr><td><code>dblclick</code></td><td>Doble clic</td></tr>
+  <tr><td><code>mouseover</code></td><td>Al pasar el ratón</td></tr>
+  <tr><td><code>mouseout</code></td><td>Al salir del elemento</td></tr>
+  <tr><td><code>keydown</code></td><td>Tecla presionada</td></tr>
+  <tr><td><code>keyup</code></td><td>Tecla soltada</td></tr>
+  <tr><td><code>input</code></td><td>Al escribir en un campo</td></tr>
+  <tr><td><code>change</code></td><td>Al cambiar y perder foco</td></tr>
+  <tr><td><code>submit</code></td><td>Envío de formulario</td></tr>
+  <tr><td><code>load</code></td><td>Al cargar</td></tr>
+  <tr><td><code>scroll</code></td><td>Al hacer scroll</td></tr>
+</table>
+
+<h3>14.3 — El objeto event</h3>
+<pre>boton.addEventListener("click", (evento) =&gt; {
+    console.log(evento.target);        // El elemento
+    console.log(evento.type);          // "click"
+    evento.preventDefault();           // Evita comportamiento por defecto
+    evento.stopPropagation();          // Evita propagación
+});</pre>
+
+<h3>14.4 — Ejemplo: submit de formulario</h3>
+<pre>&lt;form id="miForm"&gt;
+    &lt;input type="text" id="nombre"&gt;
+    &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+document.querySelector("#miForm").addEventListener("submit", (e) =&gt; {
+    e.preventDefault();
+    let nombre = document.querySelector("#nombre").value;
+    alert(`Hola, ${nombre}`);
+});
+&lt;/script&gt;</pre>
+
+<h3>14.5 — Event delegation</h3>
+<pre>// Un solo listener para muchos elementos
+document.querySelector("#lista").addEventListener("click", (e) =&gt; {
+    if (e.target.tagName === "LI") {
+        console.log("Clic en:", e.target.textContent);
+    }
+});</pre>
+
+<h2 id="cap15">Capítulo 15 — Formularios</h2>
+
+<h3>15.1 — Leer valores</h3>
+<pre>&lt;input type="text" id="nombre"&gt;
+&lt;select id="pais"&gt;
+    &lt;option value="mx"&gt;México&lt;/option&gt;
+&lt;/select&gt;
+&lt;input type="checkbox" id="acepto"&gt;
+
+&lt;script&gt;
+let nombre = document.querySelector("#nombre").value;
+let pais = document.querySelector("#pais").value;
+let acepto = document.querySelector("#acepto").checked;
+&lt;/script&gt;</pre>
+
+<h3>15.2 — Escribir valores</h3>
+<pre>document.querySelector("#nombre").value = "Ana";
+document.querySelector("#acepto").checked = true;</pre>
+
+<h3>15.3 — Validación básica</h3>
+<pre>&lt;form id="registro"&gt;
+    &lt;input type="email" id="email" required&gt;
+    &lt;input type="password" id="pass" minlength="8"&gt;
+    &lt;button&gt;Registrar&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+document.querySelector("#registro").addEventListener("submit", (e) =&gt; {
+    e.preventDefault();
+    
+    let email = document.querySelector("#email").value.trim();
+    let pass = document.querySelector("#pass").value;
+    
+    if (!email.includes("@")) {
+        alert("Email inválido");
+        return;
+    }
+    
+    if (pass.length &lt; 8) {
+        alert("Contraseña muy corta");
+        return;
+    }
+    
+    alert("Registro correcto");
+});
+&lt;/script&gt;</pre>
+
+<h3>15.4 — FormData</h3>
+<pre>let form = document.querySelector("#registro");
+
+form.addEventListener("submit", (e) =&gt; {
+    e.preventDefault();
+    let datos = new FormData(form);
+    
+    for (let [clave, valor] of datos) {
+        console.log(clave, valor);
+    }
+});</pre>
+
+<h2 id="cap16">Capítulo 16 — Arrays avanzados</h2>
+
+<h3>16.1 — Los métodos clave</h3>
+<table>
+  <tr><th>Método</th><th>Qué hace</th></tr>
+  <tr><td><code>map()</code></td><td>Transforma cada elemento</td></tr>
+  <tr><td><code>filter()</code></td><td>Filtra según condición</td></tr>
+  <tr><td><code>reduce()</code></td><td>Reduce a un solo valor</td></tr>
+  <tr><td><code>find()</code></td><td>Primer elemento que cumple</td></tr>
+  <tr><td><code>findIndex()</code></td><td>Índice del primero que cumple</td></tr>
+  <tr><td><code>some()</code></td><td>¿Alguno cumple?</td></tr>
+  <tr><td><code>every()</code></td><td>¿Todos cumplen?</td></tr>
+  <tr><td><code>sort()</code></td><td>Ordena</td></tr>
+  <tr><td><code>reverse()</code></td><td>Invierte</td></tr>
+  <tr><td><code>flat()</code></td><td>Aplana arrays anidados</td></tr>
+</table>
+
+<h3>16.2 — map()</h3>
+<pre>let numeros = [1, 2, 3, 4];
+let dobles = numeros.map(n =&gt; n * 2);
+// [2, 4, 6, 8]</pre>
+
+<h3>16.3 — filter()</h3>
+<pre>let numeros = [1, 2, 3, 4, 5, 6];
+let pares = numeros.filter(n =&gt; n % 2 === 0);
+// [2, 4, 6]</pre>
+
+<h3>16.4 — reduce()</h3>
+<pre>let numeros = [1, 2, 3, 4];
+let suma = numeros.reduce((total, n) =&gt; total + n, 0);
+// 10</pre>
+
+<h3>16.5 — find()</h3>
+<pre>let personas = [
+    { nombre: "Ana", edad: 25 },
+    { nombre: "Luis", edad: 30 }
+];
+
+let luis = personas.find(p =&gt; p.nombre === "Luis");
+// { nombre: "Luis", edad: 30 }</pre>
+
+<h3>16.6 — Encadenar métodos</h3>
+<pre>let resultado = [1, 2, 3, 4, 5, 6, 7, 8]
+    .filter(n =&gt; n % 2 === 0)  // [2, 4, 6, 8]
+    .map(n =&gt; n * 10)          // [20, 40, 60, 80]
+    .reduce((a, b) =&gt; a + b);  // 200</pre>
+
+<h3>16.7 — Spread operator (...)</h3>
+<pre>let a = [1, 2, 3];
+let b = [4, 5];
+let todo = [...a, ...b]; // [1, 2, 3, 4, 5]
+
+// Copiar
+let copia = [...a];
+
+// Añadir
+let nuevo = [...a, 4];</pre>
+
+<h3>16.8 — Desestructuración</h3>
+<pre>let [primero, segundo] = [1, 2, 3];
+// primero = 1, segundo = 2
+
+let [x, ...resto] = [1, 2, 3, 4];
+// x = 1, resto = [2, 3, 4]</pre>
+
+<h2 id="cap17">Capítulo 17 — Objetos y JSON</h2>
+
+<h3>17.1 — Objetos básicos</h3>
+<pre>let persona = {
+    nombre: "Ana",
+    edad: 25,
+    saludar() {
+        return `Hola, soy ${this.nombre}`;
+    }
+};
+
+persona.nombre;      // "Ana"
+persona["edad"];     // 25
+persona.saludar();   // "Hola, soy Ana"</pre>
+
+<h3>17.2 — Desestructuración de objetos</h3>
+<pre>let { nombre, edad } = persona;
+// nombre = "Ana", edad = 25
+
+// Con renombrado
+let { nombre: n, edad: e } = persona;
+
+// Con default
+let { telefono = "sin tel" } = persona;</pre>
+
+<h3>17.3 — Spread en objetos</h3>
+<pre>let base = { a: 1, b: 2 };
+let extendido = { ...base, c: 3 };
+// { a: 1, b: 2, c: 3 }</pre>
+
+<h3>17.4 — Object.keys, values, entries</h3>
+<pre>let p = { nombre: "Ana", edad: 25 };
+
+Object.keys(p);    // ["nombre", "edad"]
+Object.values(p);  // ["Ana", 25]
+Object.entries(p); // [["nombre","Ana"], ["edad",25]]</pre>
+
+<h3>17.5 — JSON: convertir</h3>
+<pre>// Objeto → String JSON
+let persona = { nombre: "Ana", edad: 25 };
+let json = JSON.stringify(persona);
+// '{"nombre":"Ana","edad":25}'
+
+// String JSON → Objeto
+let obj = JSON.parse(json);
+// { nombre: "Ana", edad: 25 }</pre>
+
+<h3>17.6 — JSON con formato</h3>
+<pre>JSON.stringify(persona, null, 2);
+/* 
+{
+  "nombre": "Ana",
+  "edad": 25
+}
+*/</pre>
+
+<h3>17.7 — LocalStorage con JSON</h3>
+<pre>// Guardar objeto
+let usuario = { nombre: "Ana", puntos: 100 };
+localStorage.setItem("usuario", JSON.stringify(usuario));
+
+// Leer
+let guardado = JSON.parse(localStorage.getItem("usuario"));
+console.log(guardado.nombre); // "Ana"
+
+// Borrar
+localStorage.removeItem("usuario");
+localStorage.clear(); // Todo</pre>
+
+<h2 id="cap18">Capítulo 18 — Ejercicios</h2>
+
+<h3>Nivel 1 — Básico</h3>
+<ol>
+  <li>Crea un botón que al pulsarlo cambie el texto de un párrafo.</li>
+  <li>Muestra un <code>alert</code> con el valor de un input al pulsar un botón.</li>
+</ol>
+
+<h3>Nivel 2 — Intermedio</h3>
+<ol>
+  <li>Haz una lista de tareas: input + botón "Añadir" que agregue items a una <code>&lt;ul&gt;</code>.</li>
+  <li>Crea un contador: botones "+" y "-" que modifiquen un número en pantalla.</li>
+  <li>Cambia el color de fondo de la página con un botón (usando <code>classList.toggle</code>).</li>
+</ol>
+
+<h3>Nivel 3 — Avanzado</h3>
+<ol>
+  <li>Lista de tareas con eliminación: cada tarea tiene un botón "×" que la borra.</li>
+  <li>Filtro de búsqueda en vivo: input que filtra items de una lista mientras escribes.</li>
+  <li>Guarda la lista de tareas en LocalStorage para que persista al recargar.</li>
+</ol>
+
+<hr>
+<p style="text-align:center; color:#888; padding:20px;">
+<em>Fin de JavaScript — Parte 2</em><br>
+<strong>Continúa con JavaScript — Parte 3: fetch, promesas, async/await, módulos</strong>
+</p>
+
+</body>
+</html>
